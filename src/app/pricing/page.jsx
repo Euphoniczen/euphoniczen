@@ -8,10 +8,12 @@ import UsePaddle from "../../../hooks/usePaddle"
 import { useRouter } from "next/navigation"
 import { useSession } from 'next-auth/react'
 import {paddlePricing} from "../../components/paddlePricing/paddlePricing"
+import userSubscriptionData from "../../../hooks/userSubscriptionStatus"
 
 export default function PricingPage(){
 
     const [isYearly, setIsYearly] = useState(false)
+    const userSubscriptionStatus = userSubscriptionData(); //we continue here :))
 
     const toggleSwitch = () => {
         setIsYearly(!isYearly)

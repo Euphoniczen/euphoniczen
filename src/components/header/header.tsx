@@ -26,7 +26,7 @@ export default function Header() {
 
     const today = new Date(); 
     const formatDate = format(today, 'MMMM do, yyyy')
-    const subscriptionStatus = useUserSubscriptionData();
+    const subscriptionStatus = userSubscriptionData(); //Continue Here--
 
     const handleResponsiveHeader = () => { 
         setResponsiveHeader(!responsiveHeader)

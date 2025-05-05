@@ -3,16 +3,13 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 
-interface UserSubscriptionData_Interface{
-}
 
-
-export default function userSubscriptionData({}: UserSubscriptionData_Interface) { 
+export default function userSubscriptionData() { 
 
     const [getUserStatus, setGetUserStatus] = useState<string>("");
 
     useEffect(() => {
-        axios.get('/subscription_status', { 
+        axios.get('/api/subscription_status', { 
         })
         .then(function(response) {
             setGetUserStatus(response.data.getSubscriptionStatus)
