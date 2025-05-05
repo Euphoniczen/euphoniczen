@@ -1,0 +1,14 @@
+#dashboardMaster{
+    min-height: 100vh;
+}
+
+
+/* Media Query for different screen sizes */
+
+/* Media for screens at 301px */
+@media screen and (min-width: 0px) and (max-width: 900px) { 
+    #dashboardMaster{
+        display: flex;
+        flex-direction: column;
+    }
+}

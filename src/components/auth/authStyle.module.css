@@ -1,0 +1,309 @@
+#masterContainerAuth{
+    position: relative;
+    /* width: 100vw; */
+    height: 100vh;
+    overflow: hidden;
+
+    position: relative;
+}
+
+/* .someTextAnimationAuth{
+    position: absolute;
+    right: 10em;
+    top: 20%;
+
+    font-family: var(--fontFamily1);
+    color: var(--textColor1);
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+} */
+
+/* #masterContainerAuth::before {
+    content: "";
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background: url(https://th.bing.com/th/id/R.4284d7a017c1108b910acc8952d96820?rik=7TKrw%2bHyZ4jMWw&riu=http%3a%2f%2fweknowyourdreams.com%2fimages%2fevening%2fevening-02.jpg&ehk=0rHLKY3JAX4pvAtzbtmv6aa6QB80dSlLGErWvOUujWE%3d&risl=&pid=ImgRaw&r=0) no-repeat center/cover;
+    filter: blur(30px);
+    z-index: -1;
+} */
+
+.contentContainerAuth{
+    color: var(--textColor2);
+
+    min-height: 100vh;
+    font-family: var(--fontFamily1);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.leftSection_auth{
+    /* margin-top: 20%; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+
+    background-color: var(--backgroundHTML2);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    height: 100vh;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+}
+
+.welcomeTextLeft_auth{
+    text-align: center;
+    color: var(--textColor1);
+}
+
+.welcomeTextLeft_auth h2{
+    font-size: 35px;
+    color: var(--textColor2);
+}
+
+.welcomeTextLeft_auth p{
+    color: var(--textColor2);
+}
+
+.authWithEmail{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin: 0 auto;
+}
+
+.authWithEmail input{
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: solid 2px var(--kindaWhite);
+    background-color: var(--textColor1of1);
+
+    font-weight: 600;
+    font-family: var(--fontFamily1);
+    color: var(--darkerPurple);
+
+    width: 400px;
+}
+
+.authWithEmail input::placeholder{
+    font-weight: 600;
+}
+
+.authWithEmail button{
+    border: solid 2px var(--kindaWhite);
+    outline: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: var(--fontFamily1);
+    background-color: var(--darkerPurple);
+    color: var(--textColor1);
+
+    transition: all 0.3s ease;
+
+    width: 400px;
+}
+
+.authWithEmail button:hover{
+    background-color: var(--kindaOrange);
+}
+
+.theOrpartLine_auth{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.theOrpartLine_auth p{
+    font-weight: 600;
+}
+
+.lineforORAuth{
+    background-color: var(--kindaWhite);
+    border-radius: 10px;
+    width: 100%;
+    height: 1.5px;
+}
+
+.theOtherAuthSection{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 13px;
+}
+
+.googleAuth, .facebookAuth, .spotifyAuth{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    background-color: var(--textColor1of1);
+    color: var(--textColor2);
+    font-weight: 650;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: solid 3px var(--kindaWhite);
+    cursor: pointer;
+
+    transition: all 0.3s ease;
+
+    width: 370px;
+}
+
+.googleAuth:hover, .facebookAuth:hover, .spotifyAuth:hover {
+    background-color: var(--backgroundHTML);
+    color: var(--textColor1);
+}
+
+.rightSide_auth{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 30px;
+    column-gap: 30px;
+
+    margin: 0 auto;
+
+    border: solid 2px var(--kindaWhite);
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    padding: 30px;
+    border-radius: 50px;
+}
+
+/* .rotate1Box_Auth,
+.rotate4Box_Auth{
+    rotate: 5deg;
+}
+
+.rotate2Box_Auth,
+.rotate3Box_Auth{
+    rotate: -5deg;
+} */
+
+
+/* Media Query Section */
+
+@media screen and (min-width: 0px) and (max-width: 600px) {
+    
+    #masterContainerAuth{
+        position: relative;
+        height: 100%;
+    }
+
+    .contentContainerAuth{
+        display: flex;
+        flex-direction: column;
+        }
+
+    .leftSection_auth{
+        box-shadow: none;
+        background-color: transparent;
+        padding: unset;
+    }
+
+    .rightSide_auth{
+        display: none;
+    }
+
+    .authWithEmail input{
+        width: 90vw;
+    }
+
+    .authWithEmail button{
+        width: 90vw;
+    }
+
+    .googleAuth, .facebookAuth, .spotifyAuth{
+        width: 90vw;
+    }
+}
+
+
+/* Media for screens 601 to 900px */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    
+    #masterContainerAuth{
+        position: relative;
+        height: 100%;
+    }
+
+    .contentContainerAuth{
+        display: flex;
+        flex-direction: column;
+        }
+
+    .leftSection_auth{
+        box-shadow: none;
+        background-color: transparent;
+        padding: unset;
+    }
+
+    .rightSide_auth{
+        display: none;
+    }
+
+    .authWithEmail input{
+        width: 70vw;
+    }
+
+    .authWithEmail button{
+        width: 70vw;
+    }
+
+    .googleAuth, .facebookAuth, .spotifyAuth{
+        width: 70vw;
+    }
+}
+
+/* Media for screens 901 to 1300px */
+@media screen and (min-width: 901px) and (max-width: 1300px) {
+    
+    #masterContainerAuth{
+        position: relative;
+        height: 100%;
+    }
+
+    .contentContainerAuth{
+        display: flex;
+        flex-direction: column;
+        }
+
+    .leftSection_auth{
+        box-shadow: none;
+        background-color: transparent;
+        padding: unset;
+    }
+
+    .rightSide_auth{
+        display: none;
+    }
+
+    .authWithEmail input{
+        width: 50vw;
+    }
+
+    .authWithEmail button{
+        width: 50vw;
+    }
+
+    .googleAuth, .facebookAuth, .spotifyAuth{
+        width: 50vw;
+    }
+}
+
+/*  */

@@ -1,0 +1,233 @@
+#profileStyleMaster{
+    font-family: var(--fontFamily1);
+
+    background-color: var(--backgroundHTML);
+    width: 5%;
+    height: 100vh;
+    min-height: 100vh;
+    /* border-right: solid 1.5px var(--textColor2); */
+    border-right: solid 3px var(--kindaWhite);
+
+    /* position: absolute;
+    z-index: -999; */
+}
+
+.profileStyleContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+}
+
+.logoDashboard{
+    width: 43px;
+    height: 43px;
+
+    background-color: var(--darkerPurple);
+    border-radius: 10px;
+
+    cursor: pointer;
+    margin-top: 30px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+    transition: all 0.3s ease;
+}
+
+.logoDashboard:hover{
+    background-color: var(--textColor2);
+}
+
+.logoDashboard:active{
+    border: solid 1px transparent;
+}
+
+/* Ball Section */
+.ColorBalls_Profile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ball_1_profile{
+    width: 35px;
+    height: 35px;
+    background: var(--backgroundHTML);
+    border-radius: 100%;
+
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border: solid 3px var(--textColor1);
+    transition: all 0.3s ease;
+}
+
+.ball_2_profile{
+    width: 35px;
+    height: 35px;
+    background: var(--textColor2);
+    border-radius: 100%;
+
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border: solid 3px var(--textColor1);
+    transition: all 0.3s ease;
+}
+
+.ball_3_profile{
+    width: 35px;
+    height: 35px;
+    background: var(--textColor1of1);
+    border-radius: 100%;
+
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border: solid 3px var(--textColor1);
+    transition: all 0.3s ease;
+}
+
+.ball_1_profile:hover, .ball_2_profile:hover, .ball_3_profile:hover{
+    border: solid 6px var(--backgroundHTML);
+}
+/* Ball section */
+
+.moreDataProfile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.moreDataProfile_img{
+    width: 42px !important;
+    height: 42px !important;
+    cursor: pointer;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border-radius: 100%;
+    color: var(--textColor1of1);
+    border: solid 2px var(--kindaWhite);
+
+    background-color: var(--darkerPurple);
+    transition: all 0.3s ease;
+}
+
+.moreDataProfile_img:hover, .settingsProfile_img:hover{
+    border: solid 3px var(--kindaWhite);
+}
+
+.setthings_section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 30px;
+}
+
+.settingsProfile_img{
+    width: 40px !important;
+    height: 40px !important;
+    cursor: pointer;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    border-radius: 100%;
+    color: var(--textColor1of1);
+    border: solid 2px var(--kindaWhite);
+
+    transition: all 0.3s ease;
+    background-color: var(--kindaOrange);
+}
+
+.disableFieldBallColors_container{
+    background-color: rgba(255, 255, 255, 0.558);
+    cursor: not-allowed;
+    padding: 10px;
+    padding-top: 12px;
+    border-radius: 6px;
+    /* pointer-events: none; */
+    position: relative;
+    /* Make sure the container takes up space */
+    width: fit-content;
+    height: fit-content;
+}
+
+.disableFieldBallColors_container > *:not(.lockIcon) {
+    filter: blur(5px);
+    opacity: 0.6;
+  }
+
+.lockIcon{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Media for profile and settings */
+
+/* Media for screen from 0px to 900px */
+@media screen and (max-width: 900px) {
+    #profileStyleMaster{
+        width: 100%;
+        overflow-x: auto;
+
+        height: 50%;
+        min-height: 50%;
+
+        border-right: unset;
+        border-bottom: 3px var(--kindaWhite) solid;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        padding: 5px 20px;
+
+        position: sticky;
+        top: 0px;
+        background-color: var(--textColor2);
+        z-index: 9999;
+    }
+
+    .profileStyleContent {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .setthings_section{
+        position: unset;
+        padding: 0px 20px;
+    }
+
+    .ColorBalls_Profile{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .moreDataProfile{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .setthings_section{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logoDashboard, .setthings_section{
+        margin-top: unset;
+        margin-bottom: unset;
+        align-items: unset;
+    }
+
+    .logoDashboard{
+        margin-top: 10px;
+    }
+}
+
+/* For Screens at 901 to 1200 */
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    #profileStyleMaster{
+        padding: 30px;
+    }
+}

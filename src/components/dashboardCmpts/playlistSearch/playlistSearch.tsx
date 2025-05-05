@@ -1,0 +1,350 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import './playlistSearchStyle.css'
+import PlaylistCards from '../playlistCards/playlistCards'
+import axios from "axios"
+import { useState, useEffect } from 'react'
+import { playlistNames } from './randomPlaylistNames'
+import UndoIcon from '@mui/icons-material/Undo'
+
+interface PlaylistSearch_Interface {
+  autoWidth?: React.CSSProperties
+  inputSearchHeading?: React.CSSProperties
+}
+
+export default function PlaylistSearch({ autoWidth, inputSearchHeading }: PlaylistSearch_Interface) {
+  const [readDocs, setReadDocs] = useState(false)
+  const [searchData, setSearchData] = useState<string>("")
+  const [shuffledSuggestions, setShuffledSuggestions] = useState<string[]>([])
+  const [playlistData, setPlaylistData] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [introState, setIntroState] = useState(true)
+  const [searchStats, setSearchStats] = useState({
+    searched: 0,
+    found: 0,
+    skipped: 0,
+    offset: 0,
+    totalScanned: 0
+  })
+
+  // Keywords to filter playlists by
+  const keywordRegex = /submit|submission|send your track|@|email|gmail/i
+
+  // Initialize suggested playlists on component mount
+  useEffect(() => {
+    const shuffled = [...playlistNames].sort(() => Math.random() - 0.5).slice(0, 5)
+    setShuffledSuggestions(shuffled)
+  }, [])
+
+  const handleReadDocs = () => {
+    setReadDocs(!readDocs)
+  }
+
+  const handleTextSuggestions = (suggestion: string) => {
+    setSearchData(suggestion)
+  }
+
+  const resetSearch = () => {
+    setIntroState(true)
+    setPlaylistData([])
+    setSearchStats({
+      searched: 0,
+      found: 0,
+      skipped: 0,
+      offset: 0,
+      totalScanned: 0
+    })
+  }
+
+  const getPlaylist = async (event: React.FormEvent) => {
+    event.preventDefault()
+    setLoading(true)
+    setPlaylistData([])
+    
+    const randomOffset = Math.floor(Math.random() * 901)
+    const limit = 50 
+    
+    // Reset search stats
+    setSearchStats({
+      searched: 0,
+      found: 0,
+      skipped: 0,
+      offset: randomOffset,
+      totalScanned: 0
+    })
+
+    try {
+      // Get Spotify auth token
+      const tokenRes = await fetch("/api/spotify_authentication", { method: "POST" })
+      const { access_token } = await tokenRes.json()
+
+      if (!access_token) {
+        console.error("Failed to obtain access token")
+        setLoading(false)
+        return
+      }
+
+      // Search for playlists matching the search term
+      const searchResponse = await axios.get(
+        `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchData)}&type=playlist&limit=${limit}&offset=${randomOffset}`,
+        { headers: { 'Authorization': `Bearer ${access_token}` } }
+      )
+
+      const playlists = searchResponse.data?.playlists?.items || []
+      setSearchData("")
+      
+      // Update stats with initial search results
+      setSearchStats(prev => ({
+        ...prev,
+        searched: playlists.length,
+        totalScanned: playlists.length
+      }))
+      
+      if (playlists.length === 0) {
+        setLoading(false)
+        setIntroState(false)
+        return
+      }
+
+      // Process playlists in smaller batches to avoid rate limiting
+      const batchSize = 5
+      const filteredPlaylists: any[] = []
+      let skippedCount = 0
+
+      for (let i = 0; i < playlists.length; i += batchSize) {
+        // Break up playlists into manageable batches
+        const batch = playlists.slice(i, i + batchSize)
+        
+        // Process this batch of playlists
+        const batchResults = await Promise.all(
+          batch.map(async (playlist: any) => {
+            // Skip invalid playlists
+            if (!playlist?.id) {
+              skippedCount++
+              return null
+            }
+            
+            try {
+              // Get detailed playlist info
+              const response = await axios.get(
+                `https://api.spotify.com/v1/playlists/${playlist.id}`,
+                { headers: { 'Authorization': `Bearer ${access_token}` } }
+              )
+
+              const detail = response.data
+              
+              // Check if playlist meets our criteria
+              if (detail?.description && keywordRegex.test(detail.description) && 
+                  detail?.images?.length > 0 && detail?.owner?.display_name) {
+                return detail
+              }
+              
+              skippedCount++
+              return null
+            } catch (error) {
+              console.error(`Error fetching playlist ${playlist.id}:`, error)
+              skippedCount++
+              return null
+            }
+          })
+        )
+
+        // Add valid playlists from this batch to our results
+        const validResults = batchResults.filter(Boolean)
+        filteredPlaylists.push(...validResults)
+        
+        // Update UI with current results
+        setPlaylistData([...filteredPlaylists])
+        
+        // Update search stats after each batch
+        setSearchStats(prev => ({
+          ...prev,
+          found: filteredPlaylists.length,
+          skipped: skippedCount,
+          totalScanned: i + batch.length
+        }))
+      }
+
+    } catch (error) {
+      console.error("Error searching playlists:", error)
+    } finally {
+      setLoading(false)
+      setIntroState(false)
+    }
+  }
+
+  return (
+    <div style={autoWidth} id="playlistSearchMaster">
+      <form onSubmit={getPlaylist} className="playlistSearch_container_content">
+        <div className="inputSearch" style={inputSearchHeading}>
+          <p className="inputSearch_title">
+            Find playlists that match your style.{" "}
+            <span
+              onClick={handleReadDocs}
+              style={{
+                color: 'var(--kindaOrange)',
+                cursor: 'pointer',
+                textDecoration: 'underline'
+              }}
+            >
+              Read Docs
+            </span>
+          </p>
+
+          {readDocs && (
+            <div className='readDocs_content' onClick={handleReadDocs}>
+              <p style={{ fontWeight: '500' }}>
+                Start by typing playlist names or genres — for example: "Rap Music 2025" or "Hip-Hop/Rap." Once finished, click search.
+                After search is clicked, the input will change, allowing you to filter through playlist descriptions. The filtered playlists
+                will show up on the other side of the screen with the text of what was filtered/highlighted. Click on those highlighted
+                playlists to view and copy the details relevant to you.
+                <span
+                  onClick={handleReadDocs}
+                  style={{
+                    color: 'var(--kindaOrange)',
+                    cursor: 'pointer',
+                    marginLeft: '4px',
+                    fontWeight: '800'
+                  }}
+                >
+                  Close
+                </span>
+              </p>
+            </div>
+          )}
+
+          <div className="search_field_input">
+            <input
+              type="text"
+              placeholder="Search for playlist names — e.g. 'Rap Music 2025', 'Lofi Sleep', and more"
+              value={searchData}
+              onChange={(event) => setSearchData(event.target.value)}
+            />
+            <div className="search_buttons">
+              <button
+                disabled={!searchData.trim() || loading}
+                className={`${!searchData.trim() || loading ? 'disableButtonStyle' : ''}`}
+                type="submit"
+              >
+                {loading ? 'Searching...' : 'Search'}
+              </button>
+            </div>
+          </div>
+          
+          {/* Search Stats */}
+          {!introState && !loading && (
+            <div className="search_stats">
+              <p>
+                Offset: {searchStats.offset} | 
+                Checked: {searchStats.totalScanned}/{searchStats.searched} playlists | 
+                Found: <span className="highlight_count">{searchStats.found}</span> matches | 
+                Skipped: {searchStats.skipped} invalid
+              </p>
+            </div>
+          )}
+          
+          {/* Loading Indicator */}
+          {loading && (
+            <div className="loading_indicator">
+              <div className="loading_bar">
+                <div 
+                  className="loading_progress" 
+                  style={{ 
+                    width: `${(searchStats.totalScanned / searchStats.searched) * 100}%` 
+                  }}
+                ></div>
+              </div>
+              <p>Scanning {searchStats.totalScanned} of {searchStats.searched} playlists...</p>
+              {searchStats.found > 0 && (
+                <p className="loading_found">Found {searchStats.found} matching playlists so far</p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Cards Section */}
+        {introState ? (
+          <div className='loadingIntro_search'>
+            <p style={{ fontSize: '17px' }}>
+              Start by typing playlist names in the search above or use some of our playlist name suggestions
+            </p>
+            <div style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              marginTop: '10px',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              {shuffledSuggestions.map((suggestion, index) => (
+                <span
+                  key={index}
+                  onClick={() => handleTextSuggestions(suggestion)}
+                  style={{
+                    backgroundColor: 'var(--backgroundHTML)',
+                    padding: '3px 7px',
+                    borderRadius: '6px',
+                    border: 'solid 2px var(--kindaWhite)',
+                    cursor: 'pointer',
+                    margin: '4px',
+                  }}
+                >
+                  {suggestion}
+                </span>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className='card_section_mapped_data'>
+            {playlistData.length === 0 && !loading && (
+              <div className="no_results">
+                <p>No playlists matched your search criteria.</p>
+                <p className="no_results_tip">
+                  Try using broader keywords or rephrasing your search terms for better results.
+                </p>
+              </div>
+            )}
+            
+            {playlistData.map((playlist, index) => {
+              // Skip if critical data is missing
+              if (!playlist?.id || !playlist?.name || !playlist?.images?.[0]?.url) {
+                return null;
+              }
+              
+              // Calculate engagement ratio safely
+              const followers = playlist?.followers?.total || 0;
+              const tracks = playlist?.tracks?.total || 0;
+              const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : 'N/A';
+              
+              // Calculate popularity score safely
+              const popularity = followers > 0 
+                ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100))
+                : 0;
+                
+              return (
+                <PlaylistCards
+                  key={`${playlist.id}-${index}`}
+                  playlistName={playlist?.name || "Unnamed Playlist"}
+                  curatorName={playlist.owner?.display_name || "Unknown"}
+                  trackCount={tracks || 'N/A'}
+                  followers={followers || 'N/A'}
+                  // description={playlist?.description || "No description available"}
+                  description={
+                    playlist?.description
+                      ? playlist.description.replace(keywordRegex, (match) => `<span class="highlight-keyword">${match}</span>`)
+                      : "No description available"
+                  }
+                  engagementRatio={engagementRatio}
+                  popularity={popularity}
+                  playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
+                  imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
+                />
+              );
+            })}
+          </div>
+        )}
+      </form>
+    </div>
+  )
+}
