@@ -196,10 +196,8 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
           {readDocs && (
             <div className='readDocs_content' onClick={handleReadDocs}>
               <p style={{ fontWeight: '500' }}>
-                Start by typing playlist names or genres — for example: "Rap Music 2025" or "Hip-Hop/Rap." Once finished, click search.
-                After search is clicked, the input will change, allowing you to filter through playlist descriptions. The filtered playlists
-                will show up on the other side of the screen with the text of what was filtered/highlighted. Click on those highlighted
-                playlists to view and copy the details relevant to you.
+                Begin by entering specific playlist titles or music genres such as "rap music 2025," "whisper beats for thin walls," "my 2am thoughts but make it chill," or "hip-hop/rap, pop" in the search bar and then press the search button to generate results. Our innovation filtering tool identifies playlists inviting submissions by looking for highlighted cues including "@gmail," "submit," "insta," "submissions," and others, hours faster than manual searching. Each result presents instant contact details about playlist curators, from where you can make an inquiry regarding submission procedures and guidelines. Euphoniczen was designed specifically to maximize the playlist discovery process for independent artists, music producers, musicians, & record labels.
+                <span style={{fontWeight: '600', padding: '0px 3px'}}>Please note: Not every search term you type will disply the result of exactly 50 playlists. We recomend broading your search term for better results.</span>
                 <span
                   onClick={handleReadDocs}
                   style={{

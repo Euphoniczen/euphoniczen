@@ -89,7 +89,7 @@ const PlaylistCards = ({
               <div className="popularity_section_line">
                 <div className="thePopularity_Rating">
                   <p>Popularity</p>
-                  <Rating name="read-only" value={popularity} readOnly style={{color: 'var(--darkerPurple)'}}/>
+                  <Rating name="read-only" value={popularity} readOnly style={{color: 'var(--kindaOrange)'}}/>
                 </div>
                 <PrettoSlider
                   value={(popularity / 5) * 100}
