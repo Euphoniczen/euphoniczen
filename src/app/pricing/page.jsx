@@ -2,28 +2,50 @@
 
 import Pricing from "../../components/pricingComponent/PricingCmpt"
 import pricingPageStyle from "./pricingPageStyle.module.css"
-import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import UsePaddle from "../../../hooks/usePaddle"
-import { useRouter } from "next/navigation"
-import { useSession } from 'next-auth/react'
-import {paddlePricing} from "../../components/paddlePricing/paddlePricing"
-import userSubscriptionData from "../../../hooks/userSubscriptionStatus"
+import { useState } from "react"
+import { paddlePricing } from "../../components/paddlePricing/paddlePricing"
+import userSubscriptionData from "../../../hooks/userSubscriptionStatus";
+import Modal from "@/components/dialog_modal/modal"
 
-export default function PricingPage(){
+export default function PricingPage() {
+    const [isYearly, setIsYearly] = useState(false);
+    const userSubscriptionStatus = userSubscriptionData();
+    const [isModalOpen, setModalOpen] = useState(false);
+    
 
-    const [isYearly, setIsYearly] = useState(false)
-    const userSubscriptionStatus = userSubscriptionData(); //we continue here :))
-
+    const premiumCheckoutHandler = paddlePricing({
+      priceId: isYearly 
+        ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY
+        : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY
+    });
+    
+    const extraPremiumCheckoutHandler = paddlePricing({
+      priceId: isYearly 
+        ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY
+        : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY
+    });
+    
     const toggleSwitch = () => {
-        setIsYearly(!isYearly)
-    }
+      setIsYearly(!isYearly);
+    };
 
-    const activeStylePricing = {
-        backgroundColor: 'gainsboro',
-        padding: '10px',
-        borderRadius: '10px'
-    }
+    const handlePremiumClick = (e) => {
+      e.preventDefault();
+      if (userSubscriptionStatus === 'active') {
+        setModalOpen(true);
+      } else {
+        premiumCheckoutHandler(e);
+      }
+    };
+
+    const handleExtraPremiumClick = (e) => {
+      e.preventDefault();
+      if (userSubscriptionStatus === 'active') {
+        setModalOpen(true);
+      } else {
+        extraPremiumCheckoutHandler(e);
+      }
+    };
 
     return (
         <div id={pricingPageStyle.pricingPageContMain}>
@@ -56,84 +78,51 @@ export default function PricingPage(){
                   </p>
                 </div>
               </div>
-      
             </div>
           </div>
+          
           {/* Second Section --Pricing-container */}
-            <div className={pricingPageStyle.pricingLists}>
-              {/* <Pricing
-                buttonTextSubscribe="Start Your Trial"
-                buttonOnClickPricing={null}
-                price={0}
-                monthOrYear={<span>for <span style={{fontWeight: 'bold'}}>one</span> week</span>}
-                planName = "Trial"
-                pricingDescription = "Get started with a free trial and explore all the essential features before committing. No credit card required!"
-                inPlan1 = "Full Access"
-                inPlan2 = "Three (3) playlists per search" 
-                inPlan3="Randomized Query"
-                inPlan4 = "Support"
-              /> */}
-              <Pricing 
-                pricingBackgroundColor="var(--darkerPurple)"
-                pricingTextColor="var(--textColor1of1)"
-                buttonBackgroundColorPricing="var(--darkerPurple)"
-                buttonOnClickPricing={paddlePricing({
-                  priceId: isYearly ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY
-                           : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY
-                })}
-                buttonTextSubscribe="Subscribe"
-                price={isYearly ? 40 : 4}
-                monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
-                planName = " Premium"
-                pricingDescription = "Upgrade to premium to access 95% of all features and enjoy prioritized support."
-                inPlan1 = "Partial Access (no access to background color change feature)"
-                inPlan2 = "up to 50 playlist filtered per query"             
-                inPlan3="Randomized Query"
-                inPlan4 = "Prioritized Support"
-                trailText="7-day free trial"
-              />
+          <div className={pricingPageStyle.pricingLists}>
+            {/* Premium Plan */}
+            <Pricing 
+              pricingBackgroundColor="var(--darkerPurple)"
+              pricingTextColor="var(--textColor1of1)"
+              buttonBackgroundColorPricing="var(--darkerPurple)"
+              buttonOnClickPricing={handlePremiumClick}
+              buttonTextSubscribe="Subscribe"
+              price={isYearly ? 40 : 4}
+              monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
+              planName = " Premium"
+              pricingDescription = "Upgrade to premium to access 95% of all features and enjoy prioritized support."
+              inPlan1 = "Partial Access (no access to background color change feature)"
+              inPlan2 = "up to 50 playlist filtered per query"             
+              inPlan3="Randomized Query"
+              inPlan4 = "Prioritized Support"
+              trailText="7-day free trial"
+            />
 
-              <Pricing 
-                pricingBackgroundColor="var(--textColor2)"
-                pricingTextColor="var(--textColor1of1)"
-                buttonBackgroundColorPricing="var(--kindaDark)"
-                buttonOnClickPricing={paddlePricing({
-                  priceId: isYearly ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY
-                           : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY
-                })}
-                buttonTextSubscribe="Subscribe"
-                price={isYearly ? 51 : 5}
-                monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
-                planName = "Extra Premium"
-                pricingDescription = "Upgrade to extra premium to access all features and enjoy prioritized support."
-                inPlan1 = "Full Access (access to background color change feature)"
-                inPlan2 = "up to 50 playlist filtered per query"             
-                inPlan3="Randomized Query"
-                inPlan4 = "Prioritized Support"
-                trailText="7-day free trial"
-              />
-
-              {/* <Pricing 
-                pricingBackgroundColor="var(--kindaOrange)"
-                pricingTextColor="var(--textColor1of1)"
-                buttonBackgroundColorPricing="var(--kindaOrange)"
-                buttonOnClickPricing={paddlePricing({
-                  priceId: isYearly ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Mega_Premium_YEARLY
-                           : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Mega_Premium_MONTHLY
-                })}
-                buttonTextSubscribe="Subscribe"
-                price={isYearly ? 183 : 18}
-                monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
-                planName = "Mega Premium"
-                pricingDescription = "Upgrade to premium to access all features and enjoy prioritized support."
-                inPlan1 = "Full Access"
-                inPlan2 = "ninety (90) playlists per search"
-                inPlan3="Randomized Query"
-                inPlan4 = "Prioritized Support"
-                trailText="7-day free trial"
-              /> */}
-            </div>
-          {/*  */}
+            {/* Extra Premium Plan */}
+            <Pricing 
+              pricingBackgroundColor="var(--textColor2)"
+              pricingTextColor="var(--textColor1of1)"
+              buttonBackgroundColorPricing="var(--kindaDark)"
+              buttonOnClickPricing={handleExtraPremiumClick}
+              buttonTextSubscribe="Subscribe"
+              price={isYearly ? 51 : 5}
+              monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
+              planName = "Extra Premium"
+              pricingDescription = "Upgrade to extra premium to access all features and enjoy prioritized support."
+              inPlan1 = "Full Access (access to background color change feature)"
+              inPlan2 = "up to 50 playlist filtered per query"             
+              inPlan3="Randomized Query"
+              inPlan4 = "Prioritized Support"
+              trailText="7-day free trial"
+            />
+          </div>
+            
+          {isModalOpen && (
+            <Modal isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
+          )}
         </div>
-      );
-    }      
+    );
+}

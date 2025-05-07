@@ -41,6 +41,7 @@ export default function Pricing({
     trailText = "trial text"
 
 }: PricingComponentProps) { 
+
     return (
         <div id={pricingCmptStyle.pricingContMaster}>
             <div style={{backgroundColor: pricingBackgroundColor, color: pricingTextColor}} className={pricingCmptStyle.pricingCmptContent}>
@@ -81,7 +82,7 @@ export default function Pricing({
                              textInButtonColor="var(--textColor1)"
                              buttonText= {buttonTextSubscribe}
                              buttonOnClick={buttonOnClickPricing} 
-                             />
+                            />
                     </ul>
                 </div>
             </div>
