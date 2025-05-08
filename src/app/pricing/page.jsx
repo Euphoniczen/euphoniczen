@@ -107,12 +107,12 @@ export default function PricingPage() {
           buttonBackgroundColorPricing="var(--kindaDark)"
           buttonOnClickPricing={handleExtraPremiumClick}
           buttonTextSubscribe={!session ? "Sign Up" : "Subscribe"}
-          price={isYearly ? 51 : 5}
+          price={isYearly ? 61 : 6}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName="Extra Premium"
           pricingDescription="Upgrade to extra premium to access all features and enjoy prioritized support."
           inPlan1="Full Access (access to background color change feature)"
-          inPlan2="up to 500 playlists searched per query"
+          inPlan2="up to 1000 playlists searched per query"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
           trailText="7-day free trial"

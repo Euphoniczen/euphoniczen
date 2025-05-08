@@ -14,7 +14,7 @@ import useScrollBackground from "../backgroundChangeHook/backgroundChange"
 
 import SearchIcon from '@mui/icons-material/Search';
 import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
-import EuphoniczenImage from "./assets/euphoniczenImage.png"
+import EuphoniczenImage from "../../../public/Euphoniczen Dashboard Image.png"
 
 export default function Hero() { 
 

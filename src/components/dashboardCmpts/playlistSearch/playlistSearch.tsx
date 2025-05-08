@@ -8,6 +8,7 @@ import axios from "axios"
 import { useState, useEffect } from 'react'
 import { playlistNames } from './randomPlaylistNames'
 import UndoIcon from '@mui/icons-material/Undo'
+import { useSession } from 'next-auth/react'
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -30,8 +31,10 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     searchAttempts: 0
   })
 
+  const {data: session} = useSession();
+
   // Keywords to filter playlists by - moved to top level for better visibility
-  const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|dm|message|inbox|promo|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
+  const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|message|inbox|promo|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
 
   useEffect(() => {
     const shuffled = [...playlistNames].sort(() => Math.random() - 0.5).slice(0, 5)
@@ -94,7 +97,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     let allFilteredPlaylists: any[] = []
     let totalProcessed = 0
     let searchAttempts = 0
-    let maxSearchAttempts = 10 
+    let maxSearchAttempts = session?.user?.subscriptionType === "Extra Premium" ? 20 : session?.user?.subscriptionType === "Premium" ? 10 : ""
     
     // Reset search stats
     setSearchStats({

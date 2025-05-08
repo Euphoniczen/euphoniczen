@@ -142,9 +142,9 @@ export default function Profile_AND_Setting({
                 <div className={profileStyle.setthings_section}>
                     <div></div>
                     <div onClick={handleToggleSettings}><SettingsTwoToneIcon className={profileStyle.settingsProfile_img}/></div>
-                    <QuestionMarkRoundedIcon className={profileStyle.settingsProfile_img}/>
+                    <Link target="_blank" href="/terms&conditions"><QuestionMarkRoundedIcon className={profileStyle.settingsProfile_img}/></Link>
                 </div>
             </div>
         </div>
     )
-}
+} 
