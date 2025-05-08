@@ -109,19 +109,29 @@ export default function Profile_AND_Setting({
         <div id={profileStyle.profileStyleMaster}>
             <div className={profileStyle.profileStyleContent}>
                 <div className={profileStyle.logoProfile}>
-                    <Link href="/"><Image className={profileStyle.logoDashboard} src={Logo} alt="logo"></Image></Link>
+                    <Link href="/"><Image className={profileStyle.logoDashboard} src={Logo || "/placeholder.svg"} alt="logo"></Image></Link>
                 </div>
-                {/*  */}
-                <Tooltip title="Subscribe to Extra Premium to unlock">
-                <div className={containerClass}>
-                    {subscriptionType === "Premium" ? <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/> : null}
-                    <div className={profileStyle.ColorBalls_Profile}>
-                        <div onClick={isColorChangeAllowed ? handleGradePurple : undefined} className={profileStyle.ball_1_profile}></div>
-                        <div onClick={isColorChangeAllowed ? handleGradeOrange : undefined} className={profileStyle.ball_2_profile}></div>
-                        <div onClick={isColorChangeAllowed ? handleGradeDefault : undefined} className={profileStyle.ball_3_profile}></div>
+                {subscriptionType === 'Premium' ? (
+                    <Tooltip title="Subscribe to Extra Premium to unlock">
+                        <div className={containerClass}>
+                            <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/>
+                            <div className={profileStyle.ColorBalls_Profile}>
+                                <div onClick={isColorChangeAllowed ? handleGradePurple : undefined} className={profileStyle.ball_1_profile}></div>
+                                <div onClick={isColorChangeAllowed ? handleGradeOrange : undefined} className={profileStyle.ball_2_profile}></div>
+                                <div onClick={isColorChangeAllowed ? handleGradeDefault : undefined} className={profileStyle.ball_3_profile}></div>
+                            </div>
+                        </div>
+                    </Tooltip>
+                ) : (
+                    <div className={containerClass}>
+                        {subscriptionType === "Premium" && <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/>}
+                        <div className={profileStyle.ColorBalls_Profile}>
+                            <div onClick={isColorChangeAllowed ? handleGradePurple : undefined} className={profileStyle.ball_1_profile}></div>
+                            <div onClick={isColorChangeAllowed ? handleGradeOrange : undefined} className={profileStyle.ball_2_profile}></div>
+                            <div onClick={isColorChangeAllowed ? handleGradeDefault : undefined} className={profileStyle.ball_3_profile}></div>
+                        </div>
                     </div>
-                </div>
-                </Tooltip>
+                )}
                 {/*  */}
                 <div className={profileStyle.moreDataProfile}>
                     <div onClick={handleAutoWidthFit}><JoinLeftIcon className={profileStyle.moreDataProfile_img}/></div>

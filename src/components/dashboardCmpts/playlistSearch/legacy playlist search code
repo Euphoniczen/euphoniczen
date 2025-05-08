@@ -26,13 +26,13 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     found: 0,
     skipped: 0,
     offset: 0,
-    totalScanned: 0,
-    searchAttempts: 0
+    totalScanned: 0
   })
 
-  // Keywords to filter playlists by - moved to top level for better visibility
-  const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|dm|message|inbox|promo|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
+  // Keywords to filter playlists by
+  const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|dm|message|inbox|promo|ig|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
 
+  // Initialize suggested playlists on component mount
   useEffect(() => {
     const shuffled = [...playlistNames].sort(() => Math.random() - 0.5).slice(0, 5)
     setShuffledSuggestions(shuffled)
@@ -54,59 +54,29 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
       found: 0,
       skipped: 0,
       offset: 0,
-      totalScanned: 0,
-      searchAttempts: 0
+      totalScanned: 0
     })
-  }
-
-  const fetchPlaylistDetails = async (playlist: any, accessToken: string) => {
-    if (!playlist?.id) return null
-    
-    try {
-      const response = await axios.get(
-        `https://api.spotify.com/v1/playlists/${playlist.id}`,
-        { headers: { 'Authorization': `Bearer ${accessToken}` } }
-      )
-
-      const detail = response.data
-      
-      if (detail?.description && keywordRegex.test(detail.description) && 
-          detail?.images?.length > 0 && detail?.owner?.display_name) {
-        return detail
-      }
-      
-      return null
-    } catch (error) {
-      console.error(`Error fetching playlist ${playlist.id}:`, error)
-      return null
-    }
   }
 
   const getPlaylist = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
     setPlaylistData([])
-    setIntroState(false)
     
-    let currentOffset = 0
+    const randomOffset = Math.floor(Math.random() * 901)
     const limit = 50 
-    const targetMatchCount = 50 
-    let allFilteredPlaylists: any[] = []
-    let totalProcessed = 0
-    let searchAttempts = 0
-    let maxSearchAttempts = 10 
     
     // Reset search stats
     setSearchStats({
       searched: 0,
       found: 0,
       skipped: 0,
-      offset: currentOffset,
-      totalScanned: 0,
-      searchAttempts: 0
+      offset: randomOffset,
+      totalScanned: 0
     })
 
     try {
+      // Get Spotify auth token
       const tokenRes = await fetch("/api/spotify_authentication", { method: "POST" })
       const { access_token } = await tokenRes.json()
 
@@ -116,66 +86,92 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
         return
       }
 
-      while (allFilteredPlaylists.length < targetMatchCount && searchAttempts < maxSearchAttempts) {
-        searchAttempts++
-        
-        setSearchStats(prev => ({
-          ...prev,
-          searchAttempts
-        }))
-        
-        const searchResponse = await axios.get(
-          `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchData)}&type=playlist&limit=${limit}&offset=${currentOffset}`,
-          { headers: { 'Authorization': `Bearer ${access_token}` } }
-        )
+      // Search for playlists matching the search term
+      const searchResponse = await axios.get(
+        `https://api.spotify.com/v1/search?q=${encodeURIComponent(searchData)}&type=playlist&limit=${limit}&offset=${randomOffset}`,
+        { headers: { 'Authorization': `Bearer ${access_token}` } }
+      )
 
-        const playlists = searchResponse.data?.playlists?.items || []
-        
-        if (playlists.length === 0) {
-          break
-        }
-        
-        setSearchStats(prev => ({
-          ...prev,
-          searched: prev.searched + playlists.length,
-          offset: currentOffset
-        }))
-        
-        const batchSize = 5
-        let skippedInThisBatch = 0
-
-        for (let i = 0; i < playlists.length && allFilteredPlaylists.length < targetMatchCount; i += batchSize) {
-
-          const batch = playlists.slice(i, i + batchSize)
-          
-          const batchPromises = batch.map(playlist => fetchPlaylistDetails(playlist, access_token))
-          const batchResults = await Promise.all(batchPromises)
-          
-          const validResults = batchResults.filter(Boolean)
-          const skippedInThisIteration = batch.length - validResults.length
-          
-          allFilteredPlaylists = [...allFilteredPlaylists, ...validResults]
-          setPlaylistData(allFilteredPlaylists.slice(0, targetMatchCount))
-          
-          totalProcessed += batch.length
-          
-          setSearchStats(prev => ({
-            ...prev,
-            found: allFilteredPlaylists.length,
-            skipped: prev.skipped + skippedInThisIteration,
-            totalScanned: totalProcessed
-          }))
-        }
-        
-        currentOffset += limit
+      const playlists = searchResponse.data?.playlists?.items || []
+      setSearchData("")
+      
+      // Update stats with initial search results
+      setSearchStats(prev => ({
+        ...prev,
+        searched: playlists.length,
+        totalScanned: playlists.length
+      }))
+      
+      if (playlists.length === 0) {
+        setLoading(false)
+        setIntroState(false)
+        return
       }
 
-      setSearchData("")
+      // Process playlists in smaller batches to avoid rate limiting
+      const batchSize = 5
+      const filteredPlaylists: any[] = []
+      let skippedCount = 0
+
+      for (let i = 0; i < playlists.length; i += batchSize) {
+        // Break up playlists into manageable batches
+        const batch = playlists.slice(i, i + batchSize)
+        
+        // Process this batch of playlists
+        const batchResults = await Promise.all(
+          batch.map(async (playlist: any) => {
+            // Skip invalid playlists
+            if (!playlist?.id) {
+              skippedCount++
+              return null
+            }
+            
+            try {
+              // Get detailed playlist info
+              const response = await axios.get(
+                `https://api.spotify.com/v1/playlists/${playlist.id}`,
+                { headers: { 'Authorization': `Bearer ${access_token}` } }
+              )
+
+              const detail = response.data
+              
+              // Check if playlist meets our criteria
+              if (detail?.description && keywordRegex.test(detail.description) && 
+                  detail?.images?.length > 0 && detail?.owner?.display_name) {
+                return detail
+              }
+              
+              skippedCount++
+              return null
+            } catch (error) {
+              console.error(`Error fetching playlist ${playlist.id}:`, error)
+              skippedCount++
+              return null
+            }
+          })
+        )
+
+        // Add valid playlists from this batch to our results
+        const validResults = batchResults.filter(Boolean)
+        filteredPlaylists.push(...validResults)
+        
+        // Update UI with current results
+        setPlaylistData([...filteredPlaylists])
+        
+        // Update search stats after each batch
+        setSearchStats(prev => ({
+          ...prev,
+          found: filteredPlaylists.length,
+          skipped: skippedCount,
+          totalScanned: i + batch.length
+        }))
+      }
 
     } catch (error) {
       console.error("Error searching playlists:", error)
     } finally {
       setLoading(false)
+      setIntroState(false)
     }
   }
 
@@ -201,7 +197,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
             <div className='readDocs_content' onClick={handleReadDocs}>
               <p style={{ fontWeight: '500' }}>
                 Begin by entering specific playlist titles or music genres such as "rap music 2025," "whisper beats for thin walls," "my 2am thoughts but make it chill," or "hip-hop/rap, pop" in the search bar and then press the search button to generate results. Our innovation filtering tool identifies playlists inviting submissions by looking for highlighted cues including "@gmail," "submit," "insta," "submissions," and others, hours faster than manual searching. Each result presents instant contact details about playlist curators, from where you can make an inquiry regarding submission procedures and guidelines. Euphoniczen was designed specifically to maximize the playlist discovery process for independent artists, music producers, musicians, & record labels.
-                <span style={{fontWeight: '600', padding: '0px 3px'}}>We automatically search across multiple pages to find up to 50 playlists accepting submissions.</span>
+                <span style={{fontWeight: '600', padding: '0px 3px'}}>Please note: Not every search term you type will disply the result of exactly 50 playlists. We recomend broading your search term for better results.</span>
                 <span
                   onClick={handleReadDocs}
                   style={{
@@ -239,10 +235,10 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
           {!introState && !loading && (
             <div className="search_stats">
               <p>
-                Pages: {searchStats.searchAttempts} | 
-                Checked: {searchStats.totalScanned} playlists | 
+                Offset: {searchStats.offset} | 
+                Checked: {searchStats.totalScanned}/{searchStats.searched} playlists | 
                 Found: <span className="highlight_count">{searchStats.found}</span> matches | 
-                Invalid: {searchStats.skipped} playlists
+                Skipped: {searchStats.skipped} invalid
               </p>
             </div>
           )}
@@ -254,13 +250,13 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
                 <div 
                   className="loading_progress" 
                   style={{ 
-                    width: `${Math.min(100, (searchStats.found / 50) * 100)}%` 
+                    width: `${(searchStats.totalScanned / searchStats.searched) * 100}%` 
                   }}
                 ></div>
               </div>
-              <p>Searching page {searchStats.searchAttempts}, scanned {searchStats.totalScanned} playlists so far...</p>
+              <p>Scanning {searchStats.totalScanned} of {searchStats.searched} playlists...</p>
               {searchStats.found > 0 && (
-                <p className="loading_found">Found {searchStats.found}/50 matching playlists</p>
+                <p className="loading_found">Found {searchStats.found} matching playlists so far</p>
               )}
             </div>
           )}
@@ -303,23 +299,8 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
               <div className="no_results">
                 <p>No playlists matched your search criteria.</p>
                 <p className="no_results_tip">
-                  Try using broader keywords like "indie" or "hip hop" for better results.
+                  Try using broader keywords or rephrasing your search terms for better results.
                 </p>
-                <button 
-                  onClick={resetSearch}
-                  className="try_again_button"
-                  style={{
-                    backgroundColor: 'var(--kindaOrange)',
-                    color: 'white',
-                    padding: '8px 16px',
-                    borderRadius: '4px',
-                    border: 'none',
-                    marginTop: '10px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Try Different Search
-                </button>
               </div>
             )}
             
@@ -329,12 +310,12 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
                 return null;
               }
               
-              // Calculating engagement ratio
+              // Calculate engagement ratio safely
               const followers = playlist?.followers?.total || 0;
               const tracks = playlist?.tracks?.total || 0;
               const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : 'N/A';
               
-              // Calculating popularity score
+              // Calculate popularity score safely
               const popularity = followers > 0 
                 ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100))
                 : 0;
@@ -346,6 +327,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
                   curatorName={playlist.owner?.display_name || "Unknown"}
                   trackCount={tracks || 'N/A'}
                   followers={followers || 'N/A'}
+                  // description={playlist?.description || "No description available"}
                   description={
                     playlist?.description
                       ? playlist.description.replace(keywordRegex, (match) => `<span class="highlight-keyword">${match}</span>`)

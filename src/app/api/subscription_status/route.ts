@@ -14,6 +14,9 @@ export async function GET(req: NextRequest) {
             }, 
             select: {
                 subscriptionStatus: true,
+            },
+            orderBy: {
+                createdAt: 'desc',
             }
         })
         if(getSubscriptionStatus) {

@@ -31,16 +31,16 @@ const Footer = () => {
             <div className={FooterStyle.social_links_foot}>
 
             <ul className={FooterStyle.footerUl}>
-                <Link href="">TERMS & CONDITIONS</Link>
-                <Link href="">PRIVACY POLICY</Link>
+                <Link href="/terms&conditions">TERMS & CONDITIONS</Link>
+                <Link href="/privacy_policy">PRIVACY POLICY</Link>
             </ul>
 
             <div className={FooterStyle.i_tags_foot_social_links}>
-                <i className="bi bi-instagram" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i>
-                <i className="bi bi-tiktok" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i>
-                <i className="bi bi-twitter-x" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i>
-                <i className="bi bi-threads" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i>
-                <i className="bi bi-facebook" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i>
+                <Link target="_blank" href="http://instagram.com/euphoniczen"><i className="bi bi-instagram" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i></Link>
+                <Link target="_blank" href="http://tiktok.com/euphoniczen"><i className="bi bi-tiktok" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i></Link>
+                <Link target="_blank" href="http://x.com/euphoniczen"><i className="bi bi-twitter-x" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i></Link>
+                <Link target="_blank" href="http://threads.com/euphoniczen"><i className="bi bi-threads" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i></Link>
+                <Link target="_blank" href="http://facebook.com/euphoniczen"><i className="bi bi-facebook" style={{ fontSize: '20px', color: 'var(--textColor2)', cursor: 'pointer'}}></i></Link>
 
             </div>
             </div>
