@@ -9,10 +9,13 @@ import Modal from "@/components/dialog_modal/modal"
 import { useSession } from "next-auth/react"
 import Loading from "../../../loading"
 import { useRouter } from "next/navigation"
+import paddleCustomerId from "../../../hooks/paddleCustomerId"
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false)
   const [isModalOpen, setModalOpen] = useState(false)
+  const customerId = paddleCustomerId(); 
+
 
   const router = useRouter()
   const { data: session, status } = useSession()
@@ -21,14 +24,14 @@ export default function PricingPage() {
 
   const premiumCheckoutHandler = paddlePricing({
     priceId: isYearly
-      ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY
-      : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY,
+      ? customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY_TRIAL
+      : customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY_TRIAL,
   })
 
   const extraPremiumCheckoutHandler = paddlePricing({
     priceId: isYearly
-      ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY
-      : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY,
+      ? customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY_TRIAL
+      : customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY_TRIAL,
   })
 
   const toggleSwitch = () => {
@@ -90,7 +93,7 @@ export default function PricingPage() {
           pricingTextColor="var(--textColor1of1)"
           buttonBackgroundColorPricing="var(--darkerPurple)"
           buttonOnClickPricing={handlePremiumClick}
-          buttonTextSubscribe={!session ? "Sign Up" : "Subscribe"}
+          buttonTextSubscribe={"Subscribe"}
           price={isYearly ? 40 : 4}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName=" Premium"
@@ -106,7 +109,7 @@ export default function PricingPage() {
           pricingTextColor="var(--textColor1of1)"
           buttonBackgroundColorPricing="var(--kindaDark)"
           buttonOnClickPricing={handleExtraPremiumClick}
-          buttonTextSubscribe={!session ? "Sign Up" : "Subscribe"}
+          buttonTextSubscribe={"Subscribe"}
           price={isYearly ? 61 : 6}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName="Extra Premium"

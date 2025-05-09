@@ -3,7 +3,6 @@
 import UsePaddle from "../../../hooks/usePaddle"
 import { useRouter } from "next/navigation"
 import { useSession } from 'next-auth/react'
-import paddleCustomerId from "../../../hooks/paddleCustomerId"
 
 interface PriceIdInterface {
   priceId?: string; 
@@ -15,8 +14,6 @@ export function paddlePricing({priceId}: PriceIdInterface) {
     const paddle = UsePaddle(); 
     const router = useRouter(); 
     const {data: session} = useSession();
-    const customerId = paddleCustomerId(); // continue here
-
 
         const openPaddleCheckout = (event: React.MouseEvent) => {
           event.preventDefault();
@@ -37,8 +34,6 @@ export function paddlePricing({priceId}: PriceIdInterface) {
               userId: session?.user.id,
               email:  session?.user.email,
             },
-
-            
             
             customer: {
               email: session ? session?.user?.email : router.push("/signup"),
