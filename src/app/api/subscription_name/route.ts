@@ -1,6 +1,6 @@
 // This api called "subscription_name will be used to get the name Premium or Extra Premuim ---"
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import {prisma} from "@/lib/prisma";
 import {auth} from "../../../../auth"
 
 
