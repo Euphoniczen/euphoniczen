@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "./lib/prisma"
+import {prisma} from "./lib/prisma"
 
 import Spotify from "next-auth/providers/spotify"
 import Google from "next-auth/providers/google"
