@@ -1,0 +1,61 @@
+#aboutSectionMaster{ 
+    margin-top: 5%;
+    min-height: 100vh; 
+}
+
+.aboutSectionContent{ 
+    /* margin-top: 3%; */
+    font-family: var(--fontFamily1);
+    padding: 20px;
+}
+
+.firstSectionAbout{ 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.firstSectionAbout h1{
+    font-size: 13vw;
+}
+
+.firstSectionAbout p{
+    text-align: center;
+    padding: 0px 12%;
+    font-weight: 600;
+    font-size: large;
+}
+
+/* Second Section About */
+.secondSectionAbout{ 
+    margin-top: 3%;
+}
+
+.secondSectionAbout{
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+
+    display: flex;
+    gap: 20px;
+}
+
+/* Third Section */
+
+
+
+/* Media Section */
+
+@media screen and (max-width: 500px) {
+    .aboutSectionContent{
+        padding: 1px;
+    }
+
+    .aboutSectionContent p{
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+/*  */

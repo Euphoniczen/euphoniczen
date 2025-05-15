@@ -1,0 +1,246 @@
+#masterContainerHEAD {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 999;
+
+  /* padding: 0px 100px; */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--textColor2);
+}
+
+#header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* padding: 40px 0px; */
+  padding: 15px 30px;
+  /* background-color: rgba(255, 255, 255, 0.278); */
+  /* box-shadow: 0px 0px 40px -18px var(--textColor2); */
+  background-color: var(--textColor1of1);
+  transition: all 0.4s ease;
+  width: 100%;
+  /* border-radius: 0px 0px 50px 50px; */
+  border: solid 2px var(--textColor2);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+#header ul {
+  display: flex;
+  gap: 20%;
+  font-weight: 700;
+}
+
+#header ul a {
+  transition: all 0.4s ease;
+  color: var(--textColor2);
+}
+
+#header ul a:hover {
+  color: var(--kindaOrange);
+}
+
+.authSectionHead {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  font-weight: 700;
+
+  position: relative;
+  font-family: var(--fontFamily1);
+}
+
+.signUpHead {
+  background-color: var(--kindaOrange);
+  padding: 5px 25px;
+  /* border-radius: 7px; */
+  border-radius: 50px;
+  /* border: solid 2px var(--textColor1); */
+  border: solid 2px var(--kindaWhite);
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.signUpHead:hover {
+  background-color: var(--darkerPurple);
+}
+
+.logInHead {
+  cursor: pointer;
+}
+
+#header a {
+  text-decoration: none;
+  font-family: var(--fontFamily1);
+}
+
+.logo {
+  font-size: 24px;
+  font-family: var(--fontFamily1);
+  font-weight: 900;
+  color: var(--textColor2);
+
+  text-decoration: none !important;
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+.underline {
+  width: 100%;
+  height: 3px;
+  background-color: var(--kindaOrange);
+  border-radius: 8px;
+
+  transform: scaleX(0); /* Hidden initially */
+  transform-origin: left;
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
+}
+
+.activeUnderline {
+  transform: scaleX(1); /* Expand on hover */
+}
+
+.userAfterAuth {
+  padding: 5px 100px;
+  /* background-color: rgba(255, 255, 255, 0.278); */
+  background-color: var(--kindaWhite);
+  width: 60%;
+  border-radius: 0px 0px 50px 50px;
+  border: solid 2.5px var(--textColor2);
+  border-top: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  font-family: var(--fontFamily1);
+}
+
+.userAfterAuth p {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.userAfterAuthProfileSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.logoutSectionHead {
+  display: flex;
+  gap: 20px;
+  /* align-items: center; */
+}
+
+.logoutHead {
+  transition: all 0.2s ease;
+  color: var(--kindaOrange);
+  cursor: pointer;
+}
+.logoutHead:active {
+  text-decoration: underline;
+}
+
+.dashboardHead a {
+  text-decoration: none;
+  color: var(--textColor2);
+
+  transition: all 0.3s ease;
+}
+.dashboardHead a:hover {
+  color: var(--kindaOrange);
+}
+
+.burgerLocationHeader {
+  display: none;
+}
+
+/* Responsive Header Section */
+
+/*Responsive Header for screen under 950px*/
+@media screen and (max-width: 950px) {
+  .burgerLocationHeader {
+    width: 100%;
+    display: block;
+    background-color: var(--textColor2);
+
+    position: sticky;
+    top: 0px;
+    z-index: 999;
+  }
+
+  #masterContainerHEAD {
+    z-index: 999;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  #header {
+    display: block; 
+    background-color: var(--textColor1of1);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    padding: 10px 10px;
+    border-bottom: unset;
+    width: 80%;
+    height: 100vh;
+
+    position: absolute;
+    top: 100%;
+    left: -80%; 
+    transform: translateX(0); 
+    transition: transform 0.3s ease-in-out; 
+  }
+
+  /* When menu is open, slide it in */
+  #header.open {
+    transform: translateX(100%); /* Slide in from left */
+  }
+
+  .logo {
+    margin-top: 5px;
+    padding-bottom: 23px;
+  }
+
+  #header ul {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+    width: fit-content;
+    padding-bottom: 23px;
+  }
+
+  .authSectionHead {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .logInHead {
+    padding: 5px 16.5px;
+    border-radius: 5px;
+    background-color: var(--darkerPurple);
+    border: solid 2px var(--kindaWhite);
+  }
+
+  .signUpHead {
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+}

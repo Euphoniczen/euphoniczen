@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+
+:root {
+  --backgroundColor: linear-gradient(263deg, rgba(55,57,61,1) 0%, rgba(128,118,163,1) 50%, rgba(55,57,61,1) 100%);
+
+  --backgroundHTML: rgba(128, 118, 163, 0.3);
+  --backgroundHTML_Solid: rgba(128,118,163);
+  --backgroundHTML2: transparent;
+  --textColor1: #e5eaf5;
+  --textColor1of1: hsl(0, 0%, 97%);
+  --textColor2: #37393d;
+  --darkerPurple: #8076a3;
+  --darkerPurple_semi: #8076a343;
+  --lightGrey: #9da0a6; 
+  --kindaOrange: #d27272; 
+  --kindaOrange_semi: #d272723d; 
+  --kindaWhite: #e5eaf5b0;
+  --kindaDark: #37393d55;
+  --kindaWhite2: #e5eaf52f;
+
+  --gradientColor1: linear-gradient(to bottom, var(--textColor1of1), var(--darkerPurple));
+  --gradientColor2: linear-gradient(to bottom, var(--textColor1of1), var(--kindaOrange));
+
+  
+  --fontFamily1: "DM Sans", sans-serif;
+  --fontFamily2: "Poetsen One", sans-serif;
+
+  /* --backgroundColor_Change_onScroll: linear-gradient(90deg, rgb(210, 114, 114) 0%, rgba(128,118,163,1) 100%); */
+  /* --backgroundColor_Change_onScroll: red; */
+
+}
+
+body{
+  min-height: 100vh;
+  background: var(--textColor1of1);
+  color: var(--textColor2);
+  
+  animation: moveGradient 10s infinite alternate ease-in-out;
+  background-size: 110% 150%;
+
+  overflow-x: hidden;
+}
+
+
+*, html{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; 
+  -webkit-tap-highlight-color: transparent; 
+}
+
+html{
+  /* background: var(--backgroundHTML) !important; */
+}

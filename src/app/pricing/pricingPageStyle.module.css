@@ -1,0 +1,147 @@
+#pricingPageContMain{
+    font-family: var(--fontFamily1);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+    padding: 100px;
+    min-height: 100vh;
+}
+
+.firstsectionPricing{
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    gap: 20px;
+}
+
+.firstsectionPricing, .pricingLists{
+    width: 100%; 
+    max-width: 900px; 
+    margin: 0 auto; 
+}
+
+.textandSwitch{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.textandSwitch p{
+    font-weight: 500;
+}
+
+.pricingLists{
+    /* display: flex; */
+    align-items: center;
+    gap: 30px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* background-color: var(--textColor1of1); */
+}
+
+/* pricingPage.module.css */
+
+.sliderButtonPricing {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 180px; 
+    height: 40px;  
+    border-radius: 20px;
+    background-color: var(--backgroundHTML);
+    border: solid 3px var(--kindaWhite);
+    cursor: pointer;
+    overflow: hidden; 
+
+    font-weight: 500;
+}
+
+.switch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; 
+    height: 100%;
+    background-color: var(--darkerPurple); 
+    transition: left 0.3s ease-in-out; 
+
+    border-radius: 18px;
+}
+
+.yearly {
+    left: 50%; 
+    background-color: var(--kindaOrange);
+     border-radius: 18px;
+}
+
+.textContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 0px;
+    color: #fff;
+    padding: 0px 14px;
+}
+/*  */
+
+
+/* Media section */
+
+/* Media for screen 650px and under */
+@media screen and (max-width: 650px) {
+    .textandSwitch{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .textandSwitch p{
+        font-size: 15px;
+    }
+
+    #pricingPageContMain{
+        padding: 14px 10px;
+        padding-bottom: 30px;
+        margin-top: 15px;
+    }
+
+    .pricingLists{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
+/* Media for screens 801px to 1000px */
+@media screen and (min-width: 651px) and (max-width: 1000px) {
+    .textandSwitch{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .textandSwitch p{
+        font-size: 15px;
+    }
+
+    #pricingPageContMain{
+        padding: 14px 10px;
+        padding-bottom: 30px;
+        margin-top: 15px;
+    }
+
+    .pricingLists{
+        /* display: flex;
+        flex-direction: column; */
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/*  */
