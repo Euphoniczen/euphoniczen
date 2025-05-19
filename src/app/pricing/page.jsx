@@ -103,7 +103,7 @@ export default function PricingPage() {
           inPlan2="up to 500 playlists searched per query"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText="7-day free trial"
+          trailText="14-day free trial"
         />
         <Pricing
           pricingBackgroundColor="var(--textColor2)"
@@ -119,7 +119,7 @@ export default function PricingPage() {
           inPlan2="up to 1000 playlists searched per query"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText="7-day free trial"
+          trailText="14-day free trial"
         />
       </div>
 
