@@ -8,7 +8,7 @@ import axios from "axios"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Tooltip from '@mui/material/Tooltip';
 
-import Logo from "../../../../public/Brand logo update.svg"
+import Logo from "../../../../public/euphoniczen logo 2025.png"
 import JoinLeftIcon from '@mui/icons-material/JoinLeft';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
