@@ -62,6 +62,24 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     })
   }
 
+  // Pre-screen playlist from search results before making detailed API call
+  const preScreenPlaylist = (playlist: any) => {
+    // Check if we have sufficient basic info already
+    if (!playlist || !playlist.id || !playlist.name || !playlist.images || playlist.images.length === 0) {
+      return false
+    }
+    
+    // If we have description in the search results, check if it matches our criteria
+    if (playlist.description) {
+      // Only return true if it actually matches the regex
+      return keywordRegex.test(playlist.description)
+    }
+    
+    // If no description is available, we don't make an API call
+    // This is more conservative but will save API calls
+    return false
+  }
+
   const fetchPlaylistDetails = async (playlist: any, accessToken: string) => {
     if (!playlist?.id) return null
     
@@ -138,35 +156,56 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
           break
         }
         
+        totalProcessed += playlists.length
+        
         setSearchStats(prev => ({
           ...prev,
           searched: prev.searched + playlists.length,
-          offset: currentOffset
+          offset: currentOffset,
+          totalScanned: totalProcessed
         }))
         
+        // First approach: Process playlists directly from search results if they have descriptions
+        const playlistsWithMatchingDescriptions = []
+        const playlistsNeedingDetails = []
+        
+        // Separate playlists that already have matching descriptions from those that need API calls
+        for (const playlist of playlists) {
+          // If it passes our pre-screening, we'll collect it directly
+          if (preScreenPlaylist(playlist)) {
+            // For these playlists, we have enough info to determine they match our criteria
+            // But we still need complete details for display
+            playlistsNeedingDetails.push(playlist)
+          } else {
+            // These playlists don't match our criteria based on available info
+            setSearchStats(prev => ({
+              ...prev,
+              skipped: prev.skipped + 1
+            }))
+          }
+        }
+        
+        // Only fetch detailed info for pre-screened playlists
         const batchSize = 5
-        const skippedInThisBatch = 0
-
-        for (let i = 0; i < playlists.length && allFilteredPlaylists.length < targetMatchCount; i += batchSize) {
-
-          const batch = playlists.slice(i, i + batchSize)
+        
+        for (let i = 0; i < playlistsNeedingDetails.length && allFilteredPlaylists.length < targetMatchCount; i += batchSize) {
+          const batch = playlistsNeedingDetails.slice(i, i + batchSize)
           
           const batchPromises = batch.map((playlist: { id: string }) => fetchPlaylistDetails(playlist, access_token))
           const batchResults = await Promise.all(batchPromises)
           
           const validResults = batchResults.filter(Boolean)
+          
+          // These are playlists that passed pre-screening but failed the detailed check
           const skippedInThisIteration = batch.length - validResults.length
           
           allFilteredPlaylists = [...allFilteredPlaylists, ...validResults]
           setPlaylistData(allFilteredPlaylists.slice(0, targetMatchCount))
           
-          totalProcessed += batch.length
-          
           setSearchStats(prev => ({
             ...prev,
             found: allFilteredPlaylists.length,
-            skipped: prev.skipped + skippedInThisIteration,
-            totalScanned: totalProcessed
+            skipped: prev.skipped + skippedInThisIteration
           }))
         }
         
