@@ -70,10 +70,10 @@ export default function Authenticate({
                         <div className={authStyle.lineforORAuth}></div>
                     </div> */}
                     <div className={authStyle.theOtherAuthSection}>
-                        <div onClick={authClickSpotify} className={authStyle.spotifyAuth}>
+                        {/* <div onClick={authClickSpotify} className={authStyle.spotifyAuth}>
                                 <Image src={SpotifyIcon} width={25} height={25} alt="spotify-icon"></Image>
                                 <p>Continue with Spotify</p>
-                            </div>
+                            </div> */}
 
                         <div onClick={authClickGoogle} className={authStyle.googleAuth}>
                             <Image src={GoogleIcon} width={25} height={25} alt="google-icon"></Image>
