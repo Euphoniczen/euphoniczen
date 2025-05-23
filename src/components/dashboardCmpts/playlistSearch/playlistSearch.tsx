@@ -110,12 +110,12 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     setIntroState(false)
     
     let currentOffset = 0
-    const limit = 50 
-    const targetMatchCount = 50 
+    const limit = session?.user?.subscriptionType === "Extra Premium" ? 100 : session?.user?.subscriptionType === "Premium" ? 50 : 50 
+    const targetMatchCount = session?.user?.subscriptionType === "Extra Premium" ? 100 : session?.user?.subscriptionType === "Premium" ? 50 : 50 
     let allFilteredPlaylists: any[] = []
     let totalProcessed = 0
     let searchAttempts = 0
-    const maxSearchAttempts = session?.user?.subscriptionType === "Extra Premium" ? 20 : session?.user?.subscriptionType === "Premium" ? 10 : 0
+    const maxSearchAttempts = session?.user?.subscriptionType === "Extra Premium" ? 30 : session?.user?.subscriptionType === "Premium" ? 10 : 0
     
     // Reset search stats
     setSearchStats({
