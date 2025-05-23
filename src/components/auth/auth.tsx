@@ -9,6 +9,8 @@ import { useState } from "react"
 import GoogleIcon from "./assets/google.svg"
 import FacebookIcon from "./assets/facebook.svg"
 import SpotifyIcon from "./assets/spotify.svg"
+import DiscordIcon from "./assets/discord.svg"
+
 import { FormEvent } from "react"
 import { signIn } from "next-auth/react"
 
@@ -17,6 +19,7 @@ interface AuthComponents {
     authClickSpotify?: () => void;
     authClickGoogle?: () => void;
     authClickFacebook?: () => void;
+    authClickDiscord?: () => void;
     dontHaveAnAccount_orHaveAnAccount_Link?: string; 
     dontHaveAnAccount_orHaveAnAccount_Text?: string; 
     dontHaveAnAccount_orHaveAnAccount_Tex2?: string; 
@@ -29,6 +32,7 @@ export default function Authenticate({
     authClickSpotify, 
     authClickGoogle, 
     authClickFacebook,  
+    authClickDiscord,
     dontHaveAnAccount_orHaveAnAccount_Link = "#",
     dontHaveAnAccount_orHaveAnAccount_Text = "hmmmmm",
     dontHaveAnAccount_orHaveAnAccount_Tex2 = "hmmmm"
@@ -83,6 +87,11 @@ export default function Authenticate({
                         <div onClick={authClickFacebook} className={authStyle.facebookAuth}>
                             <Image src={FacebookIcon} width={25} height={25} alt="facebook-icon"></Image>
                             <p>Continue with Facebook</p>
+                        </div> 
+
+                        <div onClick={authClickDiscord} className={authStyle.discordAuth}>
+                            <Image src={DiscordIcon} width={25} height={25} alt="discord-icon"></Image>
+                            <p>Continue with Discord</p>
                         </div> 
                     </div>
                     <div className={authStyle.toLoadEitherSignupORLoginPage}>

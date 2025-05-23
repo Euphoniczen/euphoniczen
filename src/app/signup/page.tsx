@@ -18,6 +18,7 @@ export default function Signup() {
             // authClickSpotify={() => signIn("spotify", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             authClickGoogle={() => signIn("google", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             authClickFacebook={() => signIn("facebook", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
+            authClickDiscord={() => signIn("discord", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             dontHaveAnAccount_orHaveAnAccount_Link="/login"
             dontHaveAnAccount_orHaveAnAccount_Text="Have an account?"
             dontHaveAnAccount_orHaveAnAccount_Tex2="Login"

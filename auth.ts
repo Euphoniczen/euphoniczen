@@ -5,6 +5,7 @@ import {prisma} from "./lib/prisma"
 import Spotify from "next-auth/providers/spotify"
 import Google from "next-auth/providers/google"
 import Facebook from "next-auth/providers/facebook"
+import Discord from "next-auth/providers/discord"
 
 
  
@@ -22,6 +23,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Facebook({
       clientId: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    }), 
+    Discord({
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     })
   ],
   callbacks: {
