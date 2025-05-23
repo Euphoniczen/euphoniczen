@@ -15,7 +15,7 @@ export default function Signup() {
             authTitle="Welcome"
 
             // The email signup up actions are within the components file
-            authClickSpotify={() => signIn("spotify", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
+            // authClickSpotify={() => signIn("spotify", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             authClickGoogle={() => signIn("google", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             authClickFacebook={() => signIn("facebook", {redirectTo: `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}`})}
             dontHaveAnAccount_orHaveAnAccount_Link="/login"
