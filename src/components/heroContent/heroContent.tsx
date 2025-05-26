@@ -80,9 +80,9 @@ export default function Hero() {
               // height="auto" --not needed as I already set the width and height in css
               controls={false} 
               autoPlay 
+              playsInline
               muted 
               loop 
-              style={{ borderRadius: "20px", maxWidth: "100%" }}
             >
               <source src="/videos/euphoniczen hero vid --mp4 version.mp4" type="video/mp4" />
                Your browser does not support the video tag.
