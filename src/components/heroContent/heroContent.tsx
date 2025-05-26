@@ -14,7 +14,7 @@ import useScrollBackground from "../backgroundChangeHook/backgroundChange"
 
 import SearchIcon from '@mui/icons-material/Search';
 import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
-import EuphoniczenImage from "../../../public/Euphoniczen Dashboard Image.png"
+import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
 
 export default function Hero() { 
 
@@ -73,7 +73,7 @@ export default function Hero() {
             
             </div>
             <div style={{transform: growHeroImage, marginTop: marginDown, transition: 'all 0.3s ease'}} className={heroContentStyle.bigImageSectionOneHero}>
-              <Image src={EuphoniczenImage} width={999} height={999} alt="hero-image"></Image>
+              <Image src={EuphoniczenAppVideo} width={999} height={999} alt="hero-image"></Image>
             </div>
         </div>
 
