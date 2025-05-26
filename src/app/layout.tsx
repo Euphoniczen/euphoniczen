@@ -25,6 +25,8 @@ export default function RootLayout({
       <body >
          <Header/>
         {children}
+        <Analytics/>
+        <SpeedInsights/>
         <Footer/>
       </body>
       </SessionProvider>
