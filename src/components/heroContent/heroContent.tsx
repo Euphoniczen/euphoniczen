@@ -14,7 +14,8 @@ import useScrollBackground from "../backgroundChangeHook/backgroundChange"
 
 import SearchIcon from '@mui/icons-material/Search';
 import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
-import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
+// import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
+import EuphoniczenAppVideo from "./assets/euphoniczen hero vid --mp4 version.mp4"
 
 export default function Hero() { 
 
