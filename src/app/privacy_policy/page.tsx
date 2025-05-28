@@ -39,7 +39,7 @@ export default function Privacy_Policy() {
                     We may update this Privacy Policy from time to time. Continued use of the service after changes are made implies acceptance of the new policy.</p>
 
                     <p><strong style={{textDecoration: 'underline'}}>8. Contact Us</strong><br />
-                    If you have any questions about this policy, please contact us at: <Link style={{color: 'var(--kindaOrange)'}} href="mailto:contact@euphoniczen.com">support@euphoniczen.com</Link></p>
+                    If you have any questions about this policy, please contact us at: <Link style={{color: 'var(--kindaOrange)'}} href="mailto:contact@euphoniczen.com">contact@euphoniczen.com</Link></p>
 
                     <p>Thank you for using Euphoniczen!</p>
                 </div>

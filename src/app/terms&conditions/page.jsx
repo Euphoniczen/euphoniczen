@@ -45,7 +45,7 @@ export default function Terms_And_Conditions() {
                         We may update these Terms at any time. Continued use of the service implies acceptance of the new terms.</p>
 
                         <p><strong style={{textDecoration: 'underline'}}>10. Contact Us</strong><br />
-                        If you have any questions, please contact us at: <Link style={{color: 'var(--kindaOrange)'}} href="mailto:contact@euphoniczen.com">support@euphoniczen.com</Link></p>
+                        If you have any questions, please contact us at: <Link style={{color: 'var(--kindaOrange)'}} href="mailto:contact@euphoniczen.com">contact@euphoniczen.com</Link></p>
 
                         <p>Thank you for using our service.</p>
                 </div>
