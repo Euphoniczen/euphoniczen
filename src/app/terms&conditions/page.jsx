@@ -40,12 +40,14 @@ export default function Terms_And_Conditions() {
                         We offer a free trial period so users can evaluate Euphoniczen before committing to a subscription. Once the trial period ends and a payment has been processed, all sales are final and non-refundable. Refunds will only be considered if the app experiences a complete outage lasting seven (7) consecutive days or more after initial charge.
                         </p>
 
-
                         <p><strong style={{textDecoration: 'underline'}}>9. Changes to Terms</strong><br />
                         We may update these Terms at any time. Continued use of the service implies acceptance of the new terms.</p>
 
                         <p><strong style={{textDecoration: 'underline'}}>10. Contact Us</strong><br />
                         If you have any questions, please contact us at: <Link style={{color: 'var(--kindaOrange)'}} href="mailto:contact@euphoniczen.com">contact@euphoniczen.com</Link></p>
+
+                       <p><strong style={{textDecoration: 'underline'}}>11. Pricing</strong><br />
+                        New users who signs up to the application, receives a 14-day free trial. Once the trial ends, your subscription will automatically begin, and you will be charged unless you cancel before the trial period concludes.</p>
 
                         <p>Thank you for using our service.</p>
                 </div>
