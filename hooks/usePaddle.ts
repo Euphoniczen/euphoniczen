@@ -12,7 +12,7 @@ export default function UsePaddle() {
         const environment = 
             process.env.NEXT_PUBLIC_PADDLE_ENV === "production"
                 ? "production"
-                : "live"
+                : "sandbox"
             const token =  process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN; 
 
             if(!token) {
