@@ -77,7 +77,7 @@ export default function Pricing({
                         <Buttons 
                              buttonBackgroundColor={buttonBackgroundColorPricing}
                              buttonBorder="solid 2px var(--kindaWhite)" 
-                             buttonHoverColor="var(--darkerPurple)"
+                             buttonHoverColor="transparent"
                              buttonRadius="8px"
                              textInButtonColor="var(--textColor1)"
                              buttonText= {buttonTextSubscribe}
