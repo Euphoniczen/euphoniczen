@@ -9,7 +9,7 @@ import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   title: "Euphoniczen",
-  description: "Search. Filter. Contact. All Things Playlists in One Place.",
+  description: "Euphoniczen lets artists, producers, labels & other music creatives search Spotify playlists by name, mood, theme, or genre to find contact details for playlist submissions, all in one place."
 };
 
 export default function RootLayout({
