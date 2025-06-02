@@ -5,8 +5,20 @@ import Link from "next/link"
 import aboutStyle from "./aboutStyle.module.css"
 // import Rectangle from "@/components/rectangles/rectangles"
 import Rectangle from "../../components/rectangles/rectangles"
+import { useEffect } from "react"
 
 export default function About() { 
+
+	// Facebook pixel event 
+	useEffect(() => {
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'ViewContent', {
+        content_name: 'About Page',
+        page_type: 'About',
+      })
+    }
+  }, [])
+
 
 	return(<div id={aboutStyle.aboutSectionMaster}>
 		<div className={aboutStyle.aboutSectionContent}>
