@@ -4,10 +4,15 @@ import DoneAllIcon from '@mui/icons-material/DoneAll';
 import Link from "next/link"
 import "./paymentSuccessStyle.css"
 import { useSession } from 'next-auth/react';
+import useTrackPageView from '@/hooks/useTrackPageView';
 
 export default function SuccessPage() {
 
     const {data: session} = useSession(); 
+
+    // Facebook Pageview hook
+    useTrackPageView('Payment-Success Page')
+    
 
   return (
     <div className="success-container">

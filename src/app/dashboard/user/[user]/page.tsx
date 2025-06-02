@@ -14,6 +14,7 @@ import Loading from "../../../../../loading"
 import axios from "axios"
 import PricingPage from "../../../../app/pricing/page"
 import userSubscriptionData from "../../../../../hooks/userSubscriptionStatus"
+import useTrackPageView from "@/hooks/useTrackPageView"
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
@@ -31,6 +32,10 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true)
 
   const [openSettings, setOpenSettings] = useState(false)
+
+    // Facebook Pageview hook
+    useTrackPageView('Dashboard Page')
+  
 
   useEffect(() => {
     const fetchSubscription = async () => {

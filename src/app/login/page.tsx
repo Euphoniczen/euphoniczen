@@ -5,10 +5,14 @@ import { useState, FormEvent, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import {signIn} from "next-auth/react"
 import axios from "axios";
+import useTrackPageView from "@/hooks/useTrackPageView";
 
 export default function Signup() { 
 
     const [subscriptionType, setSubscriptionType] = useState("");
+
+    // Facebook Pageview hook
+    useTrackPageView('Login Page')
 
     useEffect(() => {
         const fetchSubscriptionType = async () => {

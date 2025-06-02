@@ -1,8 +1,15 @@
 "use client"
 
+import useTrackPageView from "@/hooks/useTrackPageView"
+
 import Link from "next/link"
 
 export default function Privacy_Policy() {
+
+    // Facebook Pageview hook
+    useTrackPageView('Privacy_Policy Page')
+    
+
     return (
         <div id="privacyPolicy_master_cont">
             <div className="privacy-policy-container">

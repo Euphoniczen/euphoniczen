@@ -1,8 +1,13 @@
 "use client"
 
 import Link from "next/link"
+import useTrackPageView from "@/hooks/useTrackPageView";
 
 export default function Terms_And_Conditions() {
+
+    // Facebook Pageview hook
+    useTrackPageView('Terms & Conditions Page')
+    
     return (
         <div id="termsANDConditions_master_cont">
             <div className="termsandconditions_container">

@@ -11,15 +11,19 @@ import { useSession } from "next-auth/react"
 import Loading from "../../../loading"
 import { useRouter } from "next/navigation"
 import paddleCustomerId from "../../../hooks/paddleCustomerId"
+import useTrackPageView from "@/hooks/useTrackPageView"
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false)
   const [isModalOpen, setModalOpen] = useState(false)
   const customerId = paddleCustomerId(); 
 
-
   const router = useRouter()
   const { data: session, status } = useSession()
+
+  // Facebook Pageview hook
+  useTrackPageView('Pricing Page')
+  
 
   const userSubscriptionStatus = userSubscriptionData()
 

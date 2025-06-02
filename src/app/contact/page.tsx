@@ -2,6 +2,7 @@
 import { useState } from "react"
 import type React from "react"
 import axios from "axios"
+import useTrackPageView from "@/hooks/useTrackPageView"
 
 import { Copy, CheckCheck, Mail, Clock, Calendar, Phone, MessageSquare, ChevronDown, ChevronUp } from "lucide-react"
 import "./contactStyle.css"
@@ -11,6 +12,9 @@ export default function ContactSection() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [emailSubscribe, setEmailSubscribe] = useState("")
   const [subscribeSuccess, setSubscribeSuccess] = useState(false)
+
+    // Facebook Pageview hook
+    useTrackPageView('Contact Page')
 
 
   const email = "contact@euphoniczen.com"

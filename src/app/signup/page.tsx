@@ -4,10 +4,15 @@ import Authenticate from "../../components/auth/auth"
 import { useState, FormEvent } from "react";
 import { useSession } from "next-auth/react";
 import {signIn} from "next-auth/react"
+import useTrackPageView from "@/hooks/useTrackPageView";
 
 export default function Signup() { 
 
-    const {data: session} = useSession(); 
+    const {data: session} = useSession();
+    
+    // Facebook Pageview hook
+    useTrackPageView('Signup Page')
+    
 
 
     return(<div style={{background: 'var(--gradientColor1)'}}>
