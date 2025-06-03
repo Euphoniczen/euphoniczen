@@ -6,7 +6,7 @@ export async function POST (req: NextRequest) {
     const { customer_id } = await req.json();
 
     try {
-        const response = await fetch(`https://sandbox-api.paddle.com/customers/${customer_id}/portal-sessions`, {            
+        const response = await fetch(`https://api.paddle.com/customers/${customer_id}/portal-sessions`, {            
             method: 'POST', 
             headers: {
                 'Authorization': `Bearer ${process.env.Paddle_SECRET_API_KEY}`, //this is the default key from paddle 
