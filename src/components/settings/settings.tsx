@@ -66,9 +66,13 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
     setError("")
 
     try {
+      console.log("Making request with customer_id:", customerId);
+
       const response = await axios.post("/api/manage_subscription", {
         customer_id: customerId, 
       })
+
+      console.log("Response:", response);
 
       // Access the correct nested path for the portal URL
       if (response.data?.data?.urls?.general?.overview) {

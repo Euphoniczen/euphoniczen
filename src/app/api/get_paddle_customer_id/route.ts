@@ -14,7 +14,6 @@ export async function GET(req: NextRequest) {
             select: {
                 customerCreatedId: true,
             }, 
-            orderBy: { customerCreatedId: 'desc' }
         })
         if(getCustomerId) {
             return NextResponse.json({
