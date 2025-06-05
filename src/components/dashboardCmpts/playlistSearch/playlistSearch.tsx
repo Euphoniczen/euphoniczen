@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import { playlistNames } from './randomPlaylistNames'
 import UndoIcon from '@mui/icons-material/Undo'
 import { useSession } from 'next-auth/react'
+import useClipboard from '@/hooks/useClipboard'
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -221,6 +222,16 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
     }
   }
 
+  // Clipbaord Hook --to copy data from description
+  const {isCopied, handleCopy} = useClipboard(); 
+
+  const handleWordClick = (word: string, playlistId: string) => {
+    const cleanWord = word.replace(/<[^>]+>/g, '').trim();
+    if (cleanWord) {
+      handleCopy(cleanWord, playlistId);
+    }
+  };
+
   return (
     <div style={autoWidth} id="playlistSearchMaster">
       <form onSubmit={getPlaylist} className="playlistSearch_container_content">
@@ -388,11 +399,14 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
                   curatorName={playlist.owner?.display_name || "Unknown"}
                   trackCount={tracks || 'N/A'}
                   followers={followers || 'N/A'}
-                  description={
-                    playlist?.description
-                      ? playlist.description.replace(keywordRegex, (match: string) => `<span class="highlight-keyword">${match}</span>`)
-                      : "No description available"
-                  }
+                  // description={
+                  //   playlist?.description
+                  //     ? playlist.description.replace(keywordRegex, (match: string) => `<span class="highlight-keyword">${match}</span>`)
+                  //     : "No description available"
+                  // }
+                  description={playlist?.description || "No description available"}
+                  onClickWord={(word) => handleWordClick(word, playlist.id)}
+                  copied={isCopied(playlist.id).toString()}
                   engagementRatio={parseFloat(engagementRatio)}
                   popularity={popularity}
                   playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}

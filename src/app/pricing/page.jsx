@@ -99,7 +99,7 @@ export default function PricingPage() {
           buttonBackgroundColorPricing="var(--darkerPurple)"
           buttonOnClickPricing={handlePremiumClick}
           buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 40 : 4}
+          price={isYearly ? 30 : 2.99}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName=" Premium"
           pricingDescription="Upgrade to premium to access 95% of all features and enjoy prioritized support."
@@ -107,7 +107,7 @@ export default function PricingPage() {
           inPlan2="up to 500 playlists searched per query"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText={`14 days free then ${isYearly ? "$40.00" : "$4.00"} after (for new users only)`}
+          trailText={`14 days free then ${isYearly ? "$30.00" : "$2.99"} after (for new users only)`}
         />
         <Pricing
           pricingBackgroundColor="var(--textColor2)"
@@ -115,7 +115,7 @@ export default function PricingPage() {
           buttonBackgroundColorPricing="var(--kindaDark)"
           buttonOnClickPricing={handleExtraPremiumClick}
           buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 61 : 6}
+          price={isYearly ? 40 : 3.99}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName="Extra Premium"
           pricingDescription="Upgrade to extra premium to access all features and enjoy prioritized support."
@@ -123,7 +123,7 @@ export default function PricingPage() {
           inPlan2="up to 1000 playlists searched per query"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText={`14 days free then ${isYearly ? "$61.00" : "$6.00"} after (for new users only)`}
+          trailText={`14 days free then ${isYearly ? "$40.00" : "$3.99"} after (for new users only)`}
         />
       </div>
 

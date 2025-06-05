@@ -19,7 +19,7 @@
     /* box-shadow: 1px 12px 12px 0px rgba(0,0,0,0.09); */
     /* box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(104, 103, 103, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
     background: var(--gradientColor1);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
     height: fit-content;
     /* width: 350px; */
     width: 400px;
@@ -121,6 +121,7 @@
     padding: 8px;
     border-radius: 3px;
     transition: all 0.3s ease;
+    color: var(--textColor1of1);
 }
 
 .visit_playlist_link_text:hover{
@@ -153,11 +154,97 @@
     gap: 6px;
 }
 
+.engagment-ratio-text-and-icon{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.highlight-keyword {
+  color: var(--textColor1of1);
+  font-weight: 700;
+}
+
+.word{
+    transition: all 0.3s ease;
+}
+
+.word:hover {
+  background: var(--gradientColor1);
+  font-weight: 600;
+  border-radius: 7px;
+  transition: background-color 0.2s ease;
+  padding: 3px 6px;
+}
+
+.copied-text{
+    position: absolute;
+    background: var(--kindaOrange);
+    padding: 5px 8px;
+    border-radius: 6px;
+    color: var(--textColor1of1);
+    font-weight: bold;
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+
+    top: 3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    animation: smoothSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+}
+
+@keyframes smoothSlideIn {
+    0% {
+        transform: translate(-50%, -50%) translateY(-40px) scale(0.8);
+        opacity: 0;
+        filter: blur(4px);
+    }
+    50% {
+        transform: translate(-50%, -50%) translateY(-10px) scale(1.05);
+        opacity: 0.8;
+        filter: blur(1px);
+    }
+    100% {
+        transform: translate(-50%, -50%) translateY(0) scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate(-50%, -50%) translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translate(-50%, -50%) translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(-50%, -50%) translateY(-20px);
+        opacity: 0;
+    }
+}
 
 /* Media for playlistSearch */
 
 /* Media for screen at 300px and under */
 @media screen and (max-width: 300px) {
+    .copied-text{
+        position: relative;
+        font-size: 12px;
+        width: fit-content;
+    }
+
     .Cards_container{
         width: 250px;
     }
@@ -183,6 +270,12 @@
 
 /* Media at 301px to 500px */
 @media screen and (min-width: 301px) and (max-width: 500px) {
+    .copied-text{
+        position: relative;
+        font-size: 12px;
+        width: fit-content;
+    }
+
     .Cards_container{
         width: 300px;
     }
@@ -208,6 +301,12 @@
 
 /* Media at 501px to 900px */
 @media screen and (min-width: 501px) and (max-width: 900px) {
+    .copied-text{
+            position: relative; 
+            font-size: 12px;
+            width: fit-content;
+        }
+
     .Cards_container{
         width: 300px;
     }

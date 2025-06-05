@@ -191,14 +191,14 @@
     text-align: center;
 }
 
-.highlight-keyword {
+/* .highlight-keyword {
     background-color: var(--kindaOrange);
     color: var(--textColor1);
     padding: 3px 4px;
     border-radius: 10px;
     font-weight: bold;
     font-size: 17px;
-  }
+  } */
 
 .no_results{
     display: flex;
