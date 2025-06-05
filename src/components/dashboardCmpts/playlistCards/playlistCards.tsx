@@ -64,7 +64,7 @@ const PlaylistCards = ({
 
     const segments = decoded.split(/(\s+)/); // Keep spaces
 
-    return segments.map((segment, index) => {
+    return segments.map((segment: any, index: any) => {
       if (/\s+/.test(segment)) {
         return <span key={`space-${index}`}>{segment}</span>;
       }
