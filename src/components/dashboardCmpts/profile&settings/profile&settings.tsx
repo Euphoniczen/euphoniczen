@@ -131,7 +131,7 @@ export default function Profile_AND_Setting({
                     <Link href="/"><Image className={profileStyle.logoDashboard} src={Logo || "/placeholder.svg"} alt="logo"></Image></Link>
                 </div>
                 {subscriptionType === 'Premium' ? (
-                    <Tooltip title="Subscribe to Extra Premium to unlock">
+                    <Tooltip title="Upgrade to Extra Premium to unlock background color change feature">
                         <div className={containerClass}>
                             <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/>
                             <div className={profileStyle.ColorBalls_Profile}>
@@ -153,7 +153,11 @@ export default function Profile_AND_Setting({
                 )}
                 {/*  */}
                 <div className={profileStyle.moreDataProfile}>
-                    <div onClick={handleAutoWidthFit}><JoinLeftIcon className={profileStyle.moreDataProfile_img}/></div>
+                    <Tooltip title={subscriptionType === 'Premium' ? "Upgrade to Extra Premium to enable Web-sourced AI insights feature" : ""} disableHoverListener={subscriptionType !== 'Premium'}>
+                      <div onClick={subscriptionType === 'Extra Premium' ? handleAutoWidthFit : undefined}>
+                        <JoinLeftIcon className={subscriptionType === 'Premium' ? profileStyle.disabledColorJoinLeftIcon : subscriptionType === 'Extra Premium' ? profileStyle.moreDataProfile_img : undefined} />
+                       </div>
+                    </Tooltip>
                     <Link href='/contact' target="__blank"><SupportAgentIcon className={profileStyle.moreDataProfile_img}/></Link>
                     <div onClick={EnterFullscreen}><DynamicFeedIcon className={profileStyle.moreDataProfile_img}/></div>
                     <Link href="https://open.spotify.com/user/31ggduwvlf7zt5xpynylf2527yka" target="__blank"><QueueMusicRoundedIcon className={profileStyle.moreDataProfile_img}/></Link>

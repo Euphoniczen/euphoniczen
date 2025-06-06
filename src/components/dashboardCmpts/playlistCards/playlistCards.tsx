@@ -102,11 +102,15 @@ const PlaylistCards = ({
   return (
     <div id="playlistCardsMaster">
       <div className="playlistCard_content">
+      {/* This button will send playlist data to ai for advanced insights */}
+      <div>
+        <p>a button</p>
+      </div>
+      {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>
           <div className="imageSection_card">
             <Image src={imageUrl} width={999} height={999} alt="playlist-image" />
           </div>
-
           <div className="textContentSection_cards">
             <div className="Card_playlistName_and_more">
               <div className="playlistName_and_trackCount_cards">
