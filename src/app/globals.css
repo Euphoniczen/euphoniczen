@@ -5,7 +5,7 @@
 :root {
   --backgroundColor: linear-gradient(263deg, rgba(55,57,61,1) 0%, rgba(128,118,163,1) 50%, rgba(55,57,61,1) 100%);
 
-  --backgroundHTML: rgba(128, 118, 163, 0.3);
+  --backgroundHTML: rgba(128, 118, 163, 0.619);
   --backgroundHTML_Solid: rgba(128,118,163);
   --backgroundHTML2: transparent;
   --textColor1: #e5eaf5;

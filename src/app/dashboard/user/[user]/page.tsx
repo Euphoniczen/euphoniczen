@@ -15,6 +15,7 @@ import axios from "axios"
 import PricingPage from "../../../../app/pricing/page"
 import userSubscriptionData from "../../../../../hooks/userSubscriptionStatus"
 import useTrackPageView from "@/hooks/useTrackPageView"
+import PlaylistDataAi from "@/src/components/dashboardCmpts/playlistDataAi/playlistDataAi"
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
@@ -92,16 +93,16 @@ export default function Dashboard() {
     display: "flex",
   }
 
-  const ColorStyle = {
-    color: "var(--textColor1)",
-    display: "flex",
-  }
+  // const ColorStyle = {
+  //   color: "var(--textColor1)",
+  //   display: "flex",
+  // }
 
   if (gradePurple) {
-    backgroundStyle.background = "var(--backgroundHTML)"
+    backgroundStyle.background = "var(--darkerPurple)"
   } else if (gradeBlack) {
     backgroundStyle.background = "var(--textColor2)"
-    Object.assign(backgroundStyle, ColorStyle)
+    // Object.assign(backgroundStyle, ColorStyle)
   } else if (gradeDefault) {
     backgroundStyle.background = backgroundStyle.background
   }
@@ -128,29 +129,22 @@ export default function Dashboard() {
           // setFilterDescription={setFilterDescription}
           inputSearchHeading={
             gradeBlack
-              ? { backgroundColor: "var(--textColor2)", boxShadow: "0px 0px 24px -14px white" }
+              ? { backgroundColor: "var(--textColor2)", boxShadow: "0px 0px 24px -14px white", color: 'var(--textColor1of1)'}
               : gradePurple
-                ? { backgroundColor: "var(--backgroundHTML)" }
+                ? { background: "var(--gradientColor1)" }
                 : gradeDefault
                   ? { backgroundColor: "var(--textColor1of1)" }
                   : {}
           }
-          autoWidth={autoWidthFit ? { width: "50%", transition: "all 0.3s ease" } : {}}
+          autoWidth={
+            autoWidthFit
+              ? { width: "60%", transition: "all 0.3s ease" }
+              : { width: "100%", transition: "all 0.3s ease" }
+          } 
         />
-        {/* <FilteredPlaylists 
-          playlists={playlists} 
-          filterDescription={debouncedFilter}
-          inputFilterHeading={
-            gradeBlack 
-              ? { backgroundColor: 'var(--textColor2)', boxShadow: '0px 0px 24px -14px white' }
-              : gradePurple 
-                ? { backgroundColor: 'var(--backgroundHTML)' }
-                : gradeDefault 
-                  ? { backgroundColor: 'var(--textColor1of1)' }
-                  : {}
-          }
-          autoWidth={autoWidthFit ? {width: '50%', transition: 'all 0.3s ease'} : {}}
-        /> */}
+
+        {/* Playlist Data Ai --Page */}
+        {autoWidthFit && <PlaylistDataAi />}
 
         {openSettings && (
           <div className={dashboardStyle.settingsPopupCont}>

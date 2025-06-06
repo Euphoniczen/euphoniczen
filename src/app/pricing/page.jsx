@@ -99,15 +99,17 @@ export default function PricingPage() {
           buttonBackgroundColorPricing="var(--darkerPurple)"
           buttonOnClickPricing={handlePremiumClick}
           buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 30 : 2.99}
+          price={isYearly ? 30 : 3}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName=" Premium"
-          pricingDescription="Upgrade to premium to access 95% of all features and enjoy prioritized support."
-          inPlan1="Partial Access (no access to background color change feature)"
-          inPlan2="up to 500 playlists searched per query"
+          pricingDescription="Upgrade to premium to access all features in the premium package."
+          inPlan1="Up to 500 playlists searched per query"
+          inPlan2="Up to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText={`14 days free then ${isYearly ? "$30.00" : "$2.99"} after (for new users only)`}
+          inPlan5=""
+          hideThisFeature={true}
+          trailText={`14 days free then ${isYearly ? "$30.00" : "$3"} after (for new users only)`}
         />
         <Pricing
           pricingBackgroundColor="var(--textColor2)"
@@ -115,15 +117,18 @@ export default function PricingPage() {
           buttonBackgroundColorPricing="var(--kindaDark)"
           buttonOnClickPricing={handleExtraPremiumClick}
           buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 40 : 3.99}
+          price={isYearly ? 50 : 5}
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName="Extra Premium"
           pricingDescription="Upgrade to extra premium to access all features and enjoy prioritized support."
-          inPlan1="Full Access (access to background color change feature)"
-          inPlan2="up to 1000 playlists searched per query"
+          inPlan1="Up to 1000 playlists searched per query"
+          inPlan2="Up to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          trailText={`14 days free then ${isYearly ? "$40.00" : "$3.99"} after (for new users only)`}
+          inPlan5="Background color change feature unlocked"
+          inPlan6="Web-sourced AI insights on playlists"
+          hideExtraFeatures={false}
+          trailText={`14 days free then ${isYearly ? "$50.00" : "$5"} after (for new users only)`}
         />
       </div>
 
