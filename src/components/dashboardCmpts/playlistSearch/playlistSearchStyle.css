@@ -90,8 +90,10 @@
     font-weight: 500;
     font-size: 16px;
 
-    border-radius: 6px;
     border: solid 3px var(--backgroundHTML);
+    border-right: none;
+    /* border-radius: top-left top-right bottom-right bottom-left; */
+    border-radius: 9px 0px 0px 0px;
     /* background-color: var(--kindaWhite); */
     color: var( --darkerPurple);
 
@@ -104,11 +106,11 @@
 
 .search_field_input{
     display: flex;
-    gap: 15px;
+    /* gap: 15px; */
 }
 
 .search_field_input button{ 
-    padding: 6px 20px;
+    padding: 4px 20px;
     /* width: 600px; */
     border: none;
     outline: unset;
@@ -117,9 +119,10 @@
     font-weight: 500;
     font-size: 16px;
 
-    border-radius: 6px;
+    /* border-radius: top-left top-right bottom-right bottom-left; */
+    border-radius: 0px 0px 9px 0px;
     border: solid 3px var(--backgroundHTML);
-    background-color: var(--backgroundHTML);
+    background: var(--backgroundHTML);
     color: var(--textColor2);
     font-weight: 600;
 
@@ -151,7 +154,9 @@
     background-color: var(--kindaDark) !important;
     cursor: not-allowed !important;
     color: var(--textColor1) !important;
-    border: solid 3px var(--kindaDark) !important;
+    /* border: solid 3px var(--kindaDark) !important; */
+    border: solid 3px grey !important;
+    border-left: solid 0px transparent !important;
 }
 /*  */
 

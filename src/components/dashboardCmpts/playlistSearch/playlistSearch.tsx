@@ -14,9 +14,10 @@ import useClipboard from '@/hooks/useClipboard'
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
   inputSearchHeading?: React.CSSProperties
+  actualInputDynamicStyling?: React.CSSProperties
 }
 
-export default function PlaylistSearch({ autoWidth, inputSearchHeading }: PlaylistSearch_Interface) {
+export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualInputDynamicStyling}: PlaylistSearch_Interface) {
   const [readDocs, setReadDocs] = useState(false)
   const [searchData, setSearchData] = useState<string>("")
   const [shuffledSuggestions, setShuffledSuggestions] = useState<string[]>([])
@@ -272,6 +273,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
 
           <div className="search_field_input">
             <input
+              style={actualInputDynamicStyling}
               type="text"
               placeholder="Search for playlist names — e.g. 'Rap Music 2025', 'Lofi Sleep', and more"
               value={searchData}
@@ -279,8 +281,9 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading }: Playli
             />
             <div className="search_buttons">
               <button
+                style={actualInputDynamicStyling}
                 disabled={!searchData.trim() || loading}
-                className={`${!searchData.trim() || loading ? 'disableButtonStyle' : ''}`}
+                className={`${!searchData.trim() || loading ? 'disableButtonStyle' :  ""}`}
                 type="submit"
               >
                 {loading ? 'Searching...' : 'Search'}

@@ -5,12 +5,13 @@
 :root {
   --backgroundColor: linear-gradient(263deg, rgba(55,57,61,1) 0%, rgba(128,118,163,1) 50%, rgba(55,57,61,1) 100%);
 
-  --backgroundHTML: rgba(128, 118, 163, 0.619);
+  --backgroundHTML: rgba(128, 118, 163, 0.394);
   --backgroundHTML_Solid: rgba(128,118,163);
   --backgroundHTML2: transparent;
   --textColor1: #e5eaf5;
   --textColor1of1: hsl(0, 0%, 97%);
   --textColor2: #37393d;
+  --textColor2_semi: #37393dc7;
   --darkerPurple: #8076a3;
   --darkerPurple_semi: #8076a343;
   --lightGrey: #9da0a6; 
@@ -21,6 +22,7 @@
   --kindaWhite2: #e5eaf52f;
 
   --gradientColor1: linear-gradient(to bottom, var(--textColor1of1), var(--darkerPurple));
+  --gradientColor1of2: linear-gradient(to top, var(--textColor1of1), var(--darkerPurple));
   --gradientColor2: linear-gradient(to bottom, var(--textColor1of1), var(--kindaOrange));
 
   

@@ -93,16 +93,16 @@ export default function Dashboard() {
     display: "flex",
   }
 
-  // const ColorStyle = {
-  //   color: "var(--textColor1)",
-  //   display: "flex",
-  // }
+  const ColorStyle = {
+    color: "var(--textColor1)",
+    display: "flex",
+  }
 
   if (gradePurple) {
-    backgroundStyle.background = "var(--darkerPurple)"
+    backgroundStyle.background = "var(--gradientColor1of2)"
   } else if (gradeBlack) {
     backgroundStyle.background = "var(--textColor2)"
-    // Object.assign(backgroundStyle, ColorStyle)
+    Object.assign(backgroundStyle, ColorStyle)
   } else if (gradeDefault) {
     backgroundStyle.background = backgroundStyle.background
   }
@@ -131,11 +131,21 @@ export default function Dashboard() {
             gradeBlack
               ? { backgroundColor: "var(--textColor2)", boxShadow: "0px 0px 24px -14px white", color: 'var(--textColor1of1)'}
               : gradePurple
-                ? { background: "var(--gradientColor1)" }
+                ? { background: "var(--gradientColor1)"}
                 : gradeDefault
                   ? { backgroundColor: "var(--textColor1of1)" }
                   : {}
           }
+
+          actualInputDynamicStyling={
+            gradeBlack
+              ? {border:'solid 3px var(--textColor1of1)', backgroundColor: 'transparent', color: 'var(--textColor1of1)'}
+              : gradePurple 
+                ? {border:'solid 3px var(--textColor2_semi)', backgroundColor: 'var(--textColor1of1)', color: 'var(--textColor2_semi)'}
+                : {}
+          }
+
+
           autoWidth={
             autoWidthFit
               ? { width: "70%", transition: "all 0.3s ease" }
