@@ -50,7 +50,7 @@ export default function PricingPage() {
       return
     }
 
-    if (userSubscriptionStatus === "active") {
+    if (userSubscriptionStatus === "active" || "trialing") {
       setModalOpen(true)
     } else {
       premiumCheckoutHandler(e)
@@ -64,7 +64,7 @@ export default function PricingPage() {
       return
     }
 
-    if (userSubscriptionStatus === "active") {
+    if (userSubscriptionStatus === "active" || "trialing") {
       setModalOpen(true)
     } else {
       extraPremiumCheckoutHandler(e)

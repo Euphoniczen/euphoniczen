@@ -33,7 +33,7 @@ export function paddlePricing({priceId}: PriceIdInterface) {
             customData: {
               userId: session?.user.id,
               email:  session?.user.email,
-            },
+            }, 
             
             customer: {
               email: session?.user?.email || "",
@@ -42,8 +42,9 @@ export function paddlePricing({priceId}: PriceIdInterface) {
               theme: "light",
               displayMode: "overlay",
               variant: "one-page",
-              successUrl: `${window.location.origin}/payment-success`
+              successUrl: `${window.location.origin}/payment-success`,
             },
+            
           })
         }
         return openPaddleCheckout;
