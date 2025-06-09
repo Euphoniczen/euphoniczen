@@ -23,8 +23,7 @@ async function trimToTokenLimit(
 }
 
 export async function POST(req: NextRequest) {
-  // const { dataForAi } = await req.json();
-  const dataForAi = "what is google"
+  const { dataForAi } = await req.json();
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || "",

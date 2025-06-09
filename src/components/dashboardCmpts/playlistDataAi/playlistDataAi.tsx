@@ -25,7 +25,7 @@ export default function PlaylistDataAi({ responseData }: PlaylistDataAi_Interfac
   useEffect(() => {
     if (!responseData) return;
 
-    axios.post('/api/openai', {
+    axios.post('/api/openai-data', {
       dataForAi: responseData,
     })
       .then(function (response) {
