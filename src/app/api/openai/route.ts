@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
   const instructionToExtract =
     "You are an assistant. When the user provides input, extract relevant data like Instagram @, info about the curator, etc.";
   const instructionToComplete =
-    "Based on the fetched data, show relevant information about the curator or platform.";
+    "Based on the fetched data, return a clean and readable HTML table with relevant information about the curator or platform. Use proper <table>, <thead>, <tbody>, <tr>, and <td> tags. Include clickable links where relevant. Do not return Markdown or plain text formatting.";
 
   const braveSecretKey = process.env.BRAVE_SEARCH_SECRET_KEY || "no secret key found or invalid secret key";
 
@@ -52,11 +52,11 @@ export async function POST(req: NextRequest) {
     // Step 2: Perform Brave search
     const params = new URLSearchParams({
       q: extractedContentAi,
-      count: "50",
+      count: "20",
     });
 
     const braveResponse = await fetch(`https://api.search.brave.com/res/v1/web/search?${params}`, {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Accept-Encoding": "gzip",
