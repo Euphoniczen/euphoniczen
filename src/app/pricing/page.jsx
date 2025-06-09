@@ -126,7 +126,7 @@ export default function PricingPage() {
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
           inPlan5="Background color change feature unlocked"
-          inPlan6="Web-sourced AI insights on playlists"
+          inPlan6="Web-sourced AI insights on playlists --BETA"
           hideExtraFeatures={false}
           trailText={`14 days free then ${isYearly ? "$50.00" : "$5"} after (for new users only)`}
         />

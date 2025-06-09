@@ -31,12 +31,12 @@ export default function Dashboard() {
   const [autoWidthFit, setAutoWidthFit] = useState(false)
   const [subscriptionType, setSubscriptionType] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
-
   const [openSettings, setOpenSettings] = useState(false)
+  const [stateStored_PlaylistSearch_For_PlaylistDataAi, setStateStored_PlaylistSearch_For_PlaylistDataAi] = useState<any>("")
 
     // Facebook Pageview hook
     useTrackPageView('Dashboard Page')
-  
+
 
   useEffect(() => {
     const fetchSubscription = async () => {
@@ -123,10 +123,7 @@ export default function Dashboard() {
           setToggleOpenSettings={setOpenSettings}
         />
         <PlaylistSearch
-          // playlists={playlists}
-          // setPlaylists={setPlaylists}
-          // filterDescription={filterDescription}
-          // setFilterDescription={setFilterDescription}
+        storedDataFor_handleSendPlaylistDataToAi={setStateStored_PlaylistSearch_For_PlaylistDataAi}
           inputSearchHeading={
             gradeBlack
               ? { backgroundColor: "var(--textColor2)", boxShadow: "0px 0px 24px -14px white", color: 'var(--textColor1of1)'}
@@ -154,7 +151,7 @@ export default function Dashboard() {
         />
 
         {/* Playlist Data Ai --Page */}
-        {autoWidthFit && <PlaylistDataAi />}
+        {autoWidthFit && <PlaylistDataAi responseData={stateStored_PlaylistSearch_For_PlaylistDataAi || "no data sent here"} />}
 
         {openSettings && (
           <div className={dashboardStyle.settingsPopupCont}>

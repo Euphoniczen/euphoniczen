@@ -1,13 +1,65 @@
-"use client"
+"use client";
 
-import "./playlistDataAiStyle.css"
+import "./playlistDataAiStyle.css";
+import sanitizeHtml from "sanitize-html";
+import he from "he";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-export default function PlaylistDataAi() {
+interface PlaylistDataAi_Interface {
+  responseData?: string;
+}
 
-    return(<>
+function linkify(text: string): string {
+  const urlRegex = /((https?:\/\/[^\s]+))/g;
+  return text.replace(urlRegex, (url) => {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+  });
+}
+
+export default function PlaylistDataAi({ responseData }: PlaylistDataAi_Interface) {
+  const [aiResult, setAiResult] = useState<string>("");
+
+  const noLoad = "Start by clicking the click me button of any playlist card to load ai data";
+
+  useEffect(() => {
+    if (!responseData) return;
+
+    axios.post('/api/openai', {
+      dataForAi: responseData,
+    })
+      .then(function (response) {
+        const rawText = response.data.fullAiResponseData;
+
+        // Decode HTML entities first
+        const decoded = he.decode(rawText);
+
+        // Convert URLs to <a> tags
+        const linkedText = linkify(decoded);
+
+        // Sanitize output
+        const sanitized = sanitizeHtml(linkedText, {
+          allowedTags: ['a', 'b', 'i', 'em', 'strong', 'br'],
+          allowedAttributes: {
+            a: ['href', 'target', 'rel'],
+          },
+        });
+
+        setAiResult(sanitized);
+      })
+      .catch(function (error) {
+        console.error(error);
+        setAiResult("An error occurred while processing the data.");
+      });
+  }, [responseData]);
+
+  return (
     <div id="master-cont-playlistDataAi">
-        <h2>This feature is coming soon!</h2>
-        <p>What feature, you ask? We're developing a powerful tool that will let you extract rich data from any playlist — including information about the curator, similar playlists, and other valuable insights to help you connect and grow.</p>
+      {aiResult ? (
+        <div dangerouslySetInnerHTML={{ __html: aiResult }} />
+      ) : (
+        <div>{noLoad}</div>
+      )}
     </div>
-</>)
+  );
 }

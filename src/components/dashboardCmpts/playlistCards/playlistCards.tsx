@@ -10,7 +10,7 @@ import { PrettoSlider } from '../../slider/slider';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DOMPurify from 'dompurify';
 import he from 'he';
-import { useRef } from 'react';
+import { Dispatch, SetStateAction, useRef } from 'react';
 
 interface PlaylistCardProps {
   imageUrl?: string;
@@ -25,6 +25,7 @@ interface PlaylistCardProps {
   playlistLink?: string;
   cardStylingPassed?: string;
   onClickWord?: (word: string) => void;
+  handleSendPlaylistDataToAi?: () => void; 
 }
 
 const PlaylistCards = ({
@@ -40,6 +41,8 @@ const PlaylistCards = ({
   cardStylingPassed = '',
   copied = '',
   onClickWord = () => {},
+  handleSendPlaylistDataToAi
+
 }: PlaylistCardProps) => {
 
   const keywordRegex =
@@ -103,8 +106,8 @@ const PlaylistCards = ({
     <div id="playlistCardsMaster">
       <div className="playlistCard_content">
       {/* This button will send playlist data to ai for advanced insights */}
-      <div>
-        <p>a button</p>
+      <div style={{backgroundColor: 'pink', cursor: 'pointer', width: 'fit-content'}}>
+        <p onClick={handleSendPlaylistDataToAi}>click me</p>
       </div>
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>

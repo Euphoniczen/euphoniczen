@@ -15,9 +15,10 @@ interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
   inputSearchHeading?: React.CSSProperties
   actualInputDynamicStyling?: React.CSSProperties
+  storedDataFor_handleSendPlaylistDataToAi?: any;
 }
 
-export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualInputDynamicStyling}: PlaylistSearch_Interface) {
+export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualInputDynamicStyling, storedDataFor_handleSendPlaylistDataToAi}: PlaylistSearch_Interface) {
   const [readDocs, setReadDocs] = useState(false)
   const [searchData, setSearchData] = useState<string>("")
   const [shuffledSuggestions, setShuffledSuggestions] = useState<string[]>([])
@@ -64,21 +65,15 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
     })
   }
 
-  // Pre-screen playlist from search results before making detailed API call
   const preScreenPlaylist = (playlist: any) => {
-    // Check if we have sufficient basic info already
     if (!playlist || !playlist.id || !playlist.name || !playlist.images || playlist.images.length === 0) {
       return false
     }
     
-    // If we have description in the search results, check if it matches our criteria
     if (playlist.description) {
-      // Only return true if it actually matches the regex
       return keywordRegex.test(playlist.description)
     }
-    
-    // If no description is available, we don't make an API call
-    // This is more conservative but will save API calls
+
     return false
   }
 
@@ -119,7 +114,6 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
     let searchAttempts = 0
     const maxSearchAttempts = session?.user?.subscriptionType === "Extra Premium" ? 20 : session?.user?.subscriptionType === "Premium" ? 10 : 0
     
-    // Reset search stats
     setSearchStats({
       searched: 0,
       found: 0,
@@ -167,19 +161,15 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
           totalScanned: totalProcessed
         }))
         
-        // First approach: Process playlists directly from search results if they have descriptions
         const playlistsWithMatchingDescriptions = []
         const playlistsNeedingDetails = []
         
-        // Separate playlists that already have matching descriptions from those that need API calls
         for (const playlist of playlists) {
-          // If it passes our pre-screening, we'll collect it directly
           if (preScreenPlaylist(playlist)) {
-            // For these playlists, we have enough info to determine they match our criteria
-            // But we still need complete details for display
+
             playlistsNeedingDetails.push(playlist)
           } else {
-            // These playlists don't match our criteria based on available info
+
             setSearchStats(prev => ({
               ...prev,
               skipped: prev.skipped + 1
@@ -187,7 +177,6 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
           }
         }
         
-        // Only fetch detailed info for pre-screened playlists
         const batchSize = 5
         
         for (let i = 0; i < playlistsNeedingDetails.length && allFilteredPlaylists.length < targetMatchCount; i += batchSize) {
@@ -198,7 +187,6 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
           
           const validResults = batchResults.filter(Boolean)
           
-          // These are playlists that passed pre-screening but failed the detailed check
           const skippedInThisIteration = batch.length - validResults.length
           
           allFilteredPlaylists = [...allFilteredPlaylists, ...validResults]
@@ -402,11 +390,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
                   curatorName={playlist.owner?.display_name || "Unknown"}
                   trackCount={tracks || 'N/A'}
                   followers={followers || 'N/A'}
-                  // description={
-                  //   playlist?.description
-                  //     ? playlist.description.replace(keywordRegex, (match: string) => `<span class="highlight-keyword">${match}</span>`)
-                  //     : "No description available"
-                  // }
+                  handleSendPlaylistDataToAi={() => storedDataFor_handleSendPlaylistDataToAi(playlist?.description)} //this should send the data of the description to the "playlistDataAi" page
                   description={playlist?.description || "No description available"}
                   onClickWord={(word) => handleWordClick(word, playlist.id)}
                   copied={isCopied(playlist.id).toString()}
