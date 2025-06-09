@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     });
 
     const braveResponse = await fetch(`https://api.search.brave.com/res/v1/web/search?${params}`, {
-      method: "POST",
+      method: "GET",
       headers: {
         Accept: "application/json",
         "Accept-Encoding": "gzip",
