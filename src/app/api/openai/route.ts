@@ -23,7 +23,8 @@ async function trimToTokenLimit(
 }
 
 export async function POST(req: NextRequest) {
-  const { dataForAi } = await req.json();
+  // const { dataForAi } = await req.json();
+  const dataForAi = "what is google"
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || "",
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
   const instructionToExtract =
     "You are an assistant. When the user provides input, extract relevant data like Instagram @, info about the curator, etc.";
   const instructionToComplete =
-    "Based on the fetched data, return a clean and readable HTML table with relevant information about the curator or platform. Use proper <table>, <thead>, <tbody>, <tr>, and <td> tags. Include clickable links where relevant. Do not return Markdown or plain text formatting.";
+    "Based on the fetched data, return relevant information about the curator or platform. Include clickable links where relevant.";
 
   const braveSecretKey = process.env.BRAVE_SEARCH_SECRET_KEY || "no secret key found or invalid secret key";
 
