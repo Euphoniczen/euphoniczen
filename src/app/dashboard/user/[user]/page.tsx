@@ -15,7 +15,7 @@ import axios from "axios"
 import PricingPage from "../../../../app/pricing/page"
 import userSubscriptionData from "../../../../../hooks/userSubscriptionStatus"
 import useTrackPageView from "@/hooks/useTrackPageView"
-import PlaylistDataAi from "@/src/components/dashboardCmpts/playlistDataAi/playlistDataAi"
+import StoredPlaylists from "@/src/components/dashboardCmpts/storedPlaylists/storedPlaylists"
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
@@ -32,7 +32,6 @@ export default function Dashboard() {
   const [subscriptionType, setSubscriptionType] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [openSettings, setOpenSettings] = useState(false)
-  const [stateStored_PlaylistSearch_For_PlaylistDataAi, setStateStored_PlaylistSearch_For_PlaylistDataAi] = useState<any>("")
 
     // Facebook Pageview hook
     useTrackPageView('Dashboard Page')
@@ -123,7 +122,6 @@ export default function Dashboard() {
           setToggleOpenSettings={setOpenSettings}
         />
         <PlaylistSearch
-        storedDataFor_handleSendPlaylistDataToAi={setStateStored_PlaylistSearch_For_PlaylistDataAi}
           inputSearchHeading={
             gradeBlack
               ? { backgroundColor: "var(--textColor2)", boxShadow: "0px 0px 24px -14px white", color: 'var(--textColor1of1)'}
@@ -145,13 +143,13 @@ export default function Dashboard() {
 
           autoWidth={
             autoWidthFit
-              ? { width: "70%", transition: "all 0.3s ease" }
+              ? { width: "60%", transition: "all 0.3s ease" }
               : { width: "100%", transition: "all 0.3s ease" }
           } 
         />
 
-        {/* Playlist Data Ai --Page */}
-        {autoWidthFit && <PlaylistDataAi responseData={stateStored_PlaylistSearch_For_PlaylistDataAi || "no data sent here"} />}
+        {/* Stored playlist data */}
+        {autoWidthFit && <StoredPlaylists/>}
 
         {openSettings && (
           <div className={dashboardStyle.settingsPopupCont}>

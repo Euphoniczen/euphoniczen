@@ -211,6 +211,11 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
     }
   }
 
+  // Stored Playlist function
+  const handleStoringPlaylists = () => { 
+    alert("clicked!")
+  }
+
   // Clipbaord Hook --to copy data from description
   const {isCopied, handleCopy} = useClipboard(); 
 
@@ -390,7 +395,6 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
                   curatorName={playlist.owner?.display_name || "Unknown"}
                   trackCount={tracks || 'N/A'}
                   followers={followers || 'N/A'}
-                  handleSendPlaylistDataToAi={() => storedDataFor_handleSendPlaylistDataToAi(playlist?.description)} //this should send the data of the description to the "playlistDataAi" page
                   description={playlist?.description || "No description available"}
                   onClickWord={(word) => handleWordClick(word, playlist.id)}
                   copied={isCopied(playlist.id).toString()}
@@ -398,6 +402,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
                   popularity={popularity}
                   playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
                   imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
+                  storePlaylistButton={handleStoringPlaylists}
                 />
               );
             })}

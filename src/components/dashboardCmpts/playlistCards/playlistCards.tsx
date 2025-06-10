@@ -25,7 +25,7 @@ interface PlaylistCardProps {
   playlistLink?: string;
   cardStylingPassed?: string;
   onClickWord?: (word: string) => void;
-  handleSendPlaylistDataToAi?: () => void; 
+  storePlaylistButton?: () => void;
 }
 
 const PlaylistCards = ({
@@ -41,7 +41,7 @@ const PlaylistCards = ({
   cardStylingPassed = '',
   copied = '',
   onClickWord = () => {},
-  handleSendPlaylistDataToAi
+  storePlaylistButton
 
 }: PlaylistCardProps) => {
 
@@ -105,9 +105,9 @@ const PlaylistCards = ({
   return (
     <div id="playlistCardsMaster">
       <div className="playlistCard_content">
-      {/* This button will send playlist data to ai for advanced insights */}
+      {/* This button will store playlist data from playlistSearch */}
       <div style={{backgroundColor: 'pink', cursor: 'pointer', width: 'fit-content'}}>
-        <p onClick={handleSendPlaylistDataToAi}>click me</p>
+        <p onClick={storePlaylistButton}>click me</p>
       </div>
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>

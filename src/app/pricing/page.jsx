@@ -103,8 +103,8 @@ export default function PricingPage() {
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName=" Premium"
           pricingDescription="Upgrade to premium to access all features in the premium package."
-          inPlan1="Up to 500 playlists searched per query"
-          inPlan2="Up to 50 playlist results"
+          inPlan1="Search up to 500 playlists per query"
+          inPlan2="Get to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
           inPlan5=""
@@ -121,12 +121,12 @@ export default function PricingPage() {
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
           planName="Extra Premium"
           pricingDescription="Upgrade to extra premium to access all features and enjoy prioritized support."
-          inPlan1="Up to 1000 playlists searched per query"
-          inPlan2="Up to 50 playlist results"
+          inPlan1="Search up to 1000 playlists per query"
+          inPlan2="Get to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
           inPlan5="Background color change feature unlocked"
-          inPlan6="Web-sourced AI insights on playlists --BETA"
+          inPlan6="Save playlists for revisitation"
           hideExtraFeatures={false}
           trailText={`14 days free then ${isYearly ? "$50.00" : "$5"} after (for new users only)`}
         />
