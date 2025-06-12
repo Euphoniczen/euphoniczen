@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import './playlistCardsStyle.css';
 import Rating from '@mui/material/Rating';
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined';
@@ -11,6 +12,8 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DOMPurify from 'dompurify';
 import he from 'he';
 import { Dispatch, SetStateAction, useRef } from 'react';
+import SaveIcon from '@mui/icons-material/Save';
+import axios from 'axios';
 
 interface PlaylistCardProps {
   imageUrl?: string;
@@ -43,9 +46,27 @@ const PlaylistCards = ({
   copied = '',
   onClickWord = () => {},
   storePlaylistButton,
-  showStoreButton = true
+  showStoreButton = true,
 
 }: PlaylistCardProps) => {
+  
+
+  const [fetchSavedPlaylists, setFetchSavedPlaylists] = useState<any[]>([]); 
+  const [isDisabled, setIsDisabled] = useState(true)
+  
+
+    useEffect(() => {
+      axios
+        .get("/api/get-spotify-stored-playlists")
+        .then((response) => {
+            console.log("Saved playlists data:", response.data.playlistStored);
+            setFetchSavedPlaylists(response.data.playlistStored);
+        })
+        .catch((error) => {
+          console.error("There was an error", error);
+        })
+      }, []);
+  
 
   const keywordRegex =
     /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|message|inbox|instagram|twitter|facebook|reddit|discord|outlook|yahoo/gi;
@@ -109,9 +130,13 @@ const PlaylistCards = ({
       <div className="playlistCard_content">
       {/* This button will store playlist data from playlistSearch */}
       {showStoreButton && (
-        <div style={{ backgroundColor: 'pink', cursor: 'pointer', width: 'fit-content' }}>
-          <p onClick={storePlaylistButton}>click me</p>
-        </div>
+        <div className='savePlaylistIcon'>
+         {fetchSavedPlaylists.some((plst) => `https://open.spotify.com/playlist/${plst?.storedSpotifyPayload?.id}` === playlistLink) ? (
+          <p style={{backgroundColor: 'var(--kindaOrange)', color: 'var(--textColor1of1)', cursor: 'default'}}>saved!</p>
+        ) : (
+          <p onClick={storePlaylistButton}>save playlist</p>
+        )}
+      </div>
       )}
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>

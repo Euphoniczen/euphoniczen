@@ -156,7 +156,7 @@ export default function Dashboard() {
 
           autoWidth={
             autoWidthFit
-              ? { width: "60%", transition: "all 0.3s ease" }
+              ? { width: "65%", transition: "all 0.3s ease" }
               : { width: "100%", transition: "all 0.3s ease" }
           } 
         />

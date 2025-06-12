@@ -64,7 +64,7 @@ export default function StoredPlaylists() {
                                 showStoreButton={false}
                                 key={storedPlaylist?.storedSpotifyPayload?.id || index}
                                 playlistName={storedPlaylist?.storedSpotifyPayload?.name || ""}
-                                curatorName={storedPlaylist?.storedSpotifyPayload?.display_name || ""}
+                                curatorName={storedPlaylist?.storedSpotifyPayload?.owner?.display_name || ""}
                                 trackCount={tracks}
                                 followers={followers}
                                 description={storedPlaylist?.storedSpotifyPayload?.description || ""}
