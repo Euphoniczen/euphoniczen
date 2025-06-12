@@ -28,13 +28,26 @@ export default function Dashboard() {
   const [gradePurple, setGradePurple] = useState(false)
   const [gradeBlack, setGradeBlack] = useState(false)
   const [gradeDefault, setGradeDefault] = useState(false)
-  const [autoWidthFit, setAutoWidthFit] = useState(false)
+  // const [autoWidthFit, setAutoWidthFit] = useState(false)
+  const [autoWidthFit, setAutoWidthFit] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("autoWidthFit")
+      return saved !== null ? JSON.parse(saved) : false
+    }
+    return false
+  })
   const [subscriptionType, setSubscriptionType] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const [openSettings, setOpenSettings] = useState(false)
 
     // Facebook Pageview hook
     useTrackPageView('Dashboard Page')
+
+    // Storing autoWidthFit to local storge
+    useEffect(() => {
+      localStorage.setItem("autoWidthFit", JSON.stringify(autoWidthFit))
+    }, [autoWidthFit])
+    
 
 
   useEffect(() => {

@@ -1,0 +1,42 @@
+#storedPlaylists-master-cont{
+    font-family: var(--fontFamily1);
+    font-weight: 650;
+
+    flex-direction: column;
+    margin: 0 auto;
+
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.storedPlaylists-content-cont{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    gap: 3px;
+}
+
+.storedPlaylists-content-cont p span{ 
+    text-decoration: underline;
+    color: var(--kindaOrange);
+}
+
+
+/* #storedPlaylists-master-cont::-webkit-scrollbar{ 
+    width: 11px;
+    background-color: var(--backgroundColorHTML);
+    gap: 30px;
+}
+
+#storedPlaylists-master-cont::-webkit-scrollbar-track{
+    background-color: var(--backgroundColorHTML);
+}
+
+#storedPlaylists-master-cont::-webkit-scrollbar-thumb{
+    background-color: var(--kindaOrange);
+    cursor: grab;
+    border-radius: 8px;
+} */

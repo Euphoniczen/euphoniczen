@@ -212,8 +212,16 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
   }
 
   // Stored Playlist function
-  const handleStoringPlaylists = () => { 
-    alert("clicked!")
+  const handleStoringPlaylists = (playlist: any) => { 
+    axios.post('/api/spotify-playlist-data', {
+      spotifyData: playlist
+    }) 
+    .then(function(response) { 
+      console.log(response.data); 
+    })
+    .catch(function(error) {
+      console.error("error storing playlist:", error)
+    })
   }
 
   // Clipbaord Hook --to copy data from description
@@ -249,12 +257,14 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
               <p style={{ fontWeight: '500' }}>
                 Begin by entering specific playlist titles or music genres such as "rap music 2025," "whisper beats for thin walls," "my 2am thoughts but make it chill," or "hip-hop/rap, pop" in the search bar and then press the search button to generate results. Our innovation filtering tool identifies playlists inviting submissions by looking for highlighted cues including "@gmail," "submit," "insta," "submissions," and others, hours faster than manual searching. Each result presents instant contact details about playlist curators, from where you can make an inquiry regarding submission procedures and guidelines. Euphoniczen was designed specifically to maximize the playlist discovery process for independent artists, music producers, musicians, & record labels.
                 <span style={{fontWeight: '600', padding: '0px 3px'}}>We automatically search across multiple pages to find up to 50 playlists accepting submissions.</span>
+                <span style={{display: 'block', padding: '10px 0px', color: 'var(--textColor2)'}}>Current filter regex targets playlists containing keywords related to submissions and contact info, including: <span style={{fontWeight: '600', color: 'var(--darkerPurple)'}}>submit, submission, send, send_your_track, demo, upload, @, email, gmail, contact, message, inbox, instagram, twitter ,facebook, reddit, discord, outlook, yahoo</span></span>
+
                 <span
                   onClick={handleReadDocs}
                   style={{
                     color: 'var(--kindaOrange)',
                     cursor: 'pointer',
-                    marginLeft: '4px',
+                    // marginLeft: '4px',
                     fontWeight: '800'
                   }}
                 >
@@ -402,7 +412,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
                   popularity={popularity}
                   playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
                   imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
-                  storePlaylistButton={handleStoringPlaylists}
+                  storePlaylistButton={() => handleStoringPlaylists(playlist)}
                 />
               );
             })}

@@ -26,6 +26,7 @@ interface PlaylistCardProps {
   cardStylingPassed?: string;
   onClickWord?: (word: string) => void;
   storePlaylistButton?: () => void;
+  showStoreButton?: boolean;
 }
 
 const PlaylistCards = ({
@@ -41,7 +42,8 @@ const PlaylistCards = ({
   cardStylingPassed = '',
   copied = '',
   onClickWord = () => {},
-  storePlaylistButton
+  storePlaylistButton,
+  showStoreButton = true
 
 }: PlaylistCardProps) => {
 
@@ -106,9 +108,11 @@ const PlaylistCards = ({
     <div id="playlistCardsMaster">
       <div className="playlistCard_content">
       {/* This button will store playlist data from playlistSearch */}
-      <div style={{backgroundColor: 'pink', cursor: 'pointer', width: 'fit-content'}}>
-        <p onClick={storePlaylistButton}>click me</p>
-      </div>
+      {showStoreButton && (
+        <div style={{ backgroundColor: 'pink', cursor: 'pointer', width: 'fit-content' }}>
+          <p onClick={storePlaylistButton}>click me</p>
+        </div>
+      )}
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>
           <div className="imageSection_card">
