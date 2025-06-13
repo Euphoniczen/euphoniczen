@@ -10,6 +10,8 @@ import { playlistNames } from './randomPlaylistNames'
 import UndoIcon from '@mui/icons-material/Undo'
 import { useSession } from 'next-auth/react'
 import useClipboard from '@/hooks/useClipboard'
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import AddIcon from '@mui/icons-material/Add';
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -33,12 +35,15 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
     totalScanned: 0,
     searchAttempts: 0
   })
+  const [regexPopup, setRegexPopup] = useState(false);
 
   const {data: session} = useSession();
   const subscriptionStatus = session?.user?.subscriptionType
 
   // Keywords to filter playlists by - moved to top level for better visibility
   const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|message|inbox|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
+
+
 
   useEffect(() => {
     const shuffled = [...playlistNames].sort(() => Math.random() - 0.5).slice(0, 5)
@@ -257,8 +262,8 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
             <div className='readDocs_content' onClick={handleReadDocs}>
               <p style={{ fontWeight: '500' }}>
                 Begin by entering specific playlist titles or music genres such as "rap music 2025," "whisper beats for thin walls," "my 2am thoughts but make it chill," or "hip-hop/rap, pop" in the search bar and then press the search button to generate results. Our innovation filtering tool identifies playlists inviting submissions by looking for highlighted cues including "@gmail," "submit," "insta," "submissions," and others, hours faster than manual searching. Each result presents instant contact details about playlist curators, from where you can make an inquiry regarding submission procedures and guidelines. Euphoniczen was designed specifically to maximize the playlist discovery process for independent artists, music producers, musicians, & record labels.
-                <span style={{fontWeight: '600', padding: '0px 3px'}}>We automatically search across multiple pages to find up to 50 playlists accepting submissions.</span>
-                <span style={{display: 'block', padding: '10px 0px', color: 'var(--textColor2)'}}>Current filter regex targets playlists containing keywords related to submissions and contact info, including: <span style={{fontWeight: '600', color: 'var(--darkerPurple)'}}>submit, submission, send, send_your_track, demo, upload, @, email, gmail, contact, message, inbox, instagram, twitter ,facebook, reddit, discord, outlook, yahoo</span></span>
+                <span style={{fontWeight: '600', padding: '0px 3px'}}>Euphoniczen will automatically search across multiple pages to find up to 50 playlists accepting submissions.</span>
+                <span style={{display: 'block', padding: '10px 0px', color: 'var(--textColor2)'}}>Current regex filter targets playlists containing keywords related to submissions and contact info, including: <span style={{fontWeight: '600', color: 'var(--darkerPurple)'}}>submit, submission, send, send_your_track, demo, upload, @, email, gmail, contact, message, inbox, instagram, twitter ,facebook, reddit, discord, outlook, yahoo.</span> <span style={{fontWeight: '600', color: 'var(--textColor2)'}}>Feel free to add, remove or update the filter settings to your liking.</span> </span>
 
                 <span
                   onClick={handleReadDocs}
@@ -276,6 +281,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
           )}
 
           <div className="search_field_input">
+          <div className='full-input-field'>
             <input
               style={actualInputDynamicStyling}
               type="text"
@@ -292,7 +298,25 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
               >
                 {loading ? 'Searching...' : 'Search'}
               </button>
+              </div>
             </div>
+            {/* Filter Button */}
+            <div>
+              {regexPopup ? ( 
+                <div className='filterPopup-filter-overlay'>
+                <div className='filterPopup-filter'>
+                  <textarea placeholder='filters'></textarea>
+                  <p onClick={() => setRegexPopup(false)} style={{color: 'pink', cursor: 'pointer'}}>close</p>
+                </div>
+                </div>
+              ) : ( 
+                <div className='filter-regex' onClick={() => setRegexPopup(true)}>
+                  <AddIcon style={{width: '20px', height: '20px', color: 'var(--textColor2)'}}/>
+                  <FilterAltIcon style={{width: '20px', height: '20px', color: 'var(--textColor2)'}}/>
+                </div>
+              )}
+            </div>
+            {/*  */}
           </div>
           
           {/* Search Stats */}

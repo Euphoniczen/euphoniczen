@@ -106,7 +106,51 @@
 
 .search_field_input{
     display: flex;
-    /* gap: 15px; */
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-regex{
+    cursor: pointer;
+    background-color: var(--backgroundHTML);
+    border: solid 2px var(--textColor1);
+    border-radius: 5px;
+    padding: 1px;
+
+
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+
+    transition: all 0.4s ease;
+}
+
+.filter-regex:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.filterPopup-filter-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); 
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 2rem; 
+    backdrop-filter: blur(8px); 
+    -webkit-backdrop-filter: blur(8px); /*for safari browser*/
+}
+
+.filterPopup-filter{
+
+}
+
+.full-input-field{
+    display: flex;
 }
 
 .search_field_input button{ 
