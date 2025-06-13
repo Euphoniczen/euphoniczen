@@ -35,6 +35,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
   })
 
   const {data: session} = useSession();
+  const subscriptionStatus = session?.user?.subscriptionType
 
   // Keywords to filter playlists by - moved to top level for better visibility
   const keywordRegex = /submit|submission|send( |-|_)?(your|ur)( |-|_)?track|demo|upload|@|email|gmail|contact|message|inbox|instagram|twitter|facebook|reddit|discord|outlook|yahoo/i
@@ -401,6 +402,7 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
               return (
                 <PlaylistCards
                   key={`${playlist.id}-${index}`}
+                  showStoreButton={subscriptionStatus === "Extra Premium" ? true : subscriptionStatus === "Premium" ? false : undefined}
                   playlistName={playlist?.name || "Unnamed Playlist"}
                   curatorName={playlist.owner?.display_name || "Unknown"}
                   trackCount={tracks || 'N/A'}

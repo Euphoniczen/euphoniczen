@@ -153,7 +153,7 @@ export default function Profile_AND_Setting({
                 )}
                 {/*  */}
                 <div className={profileStyle.moreDataProfile}>
-                    <Tooltip title={subscriptionType === 'Premium' ? "Upgrade to Extra Premium to enable Web-sourced AI insights feature" : ""} disableHoverListener={subscriptionType !== 'Premium'}>
+                    <Tooltip title={subscriptionType === 'Premium' ? "Upgrade to Extra Premium to save & view saved playlists feature" : ""} disableHoverListener={subscriptionType !== 'Premium'}>
                       <div onClick={subscriptionType === 'Extra Premium' ? handleAutoWidthFit : undefined}>
                         <JoinLeftIcon className={subscriptionType === 'Premium' ? profileStyle.disabledColorJoinLeftIcon : subscriptionType === 'Extra Premium' ? profileStyle.moreDataProfile_img : undefined} />
                        </div>
