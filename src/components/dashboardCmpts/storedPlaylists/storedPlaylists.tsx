@@ -61,7 +61,7 @@ export default function StoredPlaylists() {
 
                         return (
                             <PlaylistCards
-                                showStoreButton={false}
+                                // showStoreButton={false}
                                 key={storedPlaylist?.storedSpotifyPayload?.id || index}
                                 playlistName={storedPlaylist?.storedSpotifyPayload?.name || ""}
                                 curatorName={storedPlaylist?.storedSpotifyPayload?.owner?.display_name || ""}
