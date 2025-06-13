@@ -305,8 +305,15 @@ export default function PlaylistSearch({ autoWidth, inputSearchHeading, actualIn
               {regexPopup ? ( 
                 <div className='filterPopup-filter-overlay'>
                 <div className='filterPopup-filter'>
-                  <textarea placeholder='filters'></textarea>
                   <p onClick={() => setRegexPopup(false)} style={{color: 'pink', cursor: 'pointer'}}>close</p>
+                  <h2>Manage Filters</h2>
+                  <div className='filterInput-container'>
+                    <input placeholder='filters'></input>
+                    <button>add</button>
+                  </div>
+                  <div className='all-saved-filters'>
+                    <p>saved filters here</p>
+                  </div>
                 </div>
                 </div>
               ) : ( 

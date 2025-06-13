@@ -146,7 +146,9 @@
 }
 
 .filterPopup-filter{
-
+    background-color: var(--textColor1of1);
+    color: var(--textColor2);
+    padding: 10px 10px;
 }
 
 .full-input-field{
