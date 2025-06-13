@@ -53,7 +53,13 @@ const PlaylistCards = ({
 
   const [fetchSavedPlaylists, setFetchSavedPlaylists] = useState<any[]>([]); 
   const [isDisabled, setIsDisabled] = useState(true)
-  
+  const [showSavedMessage, setShowSavedMessage] = useState(false);
+
+  const handleSaveClick = () => {
+    if (storePlaylistButton) storePlaylistButton();
+    setShowSavedMessage(true);
+  };
+    
 
     useEffect(() => {
       axios
@@ -131,12 +137,16 @@ const PlaylistCards = ({
       {/* This button will store playlist data from playlistSearch */}
       {showStoreButton && (
         <div className='savePlaylistIcon'>
-         {fetchSavedPlaylists.some((plst) => `https://open.spotify.com/playlist/${plst?.storedSpotifyPayload?.id}` === playlistLink) ? (
-          <p style={{backgroundColor: 'var(--kindaOrange)', color: 'var(--textColor1of1)', cursor: 'default'}}>saved!</p>
-        ) : (
-          <p onClick={storePlaylistButton}>save playlist</p>
-        )}
-      </div>
+          {fetchSavedPlaylists.some(
+            (plst) => `https://open.spotify.com/playlist/${plst?.storedSpotifyPayload?.id}` === playlistLink
+          ) || showSavedMessage ? (
+            <p style={{ backgroundColor: 'var(--kindaOrange)', color: 'var(--textColor1of1)', cursor: 'default' }}>
+              playlist saved!
+            </p>
+          ) : (
+            <p onClick={handleSaveClick}>save playlist</p>
+          )}
+        </div>
       )}
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>
