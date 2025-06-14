@@ -484,9 +484,9 @@ export default function PlaylistSearch({
                 </div>
               ) : (
                 <div className="filter-regex" onClick={() => setRegexPopup(true)}>
-                  <AddIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
+                  {/* <AddIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} /> */}
                   <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
-                  <span style={{ fontSize: "12px", color: "var(--textColor2)", marginLeft: "5px" }}>
+                  <span style={{ fontSize: "12px", color: "var(--textColor2)" }}>
                     ({filterReturn.length})
                   </span>
                 </div>

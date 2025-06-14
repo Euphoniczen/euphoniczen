@@ -359,6 +359,25 @@
         display: flex;
         overflow-x: auto;
     }
+
+    /*  */
+    .filterPopup-filter-overlay{
+        position: absolute;
+        padding: 10px;
+    }
+
+    .filterPopup-filter{
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .filterInput-container input{
+        width: 60% !important;
+    }
+
+    .filterInput-container input:focus{
+        width: 60% !important;
+    }
 }
 
 /* Media for screen at 301px to 500px */
@@ -412,6 +431,25 @@
         display: flex;
         overflow-x: auto;
     }
+
+        /*  */
+    .filterPopup-filter-overlay{
+        position: absolute;
+        padding: 10px;
+    }
+
+    .filterPopup-filter{
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .filterInput-container input{
+        width: 60% !important;
+    }
+
+    .filterInput-container input:focus{
+        width: 60% !important;
+    }
 }
 
 /* Media for screen at 501px to 900px */
@@ -464,5 +502,24 @@
     .card_section_mapped_data{
         display: flex;
         overflow-x: auto;
+    }
+
+        /*  */
+    .filterPopup-filter-overlay{
+        position: absolute;
+        padding: 10px;
+    }
+
+    .filterPopup-filter{
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .filterInput-container input{
+        width: 60% !important;
+    }
+
+    .filterInput-container input:focus{
+        width: 80% !important;
     }
 }
