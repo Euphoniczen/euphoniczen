@@ -149,6 +149,49 @@
     background-color: var(--textColor1of1);
     color: var(--textColor2);
     padding: 10px 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 6px;
+
+    width: 600px;
+}
+
+.filterInput-container{
+    margin-top: 13px;
+}
+
+.all-saved-filters{
+    margin-top: 6px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; 
+}
+
+.filterInput-container input{
+    width: 510px !important;
+}
+
+.filterInput-container input:focus{
+    width: 510px !important;
+}
+
+.filterInput-container button{
+    padding: 3px 10px !important;
+}
+
+.each-keyword-regex{
+    display: flex;
+    align-items: center;
+    background: var(--backgroundHTML);
+    width: fit-content;
+    height: fit-content;
+    padding: 3px 5px;
+    border-radius: 6px;
+    border: solid 2px var(--textColor1);
+    gap: 3px;
 }
 
 .full-input-field{
