@@ -50,13 +50,11 @@ export default function PricingPage() {
       return
     }
 
-    // if (userSubscriptionStatus === "active" || "trialing") {
-    //   setModalOpen(true)
-    // } else {
-    //   premiumCheckoutHandler(e)
-    // }
-
-    premiumCheckoutHandler(e)
+    if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
+      setModalOpen(true)
+    } else {
+      premiumCheckoutHandler(e)
+    }
   }
 
   const handleExtraPremiumClick = (e) => {
@@ -66,10 +64,10 @@ export default function PricingPage() {
       return
     }
 
-    if (userSubscriptionStatus === "active" || "trialing") {
+    if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
       setModalOpen(true)
     } else {
-      extraPremiumCheckoutHandler(e)
+        premiumCheckoutHandler(e)
     }
   }
   
