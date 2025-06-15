@@ -35,7 +35,7 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
   const createdAt = userAccountCreated ? new Date(userAccountCreated) : null
   const connectedAccounts = [
     // { name: "Email", connected: false },
-    { name: "Spotify", connected: providerAuth === "spotify" },
+    { name: "Discord", connected: providerAuth === "discord" },
     { name: "Google", connected: providerAuth === "google" },
     { name: "Facebook", connected: providerAuth === "facebook" },
   ]
