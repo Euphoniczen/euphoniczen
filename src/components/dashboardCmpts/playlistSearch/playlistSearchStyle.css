@@ -115,7 +115,7 @@
     background-color: var(--backgroundHTML);
     border: solid 2px var(--textColor1);
     border-radius: 5px;
-    padding: 1px;
+    padding: 1px 3px;
 
 
     display: flex;

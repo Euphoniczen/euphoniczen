@@ -119,38 +119,20 @@ export default function Profile_AND_Setting({
        fetchSubscriptionType(); 
     }, [])
 
-    const isColorChangeAllowed = subscriptionType === 'Extra Premium';
-    const containerClass = isColorChangeAllowed
-    ? profileStyle.someProfileButtons
-    : profileStyle.disableFieldBallColors_container;
-
     return(
         <div id={profileStyle.profileStyleMaster}>
             <div className={profileStyle.profileStyleContent}>
                 <div className={profileStyle.logoProfile}>
                     <Link href="/"><Image className={profileStyle.logoDashboard} src={Logo || "/placeholder.svg"} alt="logo"></Image></Link>
                 </div>
-                {subscriptionType === 'Premium' ? (
-                    <Tooltip title="Upgrade to Extra Premium to unlock background color change feature">
-                        <div className={containerClass}>
-                            <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/>
-                            <div className={profileStyle.ColorBalls_Profile}>
-                                <div onClick={isColorChangeAllowed ? handleGradePurple : undefined} className={profileStyle.ball_1_profile}></div>
-                                <div onClick={isColorChangeAllowed ? handleGradeOrange : undefined} className={profileStyle.ball_2_profile}></div>
-                                <div onClick={isColorChangeAllowed ? handleGradeDefault : undefined} className={profileStyle.ball_3_profile}></div>
-                            </div>
-                        </div>
-                    </Tooltip>
-                ) : (
-                    <div className={containerClass}>
-                        {subscriptionType === "Premium" && <LockOutlinedIcon className={profileStyle.lockIcon} sx={{ fontSize: 36 }}/>}
+                    <div>
                         <div className={profileStyle.ColorBalls_Profile}>
-                            <div onClick={isColorChangeAllowed ? handleGradePurple : undefined} className={profileStyle.ball_1_profile}></div>
-                            <div onClick={isColorChangeAllowed ? handleGradeOrange : undefined} className={profileStyle.ball_2_profile}></div>
-                            <div onClick={isColorChangeAllowed ? handleGradeDefault : undefined} className={profileStyle.ball_3_profile}></div>
+                            <div onClick={handleGradePurple} className={profileStyle.ball_1_profile}></div>
+                            <div onClick={handleGradeOrange} className={profileStyle.ball_2_profile}></div>
+                            <div onClick={handleGradeDefault} className={profileStyle.ball_3_profile}></div>
                         </div>
                     </div>
-                )}
+               
                 {/*  */}
                 <div className={profileStyle.moreDataProfile}>
                     <Tooltip title={subscriptionType === 'Premium' ? "Upgrade to Extra Premium to save & view saved playlists feature" : ""} disableHoverListener={subscriptionType !== 'Premium'}>

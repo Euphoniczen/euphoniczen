@@ -13,6 +13,13 @@ export async function POST(req: NextRequest) {
             data: {
                 email: session?.user?.email,
                 storedSpotifyPayload: spotifyData,
+                spotifyId: spotifyData?.id,
+                name: spotifyData?.name, 
+                description: spotifyData?.description, 
+                followerCount: spotifyData?.followers?.total, 
+                trackCount: spotifyData?.tracks?.total, 
+                curatorName: spotifyData?.owner?.display_name, 
+                imageUrl: spotifyData?.images?.[0]?.url,
                 User: {
                     connect: {
                         id: session?.user?.id ?? ""

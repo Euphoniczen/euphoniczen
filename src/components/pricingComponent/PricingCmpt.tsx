@@ -18,6 +18,7 @@ interface PricingComponentProps {
     inPlan4?: string;
     inPlan5?: string;
     inPlan6?: string;
+    inPlan7?: string;
     hideExtraFeatures?: Boolean;
     pricingBackgroundColor?: string; 
     pricingTextColor?: string;
@@ -44,6 +45,7 @@ export default function Pricing({
     trailText = "trial text", 
     inPlan5 = "",
     inPlan6 = "",
+    inPlan7 = "",
     hideExtraFeatures = true, 
 
 }: PricingComponentProps) { 
@@ -75,7 +77,7 @@ export default function Pricing({
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
                             <p>{inPlan4}</p>
                         </div>
-                        <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
+                        <div className={pricingCmptStyle.featuresIncluded}>
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
                             <p>{inPlan5}</p>
                         </div>
@@ -83,6 +85,10 @@ export default function Pricing({
                         <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
                             <p>{inPlan6}</p>
+                        </div>
+                        <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
+                            <DoneIcon className={pricingCmptStyle.DoneIcon}/>
+                            <p>{inPlan7}</p>
                         </div>
 
 

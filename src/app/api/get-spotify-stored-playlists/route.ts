@@ -14,7 +14,15 @@ export async function GET(req: NextRequest) {
                 }
             },
             select: {
-                storedSpotifyPayload: true, 
+                // storedSpotifyPayload: true, --do not use as database data transfer will be high 
+                spotifyId: true,           
+                name: true,                    
+                description: true,           
+                followerCount: true,           
+                trackCount: true,             
+                curatorName: true,             
+                imageUrl:true              
+
             }, 
             orderBy: {
                 id: "desc"
@@ -23,7 +31,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({
             status: 200, 
-            playlistStored: sptfyPlaylists
+            sptfyPlaylists
         })
 
     } catch(error) {

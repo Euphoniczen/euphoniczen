@@ -65,8 +65,8 @@ const PlaylistCards = ({
       axios
         .get("/api/get-spotify-stored-playlists")
         .then((response) => {
-            console.log("Saved playlists data:", response.data.playlistStored);
-            setFetchSavedPlaylists(response.data.playlistStored);
+            console.log("Saved playlists data:", response.data.sptfyPlaylists);
+            setFetchSavedPlaylists(response.data.sptfyPlaylists);
         })
         .catch((error) => {
           console.error("There was an error", error);
@@ -138,7 +138,7 @@ const PlaylistCards = ({
       {showStoreButton && (
         <div className='savePlaylistIcon'>
           {fetchSavedPlaylists.some(
-            (plst) => `https://open.spotify.com/playlist/${plst?.storedSpotifyPayload?.id}` === playlistLink
+            (plst) => `https://open.spotify.com/playlist/${plst?.spotifyId}` === playlistLink
           ) || showSavedMessage ? (
             <p style={{ backgroundColor: 'var(--kindaOrange)', color: 'var(--textColor1of1)', cursor: 'default' }}>
               playlist saved!

@@ -107,7 +107,7 @@ export default function PricingPage() {
           inPlan2="Get up to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          inPlan5=""
+          inPlan5="Customizable background color options"
           hideThisFeature={true}
           trailText={`14 days free then ${isYearly ? "$30.00" : "$3"} after (for new users only)`}
         />
@@ -125,8 +125,9 @@ export default function PricingPage() {
           inPlan2="Get up to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Prioritized Support"
-          inPlan5="Background color change feature unlocked"
+          inPlan5="Customizable background color options"
           inPlan6="Save playlists for revisitation"
+          inPlan7="Advanced Playlist Filtering with Keyword Management"
           hideExtraFeatures={false}
           trailText={`14 days free then ${isYearly ? "$50.00" : "$5"} after (for new users only)`}
         />

@@ -107,10 +107,18 @@ model SubscriptionData {
 
 model StoredPlaylists { 
   id                     String   @id @default(cuid())
-  email                  String?   
+  email                  String? 
+
+  spotifyId              String?
+  name                   String?
+  description            String?
+  followerCount          Int?     @default(0)
+  trackCount             Int?     @default(0)
+  curatorName            String?
+  imageUrl               String?
+
   storedSpotifyPayload   Json?
   userId                 String
-
   User User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

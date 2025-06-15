@@ -26,7 +26,7 @@ export default function StoredPlaylists() {
         axios
             .get("/api/get-spotify-stored-playlists")
             .then((response) => {
-                setStoredPlaylistData(response.data.playlistStored);
+                setStoredPlaylistData(response.data.sptfyPlaylists);
             })
             .catch((error) => {
                 console.error("There was an error", error);
@@ -50,8 +50,8 @@ export default function StoredPlaylists() {
                 ) : (
                     storedPlaylistData.map((storedPlaylist: any, index: number) => {
                         // Calculating engagement ratio
-                        const followers = storedPlaylist?.storedSpotifyPayload?.followers?.total || 0;
-                        const tracks = storedPlaylist?.storedSpotifyPayload?.tracks?.total || 0;
+                        const followers = storedPlaylist?.followerCount || 0;
+                        const tracks = storedPlaylist?.trackCount || 0;
                         const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : 'N/A';
 
                         // Calculating popularity score
@@ -62,18 +62,18 @@ export default function StoredPlaylists() {
                         return (
                             <PlaylistCards
                                 // showStoreButton={false}
-                                key={storedPlaylist?.storedSpotifyPayload?.id || index}
-                                playlistName={storedPlaylist?.storedSpotifyPayload?.name || ""}
-                                curatorName={storedPlaylist?.storedSpotifyPayload?.owner?.display_name || ""}
+                                key={storedPlaylist?.spotifyId || index}
+                                playlistName={storedPlaylist?.name || ""}
+                                curatorName={storedPlaylist?.curatorName || ""}
                                 trackCount={tracks}
                                 followers={followers}
-                                description={storedPlaylist?.storedSpotifyPayload?.description || ""}
-                                onClickWord={(word) => handleWordClick(word, storedPlaylist?.storedSpotifyPayload.id)}
-                                copied={isCopied(storedPlaylist?.storedSpotifyPayload?.id).toString()}
+                                description={storedPlaylist?.description|| ""}
+                                onClickWord={(word) => handleWordClick(word, storedPlaylist?.spotifyId)}
+                                copied={isCopied(storedPlaylist?.spotifyId).toString()}
                                 engagementRatio={parseFloat(engagementRatio)}
                                 popularity={popularity}
-                                playlistLink={`https://open.spotify.com/playlist/${storedPlaylist?.storedSpotifyPayload?.id}`}
-                                imageUrl={storedPlaylist?.storedSpotifyPayload?.images?.[0]?.url || "/placeholder-image.jpg"}
+                                playlistLink={`https://open.spotify.com/playlist/${storedPlaylist?.spotifyId}`}
+                                imageUrl={storedPlaylist?.imageUrl || "/placeholder-image.jpg"}
                             />
                         );
                     })

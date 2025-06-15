@@ -11,6 +11,7 @@ import useClipboard from "@/hooks/useClipboard"
 import FilterAltIcon from "@mui/icons-material/FilterAlt"
 import AddIcon from "@mui/icons-material/Add"
 import CloseIcon from "@mui/icons-material/Close"
+import { Tooltip } from "@mui/material"
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -366,6 +367,7 @@ export default function PlaylistSearch({
               </div>
             </div>
             {/* Filter Button */}
+            {subscriptionStatus === 'Extra Premium' ? ( 
             <div>
               {regexPopup ? (
                 <div className="filterPopup-filter-overlay">
@@ -486,12 +488,28 @@ export default function PlaylistSearch({
                 <div className="filter-regex" onClick={() => setRegexPopup(true)}>
                   {/* <AddIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} /> */}
                   <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
-                  <span style={{ fontSize: "12px", color: "var(--textColor2)" }}>
+                  <span style={{ fontSize: "12px", color: "var(--textColor2)", fontWeight: '600' }}>
                     ({filterReturn.length})
                   </span>
                 </div>
               )}
             </div>
+            ) : ( 
+              <div>
+                <Tooltip 
+                  title="Upgrade to Extra Premium to customize keywords" 
+                >
+                <div className="filter-regex" style={{backgroundColor: 'var(--kindaDark)'}}>
+                  <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
+                  <span style={{ fontSize: "12px", color: "var(--textColor2)", fontWeight: '600' }}>
+                    (n/a)
+                  </span>
+                </div>
+
+                </Tooltip>
+              </div>
+            )}
+            {/*  */}
           </div>
 
           {/* Search Stats */}
