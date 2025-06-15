@@ -50,11 +50,13 @@ export default function PricingPage() {
       return
     }
 
-    if (userSubscriptionStatus === "active" || "trialing") {
-      setModalOpen(true)
-    } else {
-      premiumCheckoutHandler(e)
-    }
+    // if (userSubscriptionStatus === "active" || "trialing") {
+    //   setModalOpen(true)
+    // } else {
+    //   premiumCheckoutHandler(e)
+    // }
+
+    premiumCheckoutHandler(e)
   }
 
   const handleExtraPremiumClick = (e) => {
@@ -70,6 +72,7 @@ export default function PricingPage() {
       extraPremiumCheckoutHandler(e)
     }
   }
+  
   return (
     <div id={pricingPageStyle.pricingPageContMain}>
       <div className={pricingPageStyle.firstsectionPricing}>
