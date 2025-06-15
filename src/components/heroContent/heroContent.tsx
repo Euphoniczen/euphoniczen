@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
 // import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
 import EuphoniczenAppVideo from "@/public/videos/euphoniczen hero vid --mp4 version.mp4"
+import DashboardPhoto from "@/public/images/Dashboard Photo.png"
 
 export default function Hero() { 
 
@@ -74,8 +75,8 @@ export default function Hero() {
             
             </div>
             <div style={{transform: growHeroImage, marginTop: marginDown, transition: 'all 0.3s ease'}} className={heroContentStyle.bigImageSectionOneHero}>
-              {/* <Image src={EuphoniczenAppVideo} width={999} height={999} alt="hero-image"></Image> */}
-            <video 
+              <Image src={DashboardPhoto} width={999} height={999} alt="hero-image"></Image>
+            {/* <video 
               // width="100%" --not needed as I already set the width and height in css
               // height="auto" --not needed as I already set the width and height in css
               controls={false} 
@@ -86,7 +87,7 @@ export default function Hero() {
             >
               <source src="/videos/euphoniczen hero vid --mp4 version.mp4" type="video/mp4" />
                Your browser does not support the video tag.
-            </video>
+            </video> */}
             </div>
         </div>
 
