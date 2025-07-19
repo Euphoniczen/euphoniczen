@@ -107,7 +107,7 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <div className="contact-info-grid">
+          {/* <div className="contact-info-grid">
             <div className="contact-method secondary">
               <div className="method-icon">
                 <Clock size={25} />
@@ -117,7 +117,7 @@ export default function ContactSection() {
                 <p>Mon-Fri: 9AM - 5PM EST</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Newsletter Signup */}
