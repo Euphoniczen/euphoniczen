@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "npx prisma db push && prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,10 +13,11 @@
     "@auth/prisma-adapter": "^2.8.0",
     "@base-ui-components/react": "^1.0.0-alpha.8",
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^6.4.11",
-    "@mui/material": "^6.4.8",
+    "@mui/material": "^6.5.0",
     "@mui/styled-engine-sc": "^6.4.6",
+    "@mui/x-date-pickers": "^8.10.2",
     "@paddle/paddle-js": "^1.4.0",
     "@paddle/paddle-node-sdk": "^2.7.0",
     "@paypal/paypal-server-sdk": "^1.0.0",

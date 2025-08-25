@@ -12,6 +12,8 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt"
 import AddIcon from "@mui/icons-material/Add"
 import CloseIcon from "@mui/icons-material/Close"
 import { Tooltip } from "@mui/material"
+import Pagination from '@mui/material/Pagination';
+import { PlaylistCalendar } from "../playlistCalendar/playlistCalendar"
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -42,6 +44,7 @@ export default function PlaylistSearch({
   })
   const [regexPopup, setRegexPopup] = useState(false)
   const [filterInput, setFilterInput] = useState<string>("")
+  const [date, setDate] = useState<string>("");
 
   // Predefined keywords that users can manage
   const predefinedKeywords = [
@@ -468,6 +471,8 @@ export default function PlaylistSearch({
                         >
                           No keywords selected. Add keywords above or reset to default.
                         </p>
+
+                        // 
                       ) : (
                         filterReturn.map((fR, index) => (
                           <div key={index} className="each-keyword-regex">
@@ -482,6 +487,25 @@ export default function PlaylistSearch({
                         ))
                       )}
                     </div>
+
+                    {/* Fetch playlists based on when it updates */}
+                    {/* <div className="playlistCalendar_master_cont_in_palylistSearch"
+                      style={{
+                        marginTop: '6%',
+                      }}
+                    >
+                    <div
+                      style={{}}
+                    >
+                      <h2 style={{textDecoration: 'underline'}}>Manage Playlist Activity</h2>
+                      <p style={{marginTop: '5px'}}>Select a date range based on when tracks were last added to find active or inactive playlists.</p>
+                        <PlaylistCalendar
+                          date={date}
+                          setDate={setDate}
+                        />
+                      </div>
+                    </div> */}
+                  {/* //// */}
                   </div>
                 </div>
               ) : (
