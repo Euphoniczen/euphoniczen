@@ -7,21 +7,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./playlistcalendar.css";
 
 interface Calendar_Interface {
-    date: string
-    setDate:React.Dispatch<React.SetStateAction<string>>
+    date: string;
+    setDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const PlaylistCalendar = ({
-    date, 
-    setDate
-}:Calendar_Interface) => {
+export const PlaylistCalendar = ({ date, setDate }: Calendar_Interface) => {
     const customTheme = createTheme({
         palette: {
             primary: {
                 main: "#d27272",
-                contrastText: "#fff"
-            }
-        }
+                contrastText: "#fff",
+            },
+        },
     });
 
     const timeRanges = [
@@ -35,8 +32,14 @@ export const PlaylistCalendar = ({
         "Last Year",
     ];
 
-    const [currentPage, setCurrentPage] = useState(2);
-    // const [date, setDate] = useState<string>("");
+    // Load saved page OR default to 2
+    const [currentPage, setCurrentPage] = useState<number>(() => {
+        if (typeof window !== "undefined") {
+            const savedPage = localStorage.getItem("playlist_calendar_page");
+            return savedPage ? JSON.parse(savedPage) : 2;
+        }
+        return 2;
+    });
 
     // Function to calculate date based on selected range
     function handleChangeDateFunction(range: string) {
@@ -73,17 +76,37 @@ export const PlaylistCalendar = ({
         }
 
         setDate(newDate.toDateString());
+
+        // Save date in localStorage
+        if (typeof window !== "undefined") {
+            localStorage.setItem("playlist_calendar_date", newDate.toDateString());
+        }
     }
 
+    // Handle page changes
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         setCurrentPage(value);
+
+        // Save page in localStorage
+        if (typeof window !== "undefined") {
+            localStorage.setItem("playlist_calendar_page", JSON.stringify(value));
+        }
+
         const selectedRange = timeRanges[value - 1];
         handleChangeDateFunction(selectedRange);
     };
 
-    // Set initial date on first render
+    // On first render, load saved values
     useEffect(() => {
-        handleChangeDateFunction(timeRanges[currentPage - 1]);
+        if (typeof window !== "undefined") {
+            const savedDate = localStorage.getItem("playlist_calendar_date");
+
+            if (savedDate) {
+                setDate(savedDate);
+            } else {
+                handleChangeDateFunction(timeRanges[currentPage - 1]);
+            }
+        }
     }, []);
 
     return (
@@ -113,11 +136,13 @@ export const PlaylistCalendar = ({
                 </div>
 
                 {/* Date display */}
-                <p style={{
-                    fontWeight: 'bold',
-                    marginTop: '10px',
-                    paddingLeft: '10px'
-                }}>
+                <p
+                    style={{
+                        fontWeight: "bold",
+                        marginTop: "10px",
+                        paddingLeft: "10px",
+                    }}
+                >
                     Date: {date}
                 </p>
             </div>

@@ -122,33 +122,93 @@ export default function PlaylistSearch({
     return false
   }
 
-  const fetchPlaylistDetails = async (playlist: any, accessToken: string) => {
-    if (!playlist?.id) return null
+  // const fetchPlaylistDetails = async (playlist: any, accessToken: string, selectedDate?: string) => {
+  //   if (!playlist?.id) return null
 
-    try {
-      const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+  //   try {
+  //     const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
+  //       headers: { Authorization: `Bearer ${accessToken}` },
+  //     })
 
-      const detail = response.data
-      const dynamicRegex = createDynamicRegex()
+  //     const detail = response.data
+  //     const dynamicRegex = createDynamicRegex()
 
-      if (
-        detail?.description &&
-        dynamicRegex &&
-        dynamicRegex.test(detail.description) &&
-        detail?.images?.length > 0 &&
-        detail?.owner?.display_name
-      ) {
-        return detail
-      }
+      
 
-      return null
-    } catch (error) {
-      console.error(`Error fetching playlist ${playlist.id}:`, error)
-      return null
+  //     if (
+  //       detail?.description &&
+  //       dynamicRegex &&
+  //       dynamicRegex.test(detail.description) &&
+  //       detail?.images?.length > 0 &&
+  //       detail?.owner?.display_name
+
+        
+  //     ) {
+  //       return detail
+  //     }
+      
+  //     return null
+
+
+  //   } catch (error) {
+  //     console.error(`Error fetching playlist ${playlist.id}:`, error)
+  //     return null
+  //   }
+  // }
+
+  const fetchPlaylistDetails = async (playlist: any, accessToken: string, selectedDate?: string) => {
+  if (!playlist?.id) return null;
+
+  try {
+    const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    const detail = response.data;
+    const dynamicRegex = createDynamicRegex();
+
+    // If no description match, skip early
+    if (
+      !detail?.description ||
+      !dynamicRegex ||
+      !dynamicRegex.test(detail.description) ||
+      !detail?.images?.length ||
+      !detail?.owner?.display_name
+    ) {
+      return null;
     }
+
+    // Fetch latest added_at
+    const tracksResponse = await axios.get(
+      `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?fields=items(added_at)&limit=1`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+
+    const latestAddedAt = tracksResponse.data?.items?.[0]?.added_at || null;
+
+    // If user selected a date, filter out old playlists
+    if (selectedDate && latestAddedAt) {
+      const latestDate = new Date(latestAddedAt);
+      const selected = new Date(selectedDate);
+
+      if (latestDate < selected) {
+        // Skip playlists that haven’t been updated since selected date
+        return null;
+      }
+    }
+
+    return {
+      ...detail,
+      latestAddedAt,
+    };
+  } catch (error) {
+    console.error(`Error fetching playlist ${playlist.id}:`, error);
+    return null;
   }
+};
+
 
   const getPlaylist = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -235,7 +295,7 @@ export default function PlaylistSearch({
         ) {
           const batch = playlistsNeedingDetails.slice(i, i + batchSize)
 
-          const batchPromises = batch.map((playlist: { id: string }) => fetchPlaylistDetails(playlist, access_token))
+          const batchPromises = batch.map((playlist: { id: string }) => fetchPlaylistDetails(playlist, access_token, date))
           const batchResults = await Promise.all(batchPromises)
 
           const validResults = batchResults.filter(Boolean)
@@ -489,7 +549,7 @@ export default function PlaylistSearch({
                     </div>
 
                     {/* Fetch playlists based on when it updates */}
-                    {/* <div className="playlistCalendar_master_cont_in_palylistSearch"
+                    <div className="playlistCalendar_master_cont_in_palylistSearch"
                       style={{
                         marginTop: '6%',
                       }}
@@ -504,7 +564,7 @@ export default function PlaylistSearch({
                           setDate={setDate}
                         />
                       </div>
-                    </div> */}
+                    </div>
                   {/* //// */}
                   </div>
                 </div>
@@ -661,6 +721,7 @@ export default function PlaylistSearch({
                   playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
                   imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
                   storePlaylistButton={() => handleStoringPlaylists(playlist)}
+                  lastUpdated={playlist.latestAddedAt}
                 />
               )
             })}

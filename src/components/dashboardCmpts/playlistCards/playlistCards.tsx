@@ -30,6 +30,7 @@ interface PlaylistCardProps {
   onClickWord?: (word: string) => void;
   storePlaylistButton?: () => void;
   showStoreButton?: boolean;
+  lastUpdated?: any;
 }
 
 const PlaylistCards = ({
@@ -47,6 +48,7 @@ const PlaylistCards = ({
   onClickWord = () => {},
   storePlaylistButton,
   showStoreButton = true,
+  lastUpdated
 
 }: PlaylistCardProps) => {
   
@@ -212,6 +214,25 @@ const PlaylistCards = ({
                   <p>Visit Playlist</p>
                 </div>
               </Link>
+
+              {/* Added at date test */}
+              <h3
+                style={{
+                  fontStyle: 'italic', 
+                  fontSize: '15px', 
+                  marginTop: '10px', 
+                  color: 'var(--textColor2)'
+                }}
+              >
+                Last Updated:{" "}
+                {lastUpdated
+                  ? new Date(lastUpdated).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  : "Unknown"}
+              </h3>
             </div>
           </div>
         </div>
