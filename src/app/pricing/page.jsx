@@ -46,6 +46,7 @@ export default function PricingPage() {
       router.push("/signup")
       return
     }
+    freeCheckoutHandler(e)
 
     // if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
     //   setModalOpen(true)
