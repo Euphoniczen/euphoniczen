@@ -128,7 +128,7 @@ export default function PricingPage() {
           inPlan6="Save playlists for revisitation"
           inPlan7="Advanced Playlist Filtering with Keyword Management"
           hideExtraFeatures={false}
-          inPlan8="Advanced Playlist Calnedar Control"
+          inPlan8="Advanced Playlist Calendar Control"
         />
       </div>
 
