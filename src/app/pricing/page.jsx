@@ -15,7 +15,7 @@ import useTrackPageView from "@/hooks/useTrackPageView"
 
 export default function PricingPage() {
   const [isYearly, setIsYearly] = useState(false)
-  const [isModalOpen, setModalOpen] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false) 
   const customerId = paddleCustomerId(); 
 
   const router = useRouter()
@@ -27,20 +27,31 @@ export default function PricingPage() {
 
   const userSubscriptionStatus = userSubscriptionData()
 
-  const premiumCheckoutHandler = paddlePricing({
-    priceId: isYearly
-      ? customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY_TRIAL
-      : customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY_TRIAL,
+  const freeCheckoutHandler = paddlePricing({
+    priceId: process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_FREE_FOREVER
   })
 
-  const extraPremiumCheckoutHandler = paddlePricing({
+  const premiumCheckoutHandler = paddlePricing({
     priceId: isYearly
-      ? customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_YEARLY_TRIAL
-      : customerId ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_EXTRA_Premium_MONTHLY_TRIAL,
+      ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_YEARLY : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_Premium_MONTHLY
   })
 
   const toggleSwitch = () => {
     setIsYearly(!isYearly)
+  }
+
+  const handleFreeClick = (e) => {
+    e.preventDefault()
+    if (!session) {
+      router.push("/signup")
+      return
+    }
+
+    // if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
+    //   setModalOpen(true)
+    // } else {
+    //   freeCheckoutHandler(e)
+    // }
   }
 
   const handlePremiumClick = (e) => {
@@ -53,21 +64,7 @@ export default function PricingPage() {
     if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
       setModalOpen(true)
     } else {
-      premiumCheckoutHandler(e)
-    }
-  }
-
-  const handleExtraPremiumClick = (e) => {
-    e.preventDefault()
-    if (!session) {
-      router.push("/signup")
-      return
-    }
-
-    if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
-      setModalOpen(true)
-    } else {
-        extraPremiumCheckoutHandler(e)
+        premiumCheckoutHandler(e)
     }
   }
   
@@ -98,30 +95,30 @@ export default function PricingPage() {
           pricingBackgroundColor="var(--darkerPurple)"
           pricingTextColor="var(--textColor1of1)"
           buttonBackgroundColorPricing="var(--darkerPurple)"
-          buttonOnClickPricing={handlePremiumClick}
-          buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 30 : 3}
-          monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
-          planName=" Premium"
-          pricingDescription="Upgrade to premium to access all features in the premium package."
+          buttonOnClickPricing={handleFreeClick}
+          buttonTextSubscribe={"Signup"}
+          price={"Free"}
+          monthOrYear={"forever"}
+          planName=" Free"
+          pricingDescription="Start free and discover the core features available."
           inPlan1="Search up to 500 playlists per query"
           inPlan2="Get up to 50 playlist results"
           inPlan3="Randomized Query"
-          inPlan4="Prioritized Support"
+          inPlan4="Support"
           inPlan5="Customizable background color options"
           hideThisFeature={true}
-          trailText={`14 days free then ${isYearly ? "$30.00" : "$3"} after (for new users only)`}
+          // trailText={`14 days free then ${isYearly ? "$30.00" : "$3"} after (for new users only)`}
         />
         <Pricing
           pricingBackgroundColor="var(--textColor2)"
           pricingTextColor="var(--textColor1of1)"
           buttonBackgroundColorPricing="var(--kindaDark)"
-          buttonOnClickPricing={handleExtraPremiumClick}
+          buttonOnClickPricing={handlePremiumClick}
           buttonTextSubscribe={"Subscribe"}
-          price={isYearly ? 50 : 5}
+          price={`$${isYearly ? 50 : 5}`}          
           monthOrYear={isYearly ? "Yearly󠁯 •󠁏󠁏 15% off" : "Monthly"}
-          planName="Extra Premium"
-          pricingDescription="Upgrade to extra premium to access all features and enjoy prioritized support."
+          planName="Premium"
+          pricingDescription="Upgrade to premium to access all features and enjoy prioritized support."
           inPlan1="Search up to 1000 playlists per query"
           inPlan2="Get up to 50 playlist results"
           inPlan3="Randomized Query"
@@ -130,7 +127,7 @@ export default function PricingPage() {
           inPlan6="Save playlists for revisitation"
           inPlan7="Advanced Playlist Filtering with Keyword Management"
           hideExtraFeatures={false}
-          trailText={`14 days free then ${isYearly ? "$50.00" : "$5"} after (for new users only)`}
+          inPlan8="Advanced Playlist Calnedar Control"
         />
       </div>
 

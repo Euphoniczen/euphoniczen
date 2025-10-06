@@ -24,7 +24,7 @@ interface PricingComponentProps {
     pricingTextColor?: string;
     buttonTextSubscribe?: string; 
     buttonBackgroundColorPricing?: string;
-    trailText: string; 
+    inPlan8?: string; 
     buttonOnClickPricing?: () => void;
 }
 
@@ -42,7 +42,7 @@ export default function Pricing({
     buttonTextSubscribe = 'Subscribe', 
     buttonBackgroundColorPricing = "var(--kindaOrange)", 
     buttonOnClickPricing = () => alert("Pricing Button"),
-    trailText = "trial text", 
+    inPlan8 = "trial text", 
     inPlan5 = "",
     inPlan6 = "",
     inPlan7 = "",
@@ -55,7 +55,7 @@ export default function Pricing({
             <div style={{backgroundColor: pricingBackgroundColor, color: pricingTextColor}} className={pricingCmptStyle.pricingCmptContent}>
                 <div className={pricingCmptStyle.tier_1}>
                 <div className={pricingCmptStyle.pricingFee}>
-                        <h1 className={pricingCmptStyle.price}>${price}</h1> 
+                        <h1 className={pricingCmptStyle.price}>{price}</h1> 
                         <span className={pricingCmptStyle.monthOrYear}>/{monthOrYear}</span>
                     </div>
                     <h3 className={pricingCmptStyle.planName}>{planName}</h3>
@@ -92,9 +92,9 @@ export default function Pricing({
                         </div>
 
 
-                        <div className={pricingCmptStyle.featuresIncluded}>
+                        <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
-                            <p className={pricingCmptStyle.inPlan2}>{trailText}</p>
+                            <p className={pricingCmptStyle.inPlan2}>{inPlan8}</p>
                         </div>
 
                         <Buttons 
