@@ -223,7 +223,7 @@ export default function PlaylistSearch({
     let totalProcessed = 0
     let searchAttempts = 0
     const maxSearchAttempts =
-      session?.user?.subscriptionType === "Extra Premium" ? 20 : session?.user?.subscriptionType === "Premium" ? 10 : 0
+      session?.user?.subscriptionType === "Premium" ? 20 : session?.user?.subscriptionType === "Free" ? 4 : 0
 
     setSearchStats({
       searched: 0,
@@ -430,7 +430,7 @@ export default function PlaylistSearch({
               </div>
             </div>
             {/* Filter Button */}
-            {subscriptionStatus === 'Extra Premium' ? ( 
+            {subscriptionStatus === 'Premium' ? ( 
             <div>
               {regexPopup ? (
                 <div className="filterPopup-filter-overlay">
@@ -581,7 +581,7 @@ export default function PlaylistSearch({
             ) : ( 
               <div>
                 <Tooltip 
-                  title="Upgrade to Extra Premium to customize keywords" 
+                  title="Upgrade to Premium to customize keywords & Playlist Calendar" 
                 >
                 <div className="filter-regex" style={{backgroundColor: 'var(--kindaDark)'}}>
                   <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
@@ -707,7 +707,7 @@ export default function PlaylistSearch({
                 <PlaylistCards
                   key={`${playlist.id}-${index}`}
                   showStoreButton={
-                    subscriptionStatus === "Extra Premium" ? true : subscriptionStatus === "Premium" ? false : undefined
+                    subscriptionStatus === "Premium" ? true : subscriptionStatus === "Free" ? false : undefined
                   }
                   playlistName={playlist?.name || "Unnamed Playlist"}
                   curatorName={playlist.owner?.display_name || "Unknown"}

@@ -102,7 +102,7 @@ export default function PricingPage() {
           monthOrYear={"forever"}
           planName=" Free"
           pricingDescription="Start free and discover the core features available."
-          inPlan1="Search up to 500 playlists per query"
+          inPlan1="Search up to 200 playlists per query"
           inPlan2="Get up to 50 playlist results"
           inPlan3="Randomized Query"
           inPlan4="Support"
