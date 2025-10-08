@@ -135,9 +135,9 @@ export default function Profile_AND_Setting({
                
                 {/*  */}
                 <div className={profileStyle.moreDataProfile}>
-                    <Tooltip title={subscriptionType === 'Free' ? "Upgrade to Premium to save & view saved playlists feature" : ""} disableHoverListener={subscriptionType !== 'Free'}>
+                    <Tooltip title={subscriptionType === 'Free' || !subscriptionType ? "Upgrade to Premium to save & view saved playlists feature" : ""}>
                       <div onClick={subscriptionType === 'Premium' ? handleAutoWidthFit : undefined}>
-                        <JoinLeftIcon className={subscriptionType === 'Free' ? profileStyle.disabledColorJoinLeftIcon : subscriptionType === 'Premium' ? profileStyle.moreDataProfile_img : undefined} />
+                        <JoinLeftIcon className={subscriptionType === 'Free' || !subscriptionType ? profileStyle.disabledColorJoinLeftIcon : subscriptionType === 'Premium' ? profileStyle.moreDataProfile_img : undefined} />
                        </div>
                     </Tooltip>
                     <Link href='/contact' target="__blank"><SupportAgentIcon className={profileStyle.moreDataProfile_img}/></Link>

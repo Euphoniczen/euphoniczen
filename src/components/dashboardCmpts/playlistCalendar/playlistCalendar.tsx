@@ -36,9 +36,9 @@ export const PlaylistCalendar = ({ date, setDate }: Calendar_Interface) => {
     const [currentPage, setCurrentPage] = useState<number>(() => {
         if (typeof window !== "undefined") {
             const savedPage = localStorage.getItem("playlist_calendar_page");
-            return savedPage ? JSON.parse(savedPage) : 2;
+            return savedPage ? JSON.parse(savedPage) : 8;
         }
-        return 2;
+        return 8;
     });
 
     // Function to calculate date based on selected range

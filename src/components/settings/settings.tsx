@@ -7,7 +7,9 @@ import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import axios from "axios"
 import PopupSubscription from "../popup-subscription/Popup"
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
+import Modal from "../dialog_modal/modal"
+
 
 
 interface OpenSettings {
@@ -26,6 +28,7 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
   const [customerLoading, setCustomerLoading] = useState(false)
   const [error, setError] = useState("")
   const [customerId, setCustomerId] = useState("")
+  const [isModalOpen, setModalOpen] = useState(false)
 
   const userAccountCreated = session?.user?.createdAt
   const providerAuth = session?.user?.provider
@@ -42,6 +45,10 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
 
   const handleLogout = () => {
     signOut({ callbackUrl: "/" })
+  }
+
+  const handleModalOpen = () => {
+    setModalOpen(!isModalOpen)
   }
 
   // User Subscription Portal
@@ -165,7 +172,7 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
 
             {error && <p className="error-message">{error}</p>}
 
-            <button className="cancel-subscription-button" onClick={handlePaddlePortalOpen} disabled={isLoading}>
+            <button className="cancel-subscription-button" onClick={handleModalOpen} disabled={isLoading}>
               {isLoading ? (<div style={{display: 'flex',
                                          alignItems: 'center',
                                          gap: '7px',
@@ -186,6 +193,18 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
       </div>
 
       {showCancelPopup && <PopupSubscription />}
+
+      {/* Modal that pops up  based on logic stord in button */}
+      {isModalOpen && (
+        <Modal
+          isModalOpen={isModalOpen}
+          setModalOpen={setModalOpen}
+
+          modalTitle="You have no active subscription!"
+          modalContent=""
+        />
+      )}
+      
     </div>
   )
 }

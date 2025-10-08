@@ -14,6 +14,7 @@ import he from 'he';
 import { Dispatch, SetStateAction, useRef } from 'react';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
+import { useSession } from "next-auth/react"
 
 interface PlaylistCardProps {
   imageUrl?: string;
@@ -56,6 +57,7 @@ const PlaylistCards = ({
   const [fetchSavedPlaylists, setFetchSavedPlaylists] = useState<any[]>([]); 
   const [isDisabled, setIsDisabled] = useState(true)
   const [showSavedMessage, setShowSavedMessage] = useState(false);
+  const { data: session } = useSession()
 
   const handleSaveClick = () => {
     if (storePlaylistButton) storePlaylistButton();
@@ -221,7 +223,10 @@ const PlaylistCards = ({
                   fontStyle: 'italic', 
                   fontSize: '15px', 
                   marginTop: '10px', 
-                  color: 'var(--textColor2)'
+                  color: 'var(--textColor2)',
+                  display: session?.user?.subscriptionType === "Premium" ? "" :
+                    session?.user?.subscriptionType === "Free" || 
+                    !session?.user?.subscriptionType ? "none" : "none"
                 }}
               >
                 Last Updated:{" "}

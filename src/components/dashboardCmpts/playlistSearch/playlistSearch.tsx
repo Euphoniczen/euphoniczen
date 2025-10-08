@@ -223,7 +223,7 @@ export default function PlaylistSearch({
     let totalProcessed = 0
     let searchAttempts = 0
     const maxSearchAttempts =
-      session?.user?.subscriptionType === "Premium" ? 20 : session?.user?.subscriptionType === "Free" ? 4 : 0
+      session?.user?.subscriptionType === "Premium" ? 20 : session?.user?.subscriptionType === "Free" || !session?.user?.subscriptionType ? 4 : 0
 
     setSearchStats({
       searched: 0,
@@ -707,7 +707,7 @@ export default function PlaylistSearch({
                 <PlaylistCards
                   key={`${playlist.id}-${index}`}
                   showStoreButton={
-                    subscriptionStatus === "Premium" ? true : subscriptionStatus === "Free" ? false : undefined
+                    subscriptionStatus === "Premium" ? true : subscriptionStatus === "Free" || !subscriptionStatus ? false : undefined
                   }
                   playlistName={playlist?.name || "Unnamed Playlist"}
                   curatorName={playlist.owner?.display_name || "Unknown"}
@@ -721,7 +721,7 @@ export default function PlaylistSearch({
                   playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
                   imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
                   storePlaylistButton={() => handleStoringPlaylists(playlist)}
-                  lastUpdated={playlist.latestAddedAt}
+                  lastUpdated={subscriptionStatus === "Premium" ? playlist.latestAddedAt : subscriptionStatus !== "Premium" || !subscriptionStatus ? null : {}}
                 />
               )
             })}

@@ -87,12 +87,13 @@ export default function Dashboard() {
     return <Loading />
   }
 
-  if (
-    status === "authenticated" &&
-    (subscriptionStatus === "canceled" || subscriptionStatus === "" || subscriptionType === "")
-  ) {
-    return <PricingPage />
-  }
+  /////this code is n longer in use due to the redevelopment of the pricing structure
+  // if (
+  //   status === "authenticated" &&
+  //   (subscriptionStatus === "canceled" || subscriptionStatus === "" || subscriptionType === "")
+  // ) {
+  //   return <PricingPage />
+  // }
 
   if (status === "unauthenticated") {
     router.push("/login")

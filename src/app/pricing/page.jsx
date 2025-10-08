@@ -27,9 +27,9 @@ export default function PricingPage() {
 
   const userSubscriptionStatus = userSubscriptionData()
 
-  const freeCheckoutHandler = paddlePricing({
-    priceId: process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_FREE_FOREVER
-  })
+  // const freeCheckoutHandler = paddlePricing({
+  //   priceId: process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_FREE_FOREVER
+  // })
 
   const premiumCheckoutHandler = paddlePricing({
     priceId: isYearly
@@ -45,8 +45,10 @@ export default function PricingPage() {
     if (!session) {
       router.push("/signup")
       return
+    } else {
+      router.push(`/dashboard/user/${session.user?.name}`)
     }
-    freeCheckoutHandler(e)
+    // freeCheckoutHandler(e)
 
     // if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
     //   setModalOpen(true)
@@ -61,12 +63,13 @@ export default function PricingPage() {
       router.push("/signup")
       return
     }
+    premiumCheckoutHandler(e)
 
-    if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
-      setModalOpen(true)
-    } else {
-        premiumCheckoutHandler(e)
-    }
+    // if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {
+    //   setModalOpen(true)
+    // } else {
+    //     premiumCheckoutHandler(e)
+    // }
   }
   
   return (

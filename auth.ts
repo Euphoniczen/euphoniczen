@@ -39,7 +39,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.createdAt = user.createdAt
       session.user.provider = accounts[0]?.provider ?? null
 
-        // adding subscription type to my auth //
+        // adding subscription name to my auth //
         try {
           const subscription = await prisma.subscriptionData.findFirst({
             where: {
