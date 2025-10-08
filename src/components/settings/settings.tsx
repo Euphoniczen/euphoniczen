@@ -172,7 +172,9 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
 
             {error && <p className="error-message">{error}</p>}
 
-            <button className="cancel-subscription-button" onClick={handleModalOpen} disabled={isLoading}>
+            <button className="cancel-subscription-button" onClick={session?.user?.subscriptionType === "Premium" ? handlePaddlePortalOpen
+                                                                    : session?.user?.subscriptionType === "Free" || !session?.user?.subscriptionType ? handleModalOpen
+                                                                    : undefined} disabled={isLoading}>
               {isLoading ? (<div style={{display: 'flex',
                                          alignItems: 'center',
                                          gap: '7px',
@@ -201,7 +203,9 @@ export default function SettingsPopup({ settingsOpen, setSettingsOpen, customer_
           setModalOpen={setModalOpen}
 
           modalTitle="You have no active subscription!"
-          modalContent=""
+          modalContent="Your plan is currently set to free, upgrade to view & manage your subscription details"
+          modalActionButtonText="Upgrade"
+          modalActionClick={'/pricing'}
         />
       )}
       
