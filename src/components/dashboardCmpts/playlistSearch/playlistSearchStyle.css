@@ -94,10 +94,9 @@
     bottom: 0;
 
     background-color: var(--textColor1of1);
-    /* background: var(--gradientColor1); */
     width: fit-content;
-    padding: 8px 20px;
-    padding-right: 13;
+    padding-top: 8px;
+    padding-right: 13px;
     padding-bottom: unset;
     padding-left: unset;
     z-index: 9999;
