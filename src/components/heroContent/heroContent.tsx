@@ -16,7 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
 // import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
 import EuphoniczenAppVideo from "@/public/videos/euphoniczen hero vid --mp4 version.mp4"
-import DashboardPhoto from "@/public/images/Dashboard Photo.png"
+import DashboardPhoto from "@/public/images/Euphoniczen Hero Img - Updated.png"
 
 export default function Hero() { 
 
