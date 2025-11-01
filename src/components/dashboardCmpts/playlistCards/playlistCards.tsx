@@ -196,7 +196,7 @@ const PlaylistCards = ({
                     name="read-only"
                     value={popularity}
                     readOnly
-                    style={{ color: 'var(--textColor1of1)' }}
+                    style={{ color: 'var(--kindaOrange' }}
                   />
                 </div>
                 <PrettoSlider
