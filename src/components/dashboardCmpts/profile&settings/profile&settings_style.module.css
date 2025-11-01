@@ -1,15 +1,11 @@
 #profileStyleMaster{
     font-family: var(--fontFamily1);
 
-    background-color: var(--backgroundHTML);
+    /* background-color: var(--backgroundHTML); */
     width: 5%;
-    height: 100vh;
-    min-height: 100vh;
-    /* border-right: solid 1.5px var(--textColor2); */
-    border-right: solid 3px var(--kindaWhite);
-
-    /* position: absolute;
-    z-index: -999; */
+    min-height: 95vh;
+    /* border-right: solid 3px var(--kindaWhite); */
+    border-right: solid 2px var(--textColor2_semi);
 }
 
 .profileStyleContent{

@@ -11,12 +11,13 @@
     background: var(--textColor2);
     color: var(--textColor1);
     padding: 10px 12px !important;
+    border: solid 3px var(--textColor2) !important;
 }
 
 .pagnate-calendar-preview button:hover{
     background: transparent;
     color: var(--textColor2);
-    border: solid 3px var(--textColor2);
+    border: solid 3px var(--textColor2) !important;
 }
 
 .pagnate-calendar-preview .MuiPaginationItem-root {

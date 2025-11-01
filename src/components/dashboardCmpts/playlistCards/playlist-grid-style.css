@@ -1,0 +1,219 @@
+/* Container */
+.playlist-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+  font-family: var(--fontFamily1);
+  max-height: 90vh;
+  overflow-y: auto;
+  overflow-x: auto;
+
+  margin-top: -0.7%;
+}
+
+.playlist-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.playlist-table-container::-webkit-scrollbar-track {
+  background: var(--kindaOrange_semi);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.playlist-table-container::-webkit-scrollbar-thumb {
+  background: var(--kindaOrange);
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.playlist-table-container {
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 10px;
+
+  /* -ms-overflow-style: none; 
+  scrollbar-width: none; */
+}
+
+.playlist-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--textColor2);
+  color: white;
+  font-size: 14px;
+  z-index: 999;
+}
+
+/* Table with vertical lines */
+.playlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+  background: var(--kindaWhite2);
+}
+
+.playlist-table thead {
+  background-color: var(--textColor2);
+  color: white;
+}
+
+.playlist-table th:nth-child(6) {
+  background-color: var(--kindaOrange);
+  color: var(--textColor1of1);
+}
+
+.playlist-table th {
+  padding: 8px 11px;
+  font-size: 15px;
+  text-align: left;
+  border-right: 1px solid #ccc;
+}
+
+.playlist-table th:last-child {
+  border-right: none;
+}
+
+/* Rows */
+.playlist-table td {
+  padding: 12px 15px;
+  border-right: 1px solid #e0e0e0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  vertical-align: middle;
+  color: #333;
+}
+
+.playlist-table td:last-child {
+  border-right: none;
+}
+
+.playlist-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Cover image */
+.playlist-cover {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Text truncation */
+.playlist-name,
+.playlist-desc,
+.playlist-contact {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-name {
+  font-weight: 600;
+  max-width: 180px;
+}
+
+.playlist-desc {
+  color: #555;
+  max-width: 200px;
+}
+
+.playlist-contact {
+  /* max-width: 120px; */
+  position: relative;
+  max-width: 150px;
+  font-weight: 600;
+  color: var(--kindaOrange) !important;
+  cursor: pointer;
+  padding: 0px 5px !important;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.playlist-contact::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;             
+  height: 100%;
+  backdrop-filter: blur(0.5px);   
+  background: linear-gradient(to right, transparent, var(--textColor1of1) 90%);
+  pointer-events: none;
+}
+
+/* Rating */
+.playlist-rating {
+}
+
+/* Visit button */
+.playlist-visit-btn,
+.playlist-save-btn {
+  color: white;
+  border: solid 2px var(--textColor2);
+  padding: 6px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.playlist-save-btn{
+  background-color: var(--textColor2);
+}
+
+.playlist-saved-btn-disabled{
+  color: white;
+  border: solid 2px var(--textColor2);
+  padding: 6px 3px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: var(--darkerPurple_semi);
+  color: var(--textColor2);
+  font-weight: 600;
+  cursor: not-allowed;
+}
+
+.playlist-save-btn:hover {
+  background-color: var(--textColor1of1);
+  color: var(--textColor2);
+}
+
+.playlist-visit-btn {
+  background-color: var(--textColor1of1);
+  color: var(--textColor2);
+}
+
+.playlist-visit-btn:hover {
+  background-color: var(--textColor2);
+  color: var(--textColor1of1);
+}
+
+.last-updated-playlist-grid {
+  font-weight: 250;
+}
+
+/* Responsive */
+@media (max-width: 1370px) {
+
+  .playlist-table-container{
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+  
+  .playlist-table {
+    min-width: 700px;
+  }
+
+  .playlist-table th,
+  .playlist-table td {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

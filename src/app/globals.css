@@ -35,16 +35,15 @@
 }
 
 body{
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background: var(--textColor1of1);
   color: var(--textColor2);
   
   animation: moveGradient 10s infinite alternate ease-in-out;
   background-size: 110% 150%;
 
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
-
 
 *, html{
   padding: 0;

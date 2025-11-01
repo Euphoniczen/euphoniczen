@@ -58,11 +58,11 @@ export default function PricingPage() {
   }
 
   const handlePremiumClick = (e) => {
-    e.preventDefault()
-    if (!session) {
-      router.push("/signup")
-      return
-    }
+    // e.preventDefault()
+    // if (!session) {
+    //   router.push("/signup")
+    //   return
+    // }
     premiumCheckoutHandler(e)
 
     // if (userSubscriptionStatus === "active" || userSubscriptionStatus === "trialing") {

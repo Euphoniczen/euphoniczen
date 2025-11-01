@@ -15,17 +15,15 @@
     flex-direction: column;
     background-color: var(--backgroundHTML);
     gap: 6px;
-    /* background-color: var(--kindaWhite); */
-    /* box-shadow: 1px 12px 12px 0px rgba(0,0,0,0.09); */
-    /* box-shadow: rgba(255, 255, 255, 0.17) 0px -23px 25px 0px inset, rgba(104, 103, 103, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
-    background: var(--gradientColor1);
-    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
+    /* background: var(--gradientColor1); */
+    background: var(--textColor1of1);
+    border: solid 2px var(--textColor1);
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     height: fit-content;
-    /* width: 350px; */
     width: 400px;
     border-radius: 6px;
     border-top-left-radius: 0;
-    /* border: solid 3px var(--kindaWhite); */
     overflow: hidden;
 }
 
@@ -118,16 +116,15 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    border: solid 2px var(--textColor1);
+    border: solid 2px var(--kindaOrange_semi);
     padding: 8px;
     border-radius: 3px;
     transition: all 0.3s ease;
-    color: var(--textColor1of1);
+    color: var(--textColor2);
 }
 
 .visit_playlist_link_text:hover{
-    background-color: var(--kindaOrange);
-    color: var(--textColor1);
+    background-color: var(--kindaOrange_semi);
 }
 
 .textContentSection_cards{
@@ -162,7 +159,7 @@
 }
 
 .highlight-keyword {
-  color: var(--textColor1of1);
+  color: var(--kindaOrange);
   font-weight: 700;
 }
 
@@ -171,7 +168,7 @@
 }
 
 .word:hover {
-  background: var(--gradientColor1);
+  background: var(--kindaOrange_semi);
   font-weight: 600;
   border-radius: 7px;
   transition: background-color 0.2s ease;
@@ -180,13 +177,12 @@
 
 .copied-text{
     position: absolute;
-    background: var(--kindaOrange);
+    background: var(--darkerPurple_semi);
     padding: 5px 8px;
     border-radius: 6px;
-    color: var(--textColor1of1);
+    color: var(--textColor2);
     font-weight: bold;
     z-index: 999;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 
     top: 3%;
     left: 50%;
@@ -237,15 +233,13 @@
 }
 
 .savePlaylistIcon p{
-    /* background: var(--gradientColor1); */
     width: fit-content;
     padding: 4px 8px;
     font-weight: 600;
     cursor: pointer;
-    /* border-radius: 20px; */
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    /* box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; */
 
     transition: all 0.3s ease;
 }

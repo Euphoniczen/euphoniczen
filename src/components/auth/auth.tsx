@@ -13,6 +13,7 @@ import DiscordIcon from "./assets/discord.svg"
 
 import { FormEvent } from "react"
 import { signIn } from "next-auth/react"
+import About from "@/src/app/about/page"
 
 interface AuthComponents { 
     authTitle?: string;
@@ -57,22 +58,7 @@ export default function Authenticate({
                         <h2>{authTitle}</h2>
                         <p>Please enter your details</p>
                     </div>
-                    {/* <form onSubmit={resendAction}  className={authStyle.authWithEmail}>
-                        <input  
-                             type="email" 
-                             id="email-resend" 
-                             name="email"
-                             placeholder="Enter Your Email"
-                             value={email} 
-                             onChange={(e) => setEmail(e.target.value)} >
-                        </input>
-                        <button type="submit" value="Signin with Resend">Continue</button>
-                    </form> */}
-                    {/* <div className={authStyle.theOrpartLine_auth}>
-                        <div className={authStyle.lineforORAuth}></div>
-                        <p>OR</p>
-                        <div className={authStyle.lineforORAuth}></div>
-                    </div> */}
+                    {/*  */}
                     <div className={authStyle.theOtherAuthSection}>
                         {/* <div onClick={authClickSpotify} className={authStyle.spotifyAuth}>
                                 <Image src={SpotifyIcon} width={25} height={25} alt="spotify-icon"></Image>
@@ -95,7 +81,7 @@ export default function Authenticate({
                         </div> 
                     </div>
                     <div className={authStyle.toLoadEitherSignupORLoginPage}>
-                        <p>{dontHaveAnAccount_orHaveAnAccount_Text} <Link style={{color: 'var(--kindaWhite)', fontWeight: '700'}} href={dontHaveAnAccount_orHaveAnAccount_Link}>{dontHaveAnAccount_orHaveAnAccount_Tex2}</Link></p>
+                        <p>{dontHaveAnAccount_orHaveAnAccount_Text} <Link style={{color: 'var(--textColor2_semi)', fontWeight: '700'}} href={dontHaveAnAccount_orHaveAnAccount_Link}>{dontHaveAnAccount_orHaveAnAccount_Tex2}</Link></p>
                     </div>
                 </div>
                 <div className={authStyle.rightSide_auth}>

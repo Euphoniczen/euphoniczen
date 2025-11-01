@@ -144,8 +144,8 @@ const PlaylistCards = ({
           {fetchSavedPlaylists.some(
             (plst) => `https://open.spotify.com/playlist/${plst?.spotifyId}` === playlistLink
           ) || showSavedMessage ? (
-            <p style={{ backgroundColor: 'var(--kindaOrange)', color: 'var(--textColor1of1)', cursor: 'default' }}>
-              playlist saved!
+            <p style={{ backgroundColor: 'var(--textColor1of1)', color: 'var(--textColor2_)', cursor: 'default' }}>
+              {/* playlist saved! */}
             </p>
           ) : (
             <p onClick={handleSaveClick}>save playlist</p>
@@ -218,7 +218,7 @@ const PlaylistCards = ({
               </Link>
 
               {/* Added at date test */}
-              <h3
+              {/* <h3
                 style={{
                   fontStyle: 'italic', 
                   fontSize: '15px', 
@@ -237,7 +237,7 @@ const PlaylistCards = ({
                       day: "numeric",
                     })
                   : "Unknown"}
-              </h3>
+              </h3> */}
             </div>
           </div>
         </div>

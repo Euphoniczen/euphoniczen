@@ -15,7 +15,7 @@ export default function Signup() {
     
 
 
-    return(<div style={{background: 'var(--gradientColor1)'}}>
+    return(<div style={{background: 'var(--textColor1Of1)'}}>
         <Authenticate
             authTitle="Welcome"
 

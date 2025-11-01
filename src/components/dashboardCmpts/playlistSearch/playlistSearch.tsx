@@ -14,6 +14,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import { Tooltip } from "@mui/material"
 import Pagination from '@mui/material/Pagination';
 import { PlaylistCalendar } from "../playlistCalendar/playlistCalendar"
+import PlaylistGrid from "../playlistCards/playlist-grid"
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -45,6 +46,7 @@ export default function PlaylistSearch({
   const [regexPopup, setRegexPopup] = useState(false)
   const [filterInput, setFilterInput] = useState<string>("")
   const [date, setDate] = useState<string>("");
+  const today = new Date();
 
   // Predefined keywords that users can manage
   const predefinedKeywords = [
@@ -324,17 +326,15 @@ export default function PlaylistSearch({
   }
 
   // Stored Playlist function
-  const handleStoringPlaylists = (playlist: any) => {
-    axios
-      .post("/api/spotify-playlist-data", {
+  const handleStoringPlaylists = async (playlist: any): Promise<void> => {
+    try {
+      const response = await axios.post("/api/spotify-playlist-data", {
         spotifyData: playlist,
       })
-      .then((response) => {
-        console.log(response.data)
-      })
-      .catch((error) => {
-        console.error("error storing playlist:", error)
-      })
+      console.log(response.data)
+    } catch (error) {
+      console.error("error storing playlist:", error)
+    }
   }
 
   // Clipboard Hook --to copy data from description
@@ -361,60 +361,12 @@ export default function PlaylistSearch({
     <div style={autoWidth} id="playlistSearchMaster">
       <form onSubmit={getPlaylist} className="playlistSearch_container_content">
         <div className="inputSearch" style={inputSearchHeading}>
-          <p className="inputSearch_title">
-            Find playlists that match your style.{" "}
-            <span
-              onClick={handleReadDocs}
-              style={{
-                color: "var(--kindaOrange)",
-                cursor: "pointer",
-                textDecoration: "underline",
-              }}
-            >
-              Read Docs
-            </span>
-          </p>
-
-          {readDocs && (
-            <div className="readDocs_content" onClick={handleReadDocs}>
-              <p style={{ fontWeight: "500" }}>
-                Begin by entering specific playlist titles, themes or music genres such as "rap music 2025," "whisper
-                beats for thin walls," "my 2am thoughts but make it chill," or "hip-hop/rap, pop" in the search bar and
-                then press the search button to generate results. Our innovation filtering tool identifies playlists
-                inviting submissions by looking for highlighted cues including "@gmail," "submit," "insta,"
-                "submissions," and others, hours faster than manual searching. Each result presents instant contact
-                details about playlist curators, from where you can make an inquiry regarding submission procedures and
-                guidelines. Euphoniczen is designed specifically to maximize the playlist discovery process for
-                independent artists, music producers, musicians, & record labels.
-                <span style={{ fontWeight: "600", padding: "0px 3px" }}>
-                  Euphoniczen will automatically search across multiple pages to find up to 50 playlists accepting
-                  submissions.
-                </span>
-                <span style={{ display: "block", padding: "10px 0px", color: "var(--textColor2)" }}>
-                  You can customize which keywords to filter by using the filter button. Add or remove keywords to match
-                  your specific needs. Current active keywords:{" "}
-                  <span style={{ fontWeight: "600", color: "var(--darkerPurple)" }}>{filterReturn.join(", ")}</span>
-                </span>
-                <span
-                  onClick={handleReadDocs}
-                  style={{
-                    color: "var(--kindaOrange)",
-                    cursor: "pointer",
-                    fontWeight: "800",
-                  }}
-                >
-                  Close
-                </span>
-              </p>
-            </div>
-          )}
-
           <div className="search_field_input">
             <div className="full-input-field">
               <input
                 style={actualInputDynamicStyling}
                 type="text"
-                placeholder="Search for playlist names — e.g. 'Rap Music 2025', 'Lofi Sleep', and more"
+                placeholder="search for playlist names — e.g. 'rap music 2025', 'lofi sleep', and more"
                 value={searchData}
                 onChange={(event) => setSearchData(event.target.value)}
               />
@@ -607,6 +559,14 @@ export default function PlaylistSearch({
             </div>
           )}
 
+          {/* {!loading ? (
+            <div className="minor-text-before-search-stats">
+              {`Hello, ${session?.user?.name}`}
+            </div>
+          ) : (
+            null
+          )} */}
+
           {/* Loading Indicator */}
           {loading && (
             <div className="loading_indicator">
@@ -648,7 +608,7 @@ export default function PlaylistSearch({
                   key={index}
                   onClick={() => handleTextSuggestions(suggestion)}
                   style={{
-                    backgroundColor: "var(--backgroundHTML)",
+                    backgroundColor: "var(--kindaOrange_semi)",
                     padding: "3px 7px",
                     borderRadius: "6px",
                     border: "solid 2px var(--kindaWhite)",
@@ -688,46 +648,49 @@ export default function PlaylistSearch({
               </div>
             )}
 
-            {playlistData.map((playlist, index) => {
+            {/* {playlistData.map((playlist, index) => {
               // Skip if critical data is missing
               if (!playlist?.id || !playlist?.name || !playlist?.images?.[0]?.url) {
                 return null
-              }
+              } */}
 
-              // Calculating engagement ratio
-              const followers = playlist?.followers?.total || 0
-              const tracks = playlist?.tracks?.total || 0
-              const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : "N/A"
+              <PlaylistGrid 
+                playlists={playlistData
+                  .filter(playlist => playlist?.id && playlist?.name && playlist?.images?.[0]?.url)
+                  // remove duplicates by id before mapping
+                  .filter((playlist, index, self) =>
+                    index === self.findIndex(p => p.id === playlist.id)
+                  )
+                  .map((playlist, index) => {
+                    const followers = playlist?.followers?.total || 0;
+                    const tracks = playlist?.tracks?.total || 0;
+                    const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : "N/A";
+                    const popularity = followers > 0 ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100)) : 0;
 
-              // Calculating popularity score
-              const popularity =
-                followers > 0 ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100)) : 0
-
-              return (
-                <PlaylistCards
-                  key={`${playlist.id}-${index}`}
-                  showStoreButton={
-                    subscriptionStatus === "Premium" ? true : subscriptionStatus === "Free" || !subscriptionStatus ? false : undefined
-                  }
-                  playlistName={playlist?.name || "Unnamed Playlist"}
-                  curatorName={playlist.owner?.display_name || "Unknown"}
-                  trackCount={tracks || "N/A"}
-                  followers={followers || "N/A"}
-                  description={playlist?.description || "No description available"}
-                  onClickWord={(word) => handleWordClick(word, playlist.id)}
-                  copied={isCopied(playlist.id).toString()}
-                  engagementRatio={Number.parseFloat(engagementRatio)}
-                  popularity={popularity}
-                  playlistLink={`https://open.spotify.com/playlist/${playlist?.id}`}
-                  imageUrl={playlist?.images?.[0]?.url || "/placeholder-image.jpg"}
-                  storePlaylistButton={() => handleStoringPlaylists(playlist)}
-                  lastUpdated={subscriptionStatus === "Premium" ? playlist.latestAddedAt : subscriptionStatus !== "Premium" || !subscriptionStatus ? null : {}}
+                    return {
+                      id: `${playlist.id}-${index}`,
+                      imageUrl: playlist?.images?.[0]?.url || "/placeholder-image.jpg",
+                      playlistName: playlist?.name || "Unnamed Playlist",
+                      curatorName: playlist.owner?.display_name || "Unknown",
+                      trackCount: tracks || "N/A",
+                      followers: followers || "N/A",
+                      description: playlist?.description || "No description available",
+                      engagementRatio: parseFloat(engagementRatio),
+                      popularity: popularity,
+                      playlistLink: `https://open.spotify.com/playlist/${playlist?.id}`,
+                      showStoreButton: subscriptionStatus === "Premium",
+                      storePlaylistButton: () => handleStoringPlaylists(playlist),
+                      onClickWord: (word: string) => handleWordClick(word, playlist.id),
+                      copied: isCopied(playlist.id).toString(),
+                      lastUpdated: subscriptionStatus === "Premium" ? playlist.latestAddedAt : null,
+                    };
+                  })}
                 />
-              )
-            })}
+
+                     
           </div>
         )}
       </form>
     </div>
   )
-}
+  }

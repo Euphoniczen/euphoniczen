@@ -29,7 +29,7 @@ export default function Signup() {
 
     const {data: session} = useSession();
     
-    return(<div style={{background: 'var(--gradientColor2)'}}>
+    return(<div style={{background: 'var(--textColor1Of1)'}}>
         <Authenticate
             authTitle="Welcome Back"
 
