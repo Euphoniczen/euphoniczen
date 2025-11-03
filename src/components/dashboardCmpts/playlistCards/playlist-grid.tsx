@@ -26,9 +26,10 @@ interface Playlist {
 
 interface PlaylistGridProps {
   playlists: Playlist[];
+  acceptDynamicRegex?: RegExp; 
 }
 
-export default function PlaylistGrid({ playlists = [] }: PlaylistGridProps) {
+export default function PlaylistGrid({ playlists = [], acceptDynamicRegex }: PlaylistGridProps) {
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
   const [fetchSavedPlaylists, setFetchSavedPlaylists] = useState<any[]>([]);
   const [savingPlaylistId, setSavingPlaylistId] = useState<string | null>(null);
@@ -48,8 +49,7 @@ export default function PlaylistGrid({ playlists = [] }: PlaylistGridProps) {
   }, []);
 
   // Detect potential contact info
-  const contactRegex =
-    /(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}|instagram\.com\/\S+|twitter\.com\/\S+|discord\.gg\/\S+|reddit\.com\/\S+|facebook\.com\/\S+|@[\w._-]+|gmail|outlook|yahoo|contact|submit|submission|send\s?(your|ur)?\s?track|demo|upload)/gi;
+  const contactRegex = acceptDynamicRegex; 
 
   const processDescription = (description?: string) => {
     if (!description)

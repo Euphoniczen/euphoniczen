@@ -78,12 +78,44 @@ export default function PlaylistSearch({
   const { data: session } = useSession()
   const subscriptionStatus = session?.user?.subscriptionType
 
-  // Create dynamic regex from selected keywords
+  // Create dynamic regex from selected keywords - FIXED VERSION
   const createDynamicRegex = () => {
-    if (filterReturn.length === 0) return null
-    const escapedKeywords = filterReturn.map((keyword) => keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-    return new RegExp(escapedKeywords.join("|"), "i")
-  }
+    if (filterReturn.length === 0) return undefined;
+    
+    const patterns = filterReturn.map((keyword) => {
+      const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      
+      // For @ symbol, capture full email or social handle
+      if (keyword === '@') {
+        return '(?:@[\\w.-]+|[\\w.-]+@[\\w.-]+\\.[a-z]{2,})';
+      }
+      
+      // For email domains, capture full email
+      if (['gmail', 'outlook', 'yahoo'].includes(keyword.toLowerCase())) {
+        return `[\\w.-]+@[\\w.-]*${escaped}[\\w.-]*\\.[a-z]{2,}`;
+      }
+      
+      // For URLs/domains, capture full URL
+      if (keyword.includes('http') || keyword.includes('www') || keyword.includes('.com')) {
+        return 'https?://[^\\s<>"]+|www\\.[^\\s<>"]+';
+      }
+      
+      // For social platforms, capture handles or URLs
+      if (['instagram', 'twitter', 'facebook', 'discord', 'reddit'].includes(keyword.toLowerCase())) {
+        return `(?:@[\\w.]+|https?://(?:www\\.)?${escaped}[^\\s<>"]*|${escaped}[\\s:]+[@]?[\\w.]+)`;
+      }
+      
+      // For submission-related keywords, capture surrounding phrase
+      if (['submit', 'submission', 'demo', 'contact', 'send', 'upload', 'message', 'inbox', 'email'].some(k => keyword.toLowerCase().includes(k))) {
+        return `\\b\\w*${escaped}\\w*(?:[\\s:]+[\\w@.-]+)?`;
+      }
+      
+      // Default: capture word containing the keyword
+      return `\\b\\w*${escaped}\\w*\\b`;
+    });
+    
+    return new RegExp(patterns.join('|'), 'gi');
+  };
 
   useEffect(() => {
     const shuffled = [...playlistNames].sort(() => Math.random() - 0.5).slice(0, 5)
@@ -124,93 +156,58 @@ export default function PlaylistSearch({
     return false
   }
 
-  // const fetchPlaylistDetails = async (playlist: any, accessToken: string, selectedDate?: string) => {
-  //   if (!playlist?.id) return null
-
-  //   try {
-  //     const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
-  //       headers: { Authorization: `Bearer ${accessToken}` },
-  //     })
-
-  //     const detail = response.data
-  //     const dynamicRegex = createDynamicRegex()
-
-      
-
-  //     if (
-  //       detail?.description &&
-  //       dynamicRegex &&
-  //       dynamicRegex.test(detail.description) &&
-  //       detail?.images?.length > 0 &&
-  //       detail?.owner?.display_name
-
-        
-  //     ) {
-  //       return detail
-  //     }
-      
-  //     return null
-
-
-  //   } catch (error) {
-  //     console.error(`Error fetching playlist ${playlist.id}:`, error)
-  //     return null
-  //   }
-  // }
-
   const fetchPlaylistDetails = async (playlist: any, accessToken: string, selectedDate?: string) => {
-  if (!playlist?.id) return null;
+    if (!playlist?.id) return null;
 
-  try {
-    const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    const detail = response.data;
-    const dynamicRegex = createDynamicRegex();
-
-    // If no description match, skip early
-    if (
-      !detail?.description ||
-      !dynamicRegex ||
-      !dynamicRegex.test(detail.description) ||
-      !detail?.images?.length ||
-      !detail?.owner?.display_name
-    ) {
-      return null;
-    }
-
-    // Fetch latest added_at
-    const tracksResponse = await axios.get(
-      `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?fields=items(added_at)&limit=1`,
-      {
+    try {
+      const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlist.id}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
-      }
-    );
+      });
 
-    const latestAddedAt = tracksResponse.data?.items?.[0]?.added_at || null;
+      const detail = response.data;
+      const dynamicRegex = createDynamicRegex();
 
-    // If user selected a date, filter out old playlists
-    if (selectedDate && latestAddedAt) {
-      const latestDate = new Date(latestAddedAt);
-      const selected = new Date(selectedDate);
-
-      if (latestDate < selected) {
-        // Skip playlists that haven’t been updated since selected date
+      // If no description match, skip early
+      if (
+        !detail?.description ||
+        !dynamicRegex ||
+        !dynamicRegex.test(detail.description) ||
+        !detail?.images?.length ||
+        !detail?.owner?.display_name
+      ) {
         return null;
       }
+
+      // Fetch latest added_at
+      const tracksResponse = await axios.get(
+        `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?fields=items(added_at)&limit=1`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+
+      const latestAddedAt = tracksResponse.data?.items?.[0]?.added_at || null;
+
+      // If user selected a date, filter out old playlists
+      if (selectedDate && latestAddedAt) {
+        const latestDate = new Date(latestAddedAt);
+        const selected = new Date(selectedDate);
+
+        if (latestDate < selected) {
+          // Skip playlists that haven't been updated since selected date
+          return null;
+        }
+      }
+
+      return {
+        ...detail,
+        latestAddedAt,
+      };
+    } catch (error) {
+      console.error(`Error fetching playlist ${playlist.id}:`, error);
+      return null;
     }
-
-    return {
-      ...detail,
-      latestAddedAt,
-    };
-  } catch (error) {
-    console.error(`Error fetching playlist ${playlist.id}:`, error);
-    return null;
-  }
-};
-
+  };
 
   const getPlaylist = async (event: React.FormEvent) => {
     event.preventDefault()
@@ -483,8 +480,6 @@ export default function PlaylistSearch({
                         >
                           No keywords selected. Add keywords above or reset to default.
                         </p>
-
-                        // 
                       ) : (
                         filterReturn.map((fR, index) => (
                           <div key={index} className="each-keyword-regex">
@@ -517,12 +512,10 @@ export default function PlaylistSearch({
                         />
                       </div>
                     </div>
-                  {/* //// */}
                   </div>
                 </div>
               ) : (
                 <div className="filter-regex" onClick={() => setRegexPopup(true)}>
-                  {/* <AddIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} /> */}
                   <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
                   <span style={{ fontSize: "12px", color: "var(--textColor2)", fontWeight: '600' }}>
                     ({filterReturn.length})
@@ -541,11 +534,9 @@ export default function PlaylistSearch({
                     (n/a)
                   </span>
                 </div>
-
                 </Tooltip>
               </div>
             )}
-            {/*  */}
           </div>
 
           {/* Search Stats */}
@@ -558,14 +549,6 @@ export default function PlaylistSearch({
               </p>
             </div>
           )}
-
-          {/* {!loading ? (
-            <div className="minor-text-before-search-stats">
-              {`Hello, ${session?.user?.name}`}
-            </div>
-          ) : (
-            null
-          )} */}
 
           {/* Loading Indicator */}
           {loading && (
@@ -648,49 +631,42 @@ export default function PlaylistSearch({
               </div>
             )}
 
-            {/* {playlistData.map((playlist, index) => {
-              // Skip if critical data is missing
-              if (!playlist?.id || !playlist?.name || !playlist?.images?.[0]?.url) {
-                return null
-              } */}
+            <PlaylistGrid 
+              playlists={playlistData
+                .filter(playlist => playlist?.id && playlist?.name && playlist?.images?.[0]?.url)
+                // remove duplicates by id before mapping
+                .filter((playlist, index, self) =>
+                  index === self.findIndex(p => p.id === playlist.id)
+                )
+                .map((playlist, index) => {
+                  const followers = playlist?.followers?.total || 0;
+                  const tracks = playlist?.tracks?.total || 0;
+                  const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : "N/A";
+                  const popularity = followers > 0 ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100)) : 0;
 
-              <PlaylistGrid 
-                playlists={playlistData
-                  .filter(playlist => playlist?.id && playlist?.name && playlist?.images?.[0]?.url)
-                  // remove duplicates by id before mapping
-                  .filter((playlist, index, self) =>
-                    index === self.findIndex(p => p.id === playlist.id)
-                  )
-                  .map((playlist, index) => {
-                    const followers = playlist?.followers?.total || 0;
-                    const tracks = playlist?.tracks?.total || 0;
-                    const engagementRatio = followers > 0 ? ((tracks / followers) * 100).toFixed(2) : "N/A";
-                    const popularity = followers > 0 ? Math.min(5, Math.max(0, Math.log10(followers) - 1) + Math.min(0.5, tracks / 100)) : 0;
-
-                    return {
-                      id: `${playlist.id}-${index}`,
-                      imageUrl: playlist?.images?.[0]?.url || "/placeholder-image.jpg",
-                      playlistName: playlist?.name || "Unnamed Playlist",
-                      curatorName: playlist.owner?.display_name || "Unknown",
-                      trackCount: tracks || "N/A",
-                      followers: followers || "N/A",
-                      description: playlist?.description || "No description available",
-                      engagementRatio: parseFloat(engagementRatio),
-                      popularity: popularity,
-                      playlistLink: `https://open.spotify.com/playlist/${playlist?.id}`,
-                      showStoreButton: subscriptionStatus === "Premium",
-                      storePlaylistButton: () => handleStoringPlaylists(playlist),
-                      onClickWord: (word: string) => handleWordClick(word, playlist.id),
-                      copied: isCopied(playlist.id).toString(),
-                      lastUpdated: subscriptionStatus === "Premium" ? playlist.latestAddedAt : null,
-                    };
-                  })}
-                />
-
-                     
+                  return {
+                    id: `${playlist.id}-${index}`,
+                    imageUrl: playlist?.images?.[0]?.url || "/placeholder-image.jpg",
+                    playlistName: playlist?.name || "Unnamed Playlist",
+                    curatorName: playlist.owner?.display_name || "Unknown",
+                    trackCount: tracks || "N/A",
+                    followers: followers || "N/A",
+                    description: playlist?.description || "No description available",
+                    engagementRatio: parseFloat(engagementRatio),
+                    popularity: popularity,
+                    playlistLink: `https://open.spotify.com/playlist/${playlist?.id}`,
+                    showStoreButton: subscriptionStatus === "Premium",
+                    storePlaylistButton: () => handleStoringPlaylists(playlist),
+                    onClickWord: (word: string) => handleWordClick(word, playlist.id),
+                    copied: isCopied(playlist.id).toString(),
+                    lastUpdated: subscriptionStatus === "Premium" ? playlist.latestAddedAt : null,
+                  };
+                })}
+              acceptDynamicRegex={createDynamicRegex()}
+            />
           </div>
         )}
       </form>
     </div>
   )
-  }
+}
