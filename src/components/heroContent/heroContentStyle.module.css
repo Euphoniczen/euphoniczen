@@ -35,7 +35,7 @@
 }
 
 .textContentOne_hero p{
-    width: 60%;
+    width: 70%;
     font-size: 1.1em;
     font-weight: 500;
 }
@@ -141,6 +141,7 @@
     .heroContentStyle_FirstSection{
         width: 100%;
         margin-top: 10px;
+        gap: 30px;
     }
 
     .textContentOne_hero h1{
@@ -225,6 +226,7 @@
     .heroContentStyle_FirstSection{
         width: 100%;
         margin-top: 10px;
+        gap: 30px;
     }
 
     .textContentOne_hero h1{
@@ -309,6 +311,7 @@
     .heroContentStyle_FirstSection{
         width: 100%;
         margin-top: 10px;
+        gap: 30px;
     }
 
     .textContentOne_hero h1{
@@ -396,6 +399,7 @@
     .heroContentStyle_FirstSection{
         width: 100%;
         margin-top: 10px;
+        gap: 30px;
     }
 
     .textContentOne_hero h1{
@@ -418,7 +422,7 @@
         height: 600px;
         
         transition: unset !important;
-        transform: none !important; /* Disables scaling */
+        transform: none !important; 
     }
 
     .heroContentStyle_Second_Section{
@@ -483,6 +487,7 @@
     .heroContentStyle_FirstSection{
         width: 100%;
         margin-top: 10px;
+        gap: 30px;
     }
 
     .textContentOne_hero h1{
@@ -505,7 +510,7 @@
         height: 600px;
         
         transition: unset !important;
-        transform: none !important; /* Disables scaling */
+        transform: none !important; 
     }
 
     .heroContentStyle_Second_Section{

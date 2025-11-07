@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
+import { useSession } from "next-auth/react"
 import heroContentStyle from "./heroContentStyle.module.css"
 import Buttons from "../Buttons/Buttons"
 import { usePathname } from "next/navigation"
@@ -17,8 +18,15 @@ import ChromeReaderModeIcon from '@mui/icons-material/ChromeReaderMode';
 // import EuphoniczenAppVideo from "./assets/euphoniczen vid --gif.gif"
 import EuphoniczenAppVideo from "@/public/videos/euphoniczen hero vid --mp4 version.mp4"
 import DashboardPhoto from "@/public/images/Euphoniczen Hero Img - Updated.png"
+import userSubscriptionData from "../../../hooks/userSubscriptionStatus"
+import { signOut } from "next-auth/react"
+
 
 export default function Hero() { 
+
+  const sessionStatus = useSession(); 
+  const {data: session} = useSession(); 
+  const subscriptionStatus = userSubscriptionData()
 
   // today's date
   const today = new Date(); 
@@ -30,6 +38,8 @@ export default function Hero() {
 
   useEffect(() => { 
     const handleScroll = () => { 
+
+      if (window.innerWidth <= 1300) return 
 
       const scrollY = window.scrollY; 
 
@@ -53,25 +63,28 @@ export default function Hero() {
         <div className={heroContentStyle.heroContentStyle_FirstSection}>
             <div className={heroContentStyle.textContentOne_hero}>
                 <h1>Search. Filter. Contact. All Things Playlists in One Place.</h1>
-                <p>Effortlessly search by name, genre, or mood, then filter to find the right fit. Skip the guesswork and access submission details in seconds — all in one streamlined tool for artists, labels, musicians, etc...</p>
+                <p>Search by name, genre, or mood and use filters to discover exactly what you're looking for. No more endless scrolling or second-guessing. Get the submission details you need instantly, all in one place built for artists, labels, and musicians like you.</p>
                 
-                {/* <div className={heroContentStyle.button_top_hero}>
-                    <Buttons
-                      buttonBorder="solid 2px var(--textColor2)"
-                      buttonText="Signup"
-                      linkHref="/signup"
-                      buttonBackgroundColor = "var(--textColor1of1)"
-                    />
+                <div className={heroContentStyle.button_top_hero}>
+                    {/* {sessionStatus.status === 'authenticated' ? undefined : ( */}
+                      <Buttons
+                        buttonBorder="solid 2px var(--textColor2)"
+                        buttonText={`${sessionStatus.status === 'authenticated' ? 'Logout' : 'Signup'}`}
+                        linkHref={`${sessionStatus.status === 'authenticated' ? "/" : '/signup'}`}
+                        buttonBackgroundColor = "var(--textColor1of1)"
+                        buttonOnClick={sessionStatus.status === 'authenticated' ? () => signOut() : undefined}
+                      />
+                    {/* )} */}
 
                     <Buttons
                       buttonBorder="solid 2px var(--kindaWhite)"
-                      buttonText="Pricing"
-                      linkHref="/pricing"
+                      buttonText={`${sessionStatus.status === 'authenticated' ? 'Dashboard' : 'Pricing'}`}
+                      linkHref={`${sessionStatus.status === 'authenticated' ?  `/dashboard/user/${session?.user?.name}?subscription_type=${session?.user?.subscriptionType}&subscription_status=${subscriptionStatus}` : '/pricing'}`}
                       buttonBackgroundColor = "var(--kindaOrange)"
                       textInButtonColor="var(--textColor1)"
                       buttonHoverColor="var(--textColor2)"
                     />
-                </div> */}
+                </div>
             
             </div>
             <div style={{transform: growHeroImage, marginTop: marginDown, transition: 'all 0.3s ease'}} className={heroContentStyle.bigImageSectionOneHero}>
