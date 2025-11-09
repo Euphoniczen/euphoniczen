@@ -50,28 +50,58 @@ export default function PlaylistSearch({
 
   // Predefined keywords that users can manage
   const predefinedKeywords = [
-    "submit",
-    "submission",
-    "send your track",
-    "send_your_track",
-    "send-your-track",
-    "demo",
-    "upload",
-    "@",
-    "email",
-    "gmail",
-    "contact",
-    "message",
-    "inbox",
-    "instagram",
-    "twitter",
-    "facebook",
-    "reddit",
-    "discord",
-    "outlook",
-    "yahoo",
+    // Email providers
+    "@gmail.com",
+    "@outlook.com",
+    "@yahoo.com",
+    "@hotmail.com",
+    "@icloud.com",
+    "@protonmail.com",
+    "@aol.com",
+    "@mail.com",
+    "@zoho.com",
+    "@gmx.com",
+    "@yandex.com",
+    // Social media URLs
+    "instagram.com/",
+    "twitter.com/",
+    "x.com/",
+    "facebook.com/",
+    "fb.me/",
+    "tiktok.com/@",
+    "t.me/",
+    "wa.me/",
+    // Music/Submission platforms
+    "discord.gg/",
+    "soundcloud.com/",
+    "toneden.io/",
+    "submit-hub.com",
+    "submithub.com/",
+    "playlist-push.com",
+    "soundplate.com/",
+    "musosoup.com/",
+    "ko-fi.com/", 
+    // Link shorteners
+    "forms.gle/",
+    "bit.ly/",
+    "linktr.ee/",
+    "tinyurl.com/",
+    "ow.ly/",
+    "rebrand.ly/",
+    "cutt.ly/",
+    "shorturl.at/",
+    // Form/Survey tools
+    "typeform.com/",
+    "airtable.com/",
+    "jotform.com/",
+    "formstack.com/",
+    // Bio/link tools
+    "beacons.ai/",
+    "bio.link/",
+    "linkin.bio/",
+    "carrd.co/",
   ]
-
+  
   // Initialize filterReturn with predefined keywords
   const [filterReturn, setFilterReturn] = useState<string[]>(predefinedKeywords)
 
@@ -80,40 +110,25 @@ export default function PlaylistSearch({
 
   // Create dynamic regex from selected keywords - FIXED VERSION
   const createDynamicRegex = () => {
-    if (filterReturn.length === 0) return undefined;
-    
+  if (filterReturn.length === 0) return undefined;
+  
     const patterns = filterReturn.map((keyword) => {
-      const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      
-      // For @ symbol, capture full email or social handle
-      if (keyword === '@') {
-        return '(?:@[\\w.-]+|[\\w.-]+@[\\w.-]+\\.[a-z]{2,})';
-      }
-      
-      // For email domains, capture full email
-      if (['gmail', 'outlook', 'yahoo'].includes(keyword.toLowerCase())) {
-        return `[\\w.-]+@[\\w.-]*${escaped}[\\w.-]*\\.[a-z]{2,}`;
-      }
-      
-      // For URLs/domains, capture full URL
-      if (keyword.includes('http') || keyword.includes('www') || keyword.includes('.com')) {
-        return 'https?://[^\\s<>"]+|www\\.[^\\s<>"]+';
-      }
-      
-      // For social platforms, capture handles or URLs
-      if (['instagram', 'twitter', 'facebook', 'discord', 'reddit'].includes(keyword.toLowerCase())) {
-        return `(?:@[\\w.]+|https?://(?:www\\.)?${escaped}[^\\s<>"]*|${escaped}[\\s:]+[@]?[\\w.]+)`;
-      }
-      
-      // For submission-related keywords, capture surrounding phrase
-      if (['submit', 'submission', 'demo', 'contact', 'send', 'upload', 'message', 'inbox', 'email'].some(k => keyword.toLowerCase().includes(k))) {
-        return `\\b\\w*${escaped}\\w*(?:[\\s:]+[\\w@.-]+)?`;
-      }
-      
-      // Default: capture word containing the keyword
-      return `\\b\\w*${escaped}\\w*\\b`;
-    });
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     
+    // For email domains like @gmail.com, capture full email address
+    if (keyword.startsWith('@') && keyword.includes('.com')) {
+      return `[\\w.-]+${escaped}`;
+    }
+    
+    // For specific URL patterns (social media, forms, etc.), match only those domains
+    if (keyword.includes('/') || keyword.includes('.')) {
+      return `(?:https?://)?(?:www\\.)?${escaped}[^\\s<>"]*`;
+    }
+    
+    // Default: capture word containing the keyword
+    return `\\b\\w*${escaped}\\w*\\b`;
+  });
+  
     return new RegExp(patterns.join('|'), 'gi');
   };
 

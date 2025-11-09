@@ -138,8 +138,10 @@
     justify-content: center;
     align-items: flex-start;
     padding-top: 2rem; 
+    padding-bottom: 0.7rem;
     backdrop-filter: blur(8px); 
     -webkit-backdrop-filter: blur(8px); /*for safari browser*/
+    overflow-y: auto;
 }
 
 .filterPopup-filter{
