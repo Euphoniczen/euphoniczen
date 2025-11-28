@@ -15,6 +15,7 @@ import { Tooltip } from "@mui/material"
 import Pagination from '@mui/material/Pagination';
 import { PlaylistCalendar } from "../playlistCalendar/playlistCalendar"
 import PlaylistGrid from "../playlistCards/playlist-grid"
+import { EmailCompose } from "../../mail-composer/mail"
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -681,6 +682,11 @@ export default function PlaylistSearch({
             />
           </div>
         )}
+
+        {/* Mail Compose */}
+        <div>
+          {/* <EmailCompose/> */}
+        </div>
       </form>
     </div>
   )

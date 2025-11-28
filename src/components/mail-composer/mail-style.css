@@ -1,0 +1,271 @@
+/* Converted from CSS modules to regular CSS with kebab-case class names */
+.email-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  bottom: 15;
+  right: 20;
+
+  width: 41%;
+  max-height: 520px; 
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  /* Made fields container shrink to fit within the card */
+  flex-shrink: 0;
+}
+
+.field {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: flex-start;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  min-width: 60px;
+  padding-top: 8px;
+}
+
+.field-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.recipients-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f3f4f6;
+  color: #374151;
+  padding: 4px 4px 4px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.remove-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.remove-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  flex: 1;
+  min-width: 200px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  padding: 8px 0;
+  font-family: inherit;
+  background: transparent;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.body-container {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 300px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  resize: none;
+  line-height: 1.6;
+  /* Allow textarea to fill available space */
+  flex: 1;
+}
+
+.textarea::placeholder {
+  color: #9ca3af;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  /* Keep actions fixed at the bottom */
+  flex-shrink: 0;
+}
+
+.send-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.send-button:hover {
+  background: #2563eb;
+}
+
+.send-button:active {
+  background: #1d4ed8;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+  z-index: 1000;
+}
+
+.toast-success {
+  background: #10b981;
+  color: white;
+}
+
+.toast-error {
+  background: #ef4444;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive styles for tablets */
+@media (max-width: 768px) {
+  .field {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .label {
+    min-width: auto;
+    padding-top: 0;
+  }
+
+  .input {
+    min-width: 100%;
+    padding: 8px;
+  }
+
+  .textarea {
+    min-height: 200px;
+  }
+
+  .actions {
+    padding: 12px;
+  }
+
+  .send-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .toast {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+  }
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 480px) {
+  .email-card {
+    border-radius: 6px;
+  }
+
+  .field {
+    padding: 10px;
+  }
+
+  .label {
+    font-size: 13px;
+  }
+
+  .badge {
+    font-size: 13px;
+    padding: 3px 3px 3px 10px;
+  }
+
+  .input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .textarea {
+    min-height: 150px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .body-container {
+    padding: 12px;
+  }
+
+  .actions {
+    padding: 10px;
+  }
+
+  .send-button {
+    padding: 12px 20px;
+  }
+}

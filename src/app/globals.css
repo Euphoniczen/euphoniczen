@@ -27,11 +27,6 @@
 
   
   --fontFamily1: "DM Sans", sans-serif;
-  --fontFamily2: "Poetsen One", sans-serif;
-
-  /* --backgroundColor_Change_onScroll: linear-gradient(90deg, rgb(210, 114, 114) 0%, rgba(128,118,163,1) 100%); */
-  /* --backgroundColor_Change_onScroll: red; */
-
 }
 
 body{
@@ -50,8 +45,4 @@ body{
   margin: 0;
   box-sizing: border-box; 
   -webkit-tap-highlight-color: transparent; 
-}
-
-html{
-  /* background: var(--backgroundHTML) !important; */
 }
