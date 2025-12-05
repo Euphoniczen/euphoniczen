@@ -16,6 +16,9 @@ import Pagination from '@mui/material/Pagination';
 import { PlaylistCalendar } from "../playlistCalendar/playlistCalendar"
 import PlaylistGrid from "../playlistCards/playlist-grid"
 import { EmailCompose } from "../../mail-composer/mail"
+import EmailIcon from '@mui/icons-material/Email';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import MarkEmailUnreadIcon from '@mui/icons-material/MarkEmailUnread';
 
 interface PlaylistSearch_Interface {
   autoWidth?: React.CSSProperties
@@ -48,6 +51,8 @@ export default function PlaylistSearch({
   const [filterInput, setFilterInput] = useState<string>("")
   const [date, setDate] = useState<string>("");
   const today = new Date();
+  const [recipients, setRecipients] = useState<string[]>([])
+  const [emailPopup, setEmailPopup] = useState(!false)
 
   // Predefined keywords that users can manage
   const predefinedKeywords = [
@@ -192,6 +197,13 @@ export default function PlaylistSearch({
         !detail?.owner?.display_name
       ) {
         return null;
+      }
+
+      // Adding all emails to the Email Compose State
+      const emailRegex = /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}/g;
+      const emails = detail.description.match(emailRegex) || [];
+      if(emails.length > 0) {
+        setRecipients(prev => [...new Set([...prev, ...emails])]); 
       }
 
       // Fetch latest added_at
@@ -531,16 +543,30 @@ export default function PlaylistSearch({
                   </div>
                 </div>
               ) : (
+                <div className="hold_extra_features_cont">
                 <div className="filter-regex" onClick={() => setRegexPopup(true)}>
                   <FilterAltIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }} />
                   <span style={{ fontSize: "12px", color: "var(--textColor2)", fontWeight: '600' }}>
                     ({filterReturn.length})
                   </span>
                 </div>
+                {/* Email Feature */}
+                <div className="email-icon-feature" onClick={() => setEmailPopup(!emailPopup)}>
+                  {emailPopup ? (
+                    <>
+                    {recipients.length > 0 ? (
+                      <MarkEmailUnreadIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>
+                    ) : recipients.length < 0 ? (
+                      <EmailIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>
+                    ) : <EmailIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>}
+                    </>
+                  ) : <DraftsIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>}
+                </div>
+                </div>
               )}
             </div>
             ) : ( 
-              <div>
+              <div className="hold_extra_features_cont">
                 <Tooltip 
                   title="Upgrade to Premium to customize keywords & Playlist Calendar" 
                 >
@@ -549,6 +575,23 @@ export default function PlaylistSearch({
                   <span style={{ fontSize: "12px", color: "var(--textColor2)", fontWeight: '600' }}>
                     (n/a)
                   </span>
+                </div>
+                </Tooltip>
+
+                {/* Email Feature Disabled*/}
+                <Tooltip
+                  title="Upgrade to Premium to unlock the full mass-email feature"
+                >
+               <div className="email-icon-feature" style={{backgroundColor: 'var(--kindaDark)'}}>
+                  {emailPopup ? (
+                    <>
+                    {recipients.length > 0 ? (
+                      <MarkEmailUnreadIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>
+                    ) : recipients.length < 0 ? (
+                      <EmailIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>
+                    ) : <EmailIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>}
+                    </>
+                  ) : <DraftsIcon style={{ width: "20px", height: "20px", color: "var(--textColor2)" }}/>}
                 </div>
                 </Tooltip>
               </div>
@@ -607,7 +650,7 @@ export default function PlaylistSearch({
                   key={index}
                   onClick={() => handleTextSuggestions(suggestion)}
                   style={{
-                    backgroundColor: "var(--kindaOrange_semi)",
+                    backgroundColor: "var(--darkerPurple_semi)",
                     padding: "3px 7px",
                     borderRadius: "6px",
                     border: "solid 2px var(--kindaWhite)",
@@ -684,8 +727,11 @@ export default function PlaylistSearch({
         )}
 
         {/* Mail Compose */}
-        <div>
-          {/* <EmailCompose/> */}
+        <div style={emailPopup ? {display: 'none'} : {}}>
+          <EmailCompose
+            recipients={recipients}
+            setRecipients={setRecipients}
+          />
         </div>
       </form>
     </div>

@@ -2,40 +2,28 @@
 
 import { useState } from 'react'
 import { X, Send } from 'lucide-react'
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import "./mail-style.css"
-
+import axios from 'axios';
 
 interface MailComposeInterface { 
-    recipients: string[]
-    currentRecipient: string
-    from: string
-    subject: string
-    body: string
-    toast: { message: string; type: 'success' | 'error' } | null
-    setRecipients: (r: string[]) => void
-    setCurrentRecipient: (s: string) => void
-    setFrom: (s: string) => void
-    setSubject: (s: string) => void
-    setBody: (s: string) => void
-    setToast: (t: { message: string; type: 'success' | 'error' } | null) => void
-    onSend: () => void
+  recipients: string[]
+  setRecipients: (r: string[]) => void
 }
 
 export function EmailCompose({
-    recipients,
-    currentRecipient,
-    from,
-    subject,
-    body,
-    toast,
-    setRecipients,
-    setCurrentRecipient,
-    setFrom,
-    setSubject,
-    setBody,
-    setToast,
-    onSend
-}:MailComposeInterface) {
+  recipients,
+  setRecipients,
+}: MailComposeInterface) {
+
+  // Internal component state
+  const [currentRecipient, setCurrentRecipient] = useState("")
+  const [from, setFrom] = useState("")
+  const [subject, setSubject] = useState("")
+  const [body, setBody] = useState("")
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [dropdown, setDropDown] = useState(false);
 
   const handleAddRecipient = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentRecipient.trim()) {
@@ -51,27 +39,30 @@ export function EmailCompose({
     setRecipients(recipients.filter((r) => r !== email))
   }
 
-  const showToast = (message: string, type: 'success' | 'error') => {
-    setToast({ message, type })
-    setTimeout(() => setToast(null), 3000)
-  }
-
   const handleSend = () => {
     if (recipients.length === 0 || !from || !body) {
-      showToast('Please fill in all required fields', 'error')
+      alert('Please fill in all required fields')
       return
     }
 
-    showToast(
-      `Email sent to ${recipients.length} recipient${recipients.length > 1 ? 's' : ''}!`,
-      'success'
-    )
-
-    // Reset form
-    setRecipients([])
-    setFrom('')
-    setSubject('')
-    setBody('')
+    axios.post('/api/email', {
+      to: recipients,
+      replyTo: 'cultertraz@gmail.com',
+      subject: subject,
+      text: body
+    })
+    .then(function (response) {
+      console.log(response.data)
+    // Reset internal fields (recipients comes from parent)
+      setFrom('')
+      setSubject('')
+      setBody('')
+      setRecipients([])
+    })
+    .catch(function (error) {
+      console.log(error)
+      alert(error)
+    })
   }
 
   return (
@@ -82,61 +73,58 @@ export function EmailCompose({
           <div className="field">
             <label className="label">To</label>
             <div className="field-content">
-              <div className="recipients-container">
+              <div className={`recipients-container ${dropdown ? "open" : ""}`}>
                 {recipients.map((email) => (
                   <span key={email} className="badge">
                     {email}
                     <button
                       onClick={() => handleRemoveRecipient(email)}
                       className="remove-button"
-                      aria-label={`Remove ${email}`}
                     >
                       <X className="icon" />
                     </button>
                   </span>
                 ))}
+
                 <input
                   type="email"
-                  placeholder="Add recipients and press Enter"
+                  // placeholder="Add recipients and press Enter"
                   value={currentRecipient}
                   onChange={(e) => setCurrentRecipient(e.target.value)}
                   onKeyDown={handleAddRecipient}
-                  className="input"
+                  className="input-mail"
                 />
-              </div>
+                </div>
             </div>
+             <div onClick={() => setDropDown(!dropdown)} className="arrow-recipient">
+                  {dropdown ? <ArrowCircleUpIcon/> : <ArrowCircleDownIcon/>}
+              </div>
           </div>
 
-          {/* From Field */}
+          {/* From */}
           <div className="field">
-            <label htmlFor="from" className="label">
-              From
-            </label>
+            <label className="label">From</label>
             <div className="field-content">
               <input
-                id="from"
                 type="email"
                 placeholder="your.email@example.com"
                 value={from}
                 onChange={(e) => setFrom(e.target.value)}
-                className="input"
+                className="input-mail"
               />
             </div>
           </div>
 
-          {/* Subject Field */}
+          {/* Subject */}
           <div className="field">
-            <label htmlFor="subject" className="label">
-              Subject
-            </label>
+            <label className="label">Subject</label>
             <div className="field-content">
               <input
-                id="subject"
                 type="text"
                 placeholder="Email subject"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="input"
+                className="input-mail"
               />
             </div>
           </div>
@@ -154,19 +142,11 @@ export function EmailCompose({
 
         {/* Actions */}
         <div className="actions">
-          <button onClick={handleSend} className="send-button" type='button'>
-            <Send className="icon" />
-            Send
+          <button onClick={handleSend} className="send-button" type="button">
+            <Send className="icon" /> Send
           </button>
         </div>
       </div>
-
-      {/* Toast Notification */}
-      {toast && (
-        <div className={`toast toast-${toast.type}`}>
-          {toast.message}
-        </div>
-      )}
     </>
   )
 }

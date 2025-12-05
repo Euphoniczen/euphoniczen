@@ -107,7 +107,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.filter-regex{
+.filter-regex, .email-icon-feature{
     cursor: pointer;
     background-color: var(--backgroundHTML);
     border: solid 2px var(--textColor1);
@@ -122,8 +122,12 @@
     transition: all 0.4s ease;
 }
 
-.filter-regex:hover{
+.filter-regex:hover, .email-icon-feature:hover{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.email-icon-feature{
+    /* background: var(--kindaOrange_semi); */
 }
 
 .filterPopup-filter-overlay{
@@ -329,6 +333,12 @@
 .search-tags{
     padding: 3px 5px;
     border-radius: 4px;
+}
+
+.hold_extra_features_cont{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Media for playlistSearch */

@@ -1,9 +1,8 @@
-/* Converted from CSS modules to regular CSS with kebab-case class names */
 .email-card {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var( --textColor1of1);
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 20px var(--kindaOrange_semi);
+  border: solid 2px var(--kindaOrange_semi);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -27,7 +26,7 @@
   display: flex;
   gap: 12px;
   padding: 16px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1.3px solid #c6c8cc;
   align-items: flex-start;
 }
 
@@ -48,15 +47,32 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  align-items: center;
+  align-items: flex-start;
+
+  overflow-y: hidden;
+  height: 33px;
+
+  transition: height 0.3s ease;
+}
+
+.recipients-container.open {
+  height: 180px;
+  overflow-y: auto;
+}
+
+.field-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: #f3f4f6;
-  color: #374151;
+  background: var(--kindaWhite2);
+  border: solid 1.5px var(--kindaDark);
+  color: var(--textColor2);
   padding: 4px 4px 4px 12px;
   border-radius: 6px;
   font-size: 14px;
@@ -78,7 +94,7 @@
   background: rgba(0, 0, 0, 0.1);
 }
 
-.input {
+.input-mail {
   flex: 1;
   min-width: 200px;
   border: none;
@@ -87,9 +103,13 @@
   padding: 8px 0;
   font-family: inherit;
   background: transparent;
+
+  font-family: var(--fontFamily1);
+  font-weight: 600;
+  color: var(--darkerPurple);
 }
 
-.input::placeholder {
+.input-mail::placeholder {
   color: #9ca3af;
 }
 
@@ -102,6 +122,7 @@
 }
 
 .textarea {
+  background: var(--textColor2of2);
   width: 100%;
   min-height: 300px;
   border: none;
@@ -112,6 +133,9 @@
   line-height: 1.6;
   /* Allow textarea to fill available space */
   flex: 1;
+  font-family: var(--fontFamily1);
+  font-weight: 500;
+  color: var(--textColor2);
 }
 
 .textarea::placeholder {
@@ -123,7 +147,7 @@
   align-items: center;
   gap: 8px;
   padding: 16px;
-  background: #f9fafb;
+  background: var(--textColor2of2);
   border-top: 1px solid #e5e7eb;
   /* Keep actions fixed at the bottom */
   flex-shrink: 0;
@@ -133,23 +157,21 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #3b82f6;
+  background: var(--kindaOrange);
   color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 8px 20px;
+  border: 2px solid var(--kindaWhite);
+  border-radius: 7px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
+  font-family: var(--fontFamily1);
+  font-weight: 600;
 }
 
 .send-button:hover {
-  background: #2563eb;
-}
-
-.send-button:active {
-  background: #1d4ed8;
+  background: var(--darkerPurple);
 }
 
 .icon {
@@ -157,39 +179,6 @@
   height: 16px;
 }
 
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  padding: 16px 24px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
-  font-weight: 500;
-  animation: slideIn 0.3s ease-out;
-  z-index: 1000;
-}
-
-.toast-success {
-  background: #10b981;
-  color: white;
-}
-
-.toast-error {
-  background: #ef4444;
-  color: white;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(400px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
 
 /* Responsive styles for tablets */
 @media (max-width: 768px) {
@@ -204,7 +193,7 @@
     padding-top: 0;
   }
 
-  .input {
+  .input-mail {
     min-width: 100%;
     padding: 8px;
   }
@@ -248,7 +237,7 @@
     padding: 3px 3px 3px 10px;
   }
 
-  .input {
+  .input-mail {
     font-size: 16px; /* Prevents zoom on iOS */
   }
 
