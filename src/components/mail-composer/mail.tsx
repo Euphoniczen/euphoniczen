@@ -30,7 +30,6 @@ export function EmailCompose({
   const [dropdown, setDropDown] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true)
   const [alertComponent, setAlertComponent] = useState<React.ReactNode>(null)
-  const [isVisible, setIsVisible] = useState(true);
 
   const handleAddRecipient = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentRecipient.trim()) {
@@ -42,19 +41,6 @@ export function EmailCompose({
     }
   }
 
-  // Make alert disappear after a few second
-  useEffect(() => {
-  if (alertComponent) {
-    setIsVisible(true)
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-      setAlertComponent(null);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }
-}, [alertComponent]);
-
   const handleRemoveRecipient = (email: string) => {
     setRecipients(recipients.filter((r) => r !== email))
   }
@@ -62,7 +48,7 @@ export function EmailCompose({
   const handleSend = () => {
     if (recipients.length === 0 || !from || !body) {
       setAlertComponent(
-        <ErrorAlert errorMessage='Please fill in all required fields'/>
+        <ErrorAlert key={Date.now()} errorMessage='Please fill in all required fields'/>
       )
       return
     }
@@ -81,20 +67,20 @@ export function EmailCompose({
       setBody('')
       setRecipients([])
       setAlertComponent(
-        <SuccessAlert successMessage='Mail sent successfully'/>
+        <SuccessAlert key={Date.now()} successMessage='Mail sent successfully'/>
       )
     })
     .catch(function (error) {
       console.log(error)
       setAlertComponent(
-        <ErrorAlert errorMessage="server error"/>
+        <ErrorAlert key={Date.now()} errorMessage="server error"/>
       )
     })
   }
 
   return (
     <>
-    {isVisible ? alertComponent : null}
+    {alertComponent}
       <div className="email-card">
         <div className="fields-container">
           {/* To Field */}

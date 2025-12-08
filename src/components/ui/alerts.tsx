@@ -2,7 +2,7 @@
 
 import Alert from '@mui/material/Alert';
 import Slide from '@mui/material/Slide';
-
+import { useState, useEffect } from 'react';
 
 interface AlertInterface {
     successMessage?: string
@@ -10,15 +10,36 @@ interface AlertInterface {
 }
 
 const AlertStyle: React.CSSProperties = {
-    position: 'absolute',
-    top: 10, 
-    right: 20
 }
 
-export const SuccessAlert = ({successMessage}:AlertInterface) => {
-    return <Alert severity="success"
+export function SuccessAlert({ successMessage }: { successMessage: string }) {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+
+    setShow(false)
+
+    setTimeout(() => setShow(true), 20);
+
+    const timer = setTimeout(() => setShow(false), 2800);
+
+    return () => clearTimeout(timer);
+  }, [successMessage]);
+
+  const animationStyle: React.CSSProperties = {
+    position: "absolute",
+    top: 10,
+    right: 20,
+    transition: "transform 0.4s ease, opacity 0.4s ease",
+    opacity: show ? 1 : 0,
+    transform: show ? "translateX(0)" : "translateX(40px)",
+    pointerEvents: "none",
+  };
+
+  return (
+    <div style={animationStyle}>
+      <Alert severity="success"
         sx={{
-            ...AlertStyle, 
             border: 'solid 2px var(--darkerPurple)',
             borderRadius: '6px',
             background: 'var(--darkerPurple_semi)',
@@ -30,12 +51,40 @@ export const SuccessAlert = ({successMessage}:AlertInterface) => {
             }
         }}
     >{successMessage}</Alert>
+    </div>
+  );
 }
 
-export const ErrorAlert = ({errorMessage}:AlertInterface) => {
-    return <Alert severity="error"
+
+
+export function ErrorAlert({ errorMessage }: { errorMessage: string }) {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+
+    setShow(false)
+
+    setTimeout(() => setShow(true), 20);
+
+    const timer = setTimeout(() => setShow(false), 2800);
+
+    return () => clearTimeout(timer);
+  }, [errorMessage]);
+
+  const animationStyle: React.CSSProperties = {
+    position: "absolute",
+    top: 10,
+    right: 20,
+    transition: "transform 0.4s ease, opacity 0.4s ease",
+    opacity: show ? 1 : 0,
+    transform: show ? "translateX(0)" : "translateX(40px)",
+    pointerEvents: "none",
+  };
+
+  return (
+    <div style={animationStyle}>
+      <Alert severity="error"
         sx={{
-            ...AlertStyle, 
             border: 'solid 2px var(--kindaOrange)', 
             borderRadius: '6px',
             background: 'var(--kindaOrange_semi)',
@@ -47,4 +96,6 @@ export const ErrorAlert = ({errorMessage}:AlertInterface) => {
             }
         }}
     >{errorMessage}</Alert>
+    </div>
+  );
 }
