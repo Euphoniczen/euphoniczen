@@ -1,8 +1,8 @@
 .email-card {
   background: var( --textColor1of1);
   border-radius: 8px;
-  /* box-shadow: 0 1px 20px var(--kindaOrange_semi); */
-  border: solid 2px var(--kindaOrange_semi);
+  box-shadow:  0 0 30px var(--darkerPurple_semi);
+  border: solid 2px var(--darkerPurple_semi);
   overflow: hidden;
   display: flex;
   flex-direction: column;

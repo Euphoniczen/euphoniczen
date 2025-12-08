@@ -6,6 +6,7 @@ import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import "./mail-style.css"
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 interface MailComposeInterface { 
   recipients: string[]
@@ -17,13 +18,17 @@ export function EmailCompose({
   setRecipients,
 }: MailComposeInterface) {
 
+  //session
+  const {data: session} = useSession();
+
   // Internal component state
   const [currentRecipient, setCurrentRecipient] = useState("")
-  const [from, setFrom] = useState("")
+  const [from, setFrom] = useState(session?.user?.email || "enter your email here")
   const [subject, setSubject] = useState("")
   const [body, setBody] = useState("")
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [dropdown, setDropDown] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const handleAddRecipient = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentRecipient.trim()) {
@@ -47,7 +52,7 @@ export function EmailCompose({
 
     axios.post('/api/email', {
       to: recipients,
-      replyTo: 'cultertraz@gmail.com',
+      replyTo: from,
       subject: subject,
       text: body
     })
@@ -88,11 +93,13 @@ export function EmailCompose({
 
                 <input
                   type="email"
-                  // placeholder="Add recipients and press Enter"
+                  placeholder={recipients.length > 0 ? "" : "Start by searching for playlists. Emails will propagate automatically"}
+                  disabled={isDisabled}
                   value={currentRecipient}
                   onChange={(e) => setCurrentRecipient(e.target.value)}
                   onKeyDown={handleAddRecipient}
                   className="input-mail"
+                  style={{cursor: 'not-allowed'}}
                 />
                 </div>
             </div>
