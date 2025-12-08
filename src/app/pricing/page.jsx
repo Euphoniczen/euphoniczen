@@ -110,8 +110,8 @@ export default function PricingPage() {
           inPlan3="Randomized Query"
           inPlan4="Support"
           inPlan5="Customizable background color options"
+
           hideThisFeature={true}
-          // trailText={`14 days free then ${isYearly ? "$30.00" : "$3"} after (for new users only)`}
         />
         <Pricing
           pricingBackgroundColor="var(--textColor2)"
@@ -130,8 +130,10 @@ export default function PricingPage() {
           inPlan5="Customizable background color options"
           inPlan6="Save playlists for revisitation"
           inPlan7="Advanced Playlist Filtering with Keyword Management"
+          inPlan8="Playlist Calendar Control"
+          inPlan9="Integrated Mail System"
+
           hideExtraFeatures={false}
-          inPlan8="Advanced Playlist Calendar Control"
         />
       </div>
 

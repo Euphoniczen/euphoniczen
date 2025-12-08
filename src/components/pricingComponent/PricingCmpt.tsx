@@ -19,12 +19,13 @@ interface PricingComponentProps {
     inPlan5?: string;
     inPlan6?: string;
     inPlan7?: string;
+    inPlan8?: string; 
+    inPlan9?: string;
     hideExtraFeatures?: Boolean;
     pricingBackgroundColor?: string; 
     pricingTextColor?: string;
     buttonTextSubscribe?: string; 
     buttonBackgroundColorPricing?: string;
-    inPlan8?: string; 
     buttonOnClickPricing?: () => void;
 }
 
@@ -46,6 +47,7 @@ export default function Pricing({
     inPlan5 = "",
     inPlan6 = "",
     inPlan7 = "",
+    inPlan9 = "",
     hideExtraFeatures = true, 
 
 }: PricingComponentProps) { 
@@ -90,11 +92,13 @@ export default function Pricing({
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
                             <p>{inPlan7}</p>
                         </div>
-
-
                         <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
                             <DoneIcon className={pricingCmptStyle.DoneIcon}/>
                             <p className={pricingCmptStyle.inPlan2}>{inPlan8}</p>
+                        </div>
+                        <div style={hideExtraFeatures ? {display: 'none'} : {}} className={pricingCmptStyle.featuresIncluded}>
+                            <DoneIcon className={pricingCmptStyle.DoneIcon}/>
+                            <p className={pricingCmptStyle.inPlan9}>{inPlan9}</p>
                         </div>
 
                         <Buttons 
