@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { X, Send } from 'lucide-react'
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import "./mail-style.css"
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { SuccessAlert, ErrorAlert } from "../ui/alerts"
 
 interface MailComposeInterface { 
   recipients: string[]
@@ -26,9 +27,10 @@ export function EmailCompose({
   const [from, setFrom] = useState(session?.user?.email || "enter your email here")
   const [subject, setSubject] = useState("")
   const [body, setBody] = useState("")
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [dropdown, setDropDown] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true)
+  const [alertComponent, setAlertComponent] = useState<React.ReactNode>(null)
+  const [isVisible, setIsVisible] = useState(true);
 
   const handleAddRecipient = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentRecipient.trim()) {
@@ -40,13 +42,28 @@ export function EmailCompose({
     }
   }
 
+  // Make alert disappear after a few second
+  useEffect(() => {
+  if (alertComponent) {
+    setIsVisible(true)
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      setAlertComponent(null);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }
+}, [alertComponent]);
+
   const handleRemoveRecipient = (email: string) => {
     setRecipients(recipients.filter((r) => r !== email))
   }
 
   const handleSend = () => {
     if (recipients.length === 0 || !from || !body) {
-      alert('Please fill in all required fields')
+      setAlertComponent(
+        <ErrorAlert errorMessage='Please fill in all required fields'/>
+      )
       return
     }
 
@@ -63,15 +80,21 @@ export function EmailCompose({
       setSubject('')
       setBody('')
       setRecipients([])
+      setAlertComponent(
+        <SuccessAlert successMessage='Mail sent successfully'/>
+      )
     })
     .catch(function (error) {
       console.log(error)
-      alert(error)
+      setAlertComponent(
+        <ErrorAlert errorMessage="server error"/>
+      )
     })
   }
 
   return (
     <>
+    {isVisible ? alertComponent : null}
       <div className="email-card">
         <div className="fields-container">
           {/* To Field */}
