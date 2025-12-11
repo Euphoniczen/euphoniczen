@@ -35,7 +35,6 @@
     align-items: center;
     padding: 10px;
     color: var(--textColor2);
-    z-index: 9999;
 
     width: 100%;
     background-color: var(--darkerPurple_semi);
