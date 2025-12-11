@@ -30,6 +30,7 @@ export default function StoredPlaylists() {
             handleCopy(cleanWord, playlistId);
         }
     };
+    const contactRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}|@\w+|(?:wa\.me|t\.me|discord\.gg)\/[^\s]+|instagram\.com\/[^\s]+|twitter\.com\/[^\s]+|facebook\.com\/[^\s]+|tiktok\.com\/[^\s]+)/gi;
 
     useEffect(() => {
         setLoading(true);
@@ -186,6 +187,7 @@ export default function StoredPlaylists() {
                                 onClickWord: (word: string) => handleWordClick(word, playlist.spotifyId),
                                 copied: isCopied(playlist.spotifyId).toString(),
                             }))}
+                            acceptDynamicRegex={contactRegex}
                         />
                     )}
                 </>
