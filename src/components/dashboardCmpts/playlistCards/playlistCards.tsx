@@ -139,19 +139,19 @@ const PlaylistCards = ({
     <div id="playlistCardsMaster">
       <div className="playlistCard_content">
       {/* This button will store playlist data from playlistSearch */}
-      {showStoreButton && (
+      {/* {showStoreButton && (
         <div className='savePlaylistIcon'>
           {fetchSavedPlaylists.some(
             (plst) => `https://open.spotify.com/playlist/${plst?.spotifyId}` === playlistLink
           ) || showSavedMessage ? (
             <p style={{ backgroundColor: 'var(--textColor1of1)', color: 'var(--textColor2_)', cursor: 'default' }}>
-              {/* playlist saved! */}
+              playlist saved!
             </p>
           ) : (
             <p onClick={handleSaveClick}>save playlist</p>
           )}
         </div>
-      )}
+      )} */}
       {/*/////////////*/}
         <div className={`Cards_container ${cardStylingPassed || ''}`}>
           <div className="imageSection_card">

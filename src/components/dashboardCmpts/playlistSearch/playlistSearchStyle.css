@@ -2,7 +2,7 @@
     font-family: var(--fontFamily1);
     width: 95%;
     height: 100vh;
-    border-right: solid 4px var(--darkerPurple);
+    /* border-right: solid 4px var(--darkerPurple); */
     font-family: var(--fontFamily1);
 
     overflow-x: hidden;

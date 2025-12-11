@@ -1,24 +1,76 @@
-#storedPlaylists-master-cont{
-    width: 35%;
+.line-width-manager-master{
+    display: flex;
+    gap: 0.5px;
+    cursor: col-resize;
+}
 
+.line-width-manager, .line-width-manager2{
+    width: 2px;
+    background: var(--kindaOrange_semi);
+    transition: all 0.3s ease;
+}
+
+
+#storedPlaylists-master-cont{
+    display: flex;
+}
+
+#storedPlaylists-2nd-master-cont{
+    width: 100%;
+    display: block;
+    overflow: auto;
+
+    position: relative;
+}
+
+.hold-stored-playlsits-container{
     font-family: var(--fontFamily1);
     font-weight: 650;
 
-    flex-direction: column;
-    margin: 0 auto;
-
-    height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+    width: 100%;
 }
+
+.storedPlaylist-switch{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    color: var(--textColor2);
+    z-index: 9999;
+
+    width: 100%;
+    background-color: var(--darkerPurple_semi);
+    border-bottom: solid 2px var(--textColor1);
+
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+
+.switch1-sp, .switch2-sp{
+    background-color: var(--textColor1of1);
+    padding: 2px 7px;
+    font-family: var(--fontFamily1);
+    font-weight: 600;
+    width: 50px;
+}
+
+.switch1-sp{
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border: solid 2px var(--textColor2);
+}
+
+.switch2-sp{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: solid 2px var(--textColor2);
+    border-left: none;
+}
+
 
 .storedPlaylists-content-cont{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    min-height: 100vh;
-    gap: 3px;
+    flex-direction: row;
 }
 
 .storedPlaylists-content-cont p span{ 
@@ -27,18 +79,18 @@
 }
 
 
-/* #storedPlaylists-master-cont::-webkit-scrollbar{ 
+#storedPlaylists-2nd-master-cont::-webkit-scrollbar{ 
     width: 11px;
-    background-color: var(--backgroundColorHTML);
-    gap: 30px;
+    height: 14px;
+    /* background-color: var(--backgroundColorHTML); */
 }
 
-#storedPlaylists-master-cont::-webkit-scrollbar-track{
-    background-color: var(--backgroundColorHTML);
+#storedPlaylists-2nd-master-cont::-webkit-scrollbar-track{
+    background-color: var(--darkerPurple_semi);
 }
 
-#storedPlaylists-master-cont::-webkit-scrollbar-thumb{
-    background-color: var(--kindaOrange);
-    cursor: grab;
-    border-radius: 8px;
-} */
+#storedPlaylists-2nd-master-cont::-webkit-scrollbar-thumb{
+    background-color: var(--darkerPurple);
+    cursor: grabbing;
+    border-radius: 3px;
+}
