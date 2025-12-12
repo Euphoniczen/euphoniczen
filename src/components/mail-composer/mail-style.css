@@ -184,9 +184,19 @@
 
 
 /* Responsive styles for tablets */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .email-card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 90%;
+    height: 90%;
+  }
+
   .field {
-    flex-direction: column;
+    /* flex-direction: column; */
     gap: 8px;
     padding: 12px;
   }
@@ -221,43 +231,9 @@
   }
 }
 
-/* Responsive styles for mobile */
-@media (max-width: 480px) {
-  .email-card {
-    border-radius: 6px;
-  }
-
-  .field {
-    padding: 10px;
-  }
-
-  .label {
-    font-size: 13px;
-  }
-
-  .badge {
-    font-size: 13px;
-    padding: 3px 3px 3px 10px;
-  }
-
-  .input-mail {
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-
-  .textarea {
-    min-height: 150px;
-    font-size: 16px; /* Prevents zoom on iOS */
-  }
-
-  .body-container {
-    padding: 12px;
-  }
-
-  .actions {
-    padding: 10px;
-  }
-
-  .send-button {
-    padding: 12px 20px;
+@media (min-width: 901px) and (max-width: 1480px) {
+  .email-card{
+    position: absolute;
+    bottom: 55;
   }
 }

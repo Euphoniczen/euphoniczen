@@ -397,7 +397,7 @@
 
     /*  */
     .filterPopup-filter-overlay{
-        position: absolute;
+        /* position: absolute; */
         padding: 10px;
     }
 
@@ -469,7 +469,7 @@
 
         /*  */
     .filterPopup-filter-overlay{
-        position: absolute;
+        /* position: absolute; */
         padding: 10px;
     }
 
@@ -541,7 +541,7 @@
 
         /*  */
     .filterPopup-filter-overlay{
-        position: absolute;
+        /* position: absolute; */
         padding: 10px;
     }
 
